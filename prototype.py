@@ -66,7 +66,7 @@ class Retriever:
 # ============================================================
 
 class Reuser:
-    def weighted_reuse(self, retrieved_cases, rejects=None):
+    def reuse_w(self, retrieved_cases, rejects=None):
         print("[REUSE] Creating possible solution.")
 
         new_case = {"Platos": {
@@ -252,7 +252,7 @@ class MenuCBR:
         print(f"\n======== NEW QUERY: {query['Tipo_de_Evento']} / {query['Grupo_Dietario']} ========")
 
         retrieved_cases = self.retriever.retrieve_top(query, top_n=3)
-        candidate = self.reuser.weighted_reuse(retrieved_cases, rejects=None)
+        candidate = self.reuser.reuse_w(retrieved_cases, rejects=None)
         revised = self.reviser.revise(candidate, query, retrieved_cases)
 
         if revised is not None:
