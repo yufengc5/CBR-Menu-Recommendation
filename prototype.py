@@ -150,7 +150,7 @@ class Reviser:
             print("[REVISE] Solution rejected.")
             feedback = input("What was wrong with the menu? (Primero, Segundo, Postre, Otros): ").strip().lower()
             rejects = rejects + [(proposed_solution, feedback)] if rejects else [(proposed_solution, feedback)]
-            new_solution = self.reuser.weighted_reuse(alternatives, rejects)
+            new_solution = self.reuser.reuse_w(alternatives, rejects)
             return self.revise(new_solution, query, alternatives, rejects)
 
         print("[REVISE] Accepted final solution.")
