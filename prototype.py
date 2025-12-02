@@ -90,18 +90,18 @@ class Reuser:
                     for rejected_solution, reason in rejects:
                         reason = reason.lower()
 
-                        # ❌ User rejected this specific course
+                        # User rejected this specific course
                         if reason == course.lower():
                             bad_dish = rejected_solution["Platos"][course]["Nombre"]
                             if dish_name == bad_dish:
                                 penalty = 0  # hard reject this dish
                         
-                        # ⚠️ User disliked something else, but not this course
+                        # User disliked something else, but not this course
                         elif reason in ("primero", "segundo", "postre"):
                             # No penalty for this course
                             continue
 
-                        # ⚠️ "otros" → dislike whole menu → apply soft global penalty
+                        # "otros" → dislike whole menu → apply soft global penalty
                         elif reason == "otros":
                             penalty *= 0.5
 
