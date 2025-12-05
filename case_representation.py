@@ -6,7 +6,7 @@ BUDGET_LEVELS = ["low", "medium", "high", "premium"]
 FORMALITY_LEVELS = ["casual", "semi-formal", "formal"]
 HEALTH_GOALS = ["light", "high-protein", "low-salt"]
 EXPERIENCE_LEVELS = ["traditional", "adventurous", "experimental"]
-COURSE_TYPES = ["starter", "main", "dessert", "side", "drink"]
+COURSE_TYPES = ["starter", "main", "dessert"]
 
 
 # ============================================================
@@ -17,13 +17,10 @@ COURSE_TYPES = ["starter", "main", "dessert", "side", "drink"]
 class EventLocation:
     country: str
     region: str
-    urban_or_rural: str  # "urban" / "rural"
-
 
 @dataclass
 class TimeConstraints:
     prep_time: str  # "short", "medium", "long"
-    serving_duration: str  # "buffet", "timed_service"
 
 
 @dataclass
@@ -64,7 +61,6 @@ class ClientProfile:
 @dataclass
 class SensoryGoals:
     texture: List[str]
-    temperature_contrast: bool
     aromatic_profile: List[str]
 
 
@@ -162,16 +158,14 @@ def example_case() -> CulinaryCase:
             season="winter",
             location=EventLocation(
                 country="Spain",
-                region="Catalonia",
-                urban_or_rural="urban"
+                region="Catalonia"
             ),
             number_of_guests=120,
             budget_level="high",
             formality_level="formal",
             available_ingredients=["artichoke", "lemon", "sea bass", "almonds"],
             time_constraints=TimeConstraints(
-                prep_time="long",
-                serving_duration="timed_service"
+                prep_time="long"
             )
         ),
 
@@ -199,7 +193,6 @@ def example_case() -> CulinaryCase:
             presentation_style="minimalist",
             sensory_goals=SensoryGoals(
                 texture=["creamy", "crunchy"],
-                temperature_contrast=True,
                 aromatic_profile=["herbal", "citrus"]
             )
         ),
@@ -207,34 +200,47 @@ def example_case() -> CulinaryCase:
         # ----------------------
         # MENU
         # ----------------------
-        menu=Menu(
-            courses=[
-                Dish(
-                    course_type="starter",
-                    dish_name="Artichoke Textures with Citrus Foam",
-                    ingredients=[
-                        Ingredient("artichoke", "main"),
-                        Ingredient("lemon", "aroma"),
-                        Ingredient("olive oil", "fat")
-                    ],
-                    techniques=["roasting", "emulsion", "molecular foam"],
-                    cultural_influence=["Mediterranean"],
-                    presentation_notes="vertical plating with foam on top"
-                ),
-                Dish(
-                    course_type="main",
-                    dish_name="Miso-Glazed Sea Bass with Fermented Barley",
-                    ingredients=[
-                        Ingredient("sea bass", "main"),
-                        Ingredient("miso", "seasoning"),
-                        Ingredient("barley", "base")
-                    ],
-                    techniques=["glazing", "fermentation", "slow-cook"],
-                    cultural_influence=["Japanese"],
-                    presentation_notes="Nordic minimal plating"
-                )
-            ]
-        ),
+        menu = Menu(
+        courses=[
+            Dish(
+                course_type="starter",
+                dish_name="Artichoke Textures with Citrus Foam",
+                ingredients=[
+                    Ingredient("artichoke", "main"),
+                    Ingredient("lemon", "aroma"),
+                    Ingredient("olive oil", "fat")
+                ],
+                techniques=["roasting", "emulsion", "foam"],
+                cultural_influence=["Mediterranean"],
+                presentation_notes="vertical plating with foam on top"
+            ),
+            Dish(
+                course_type="main",
+                dish_name="Miso-Glazed Sea Bass with Fermented Barley",
+                ingredients=[
+                    Ingredient("sea bass", "main"),
+                    Ingredient("miso", "seasoning"),
+                    Ingredient("barley", "base")
+                ],
+                techniques=["glazing", "fermentation", "slow-cook"],
+                cultural_influence=["Japanese"],
+                presentation_notes="Nordic minimal plating"
+            ),
+            Dish(
+                course_type="dessert",
+                dish_name="Citrus Almond Cream",
+                ingredients=[
+                    Ingredient("citrus blend", "main"),
+                    Ingredient("almond", "fat"),
+                    Ingredient("herbs", "aroma")
+                ],
+                techniques=["infusion", "whipping"],
+                cultural_influence=["Fusion"],
+                presentation_notes="creamy mousse with crunchy top layer"
+            )
+        ]
+    )
+,
 
         # ----------------------
         # JUSTIFICATION

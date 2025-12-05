@@ -1,22 +1,33 @@
+#!/usr/bin/env python3
+# integrated_cbr_full.py
+# Full prototype: uses the dataclass CulinaryCase representation (all fields),
+# generates new toy cases from it, converts to simple format, and runs CBR.
+
 import json
 import random
-from dataclasses import dataclass, field, asdict
+from dataclasses import dataclass, asdict
 from typing import List, Dict, Optional
 
-# ============================================================
-# Dataclass case representation (same as we discussed)
-# ============================================================
+# -----------------------------
+# Your case dataclasses (same as provided)
+# -----------------------------
+EVENT_TYPES = ["wedding", "congress", "family_event", "gala", "corporate"]
+BUDGET_LEVELS = ["low", "medium", "high", "premium"]
+FORMALITY_LEVELS = ["casual", "semi-formal", "formal"]
+HEALTH_GOALS = ["light", "high-protein", "low-salt"]
+EXPERIENCE_LEVELS = ["traditional", "adventurous", "experimental"]
+COURSE_TYPES = ["starter", "main", "dessert"]
+
 
 @dataclass
 class EventLocation:
     country: str
     region: str
-    urban_or_rural: str  # "urban" / "rural"
 
 @dataclass
 class TimeConstraints:
     prep_time: str  # "short", "medium", "long"
-    serving_duration: str  # "buffet", "timed_service"
+
 
 @dataclass
 class Context:
@@ -29,10 +40,12 @@ class Context:
     available_ingredients: List[str]
     time_constraints: TimeConstraints
 
+
 @dataclass
 class FlavorPreferences:
     likes: List[str]
     dislikes: List[str]
+
 
 @dataclass
 class ClientProfile:
@@ -42,11 +55,12 @@ class ClientProfile:
     health_goals: Optional[str]
     experience_level: str
 
+
 @dataclass
 class SensoryGoals:
     texture: List[str]
-    temperature_contrast: bool
     aromatic_profile: List[str]
+
 
 @dataclass
 class StyleProfile:
@@ -56,10 +70,12 @@ class StyleProfile:
     presentation_style: str
     sensory_goals: SensoryGoals
 
+
 @dataclass
 class Ingredient:
     name: str
     role: str  # e.g., "main", "secondary", "aroma", "fat"
+
 
 @dataclass
 class Dish:
@@ -70,14 +86,17 @@ class Dish:
     cultural_influence: List[str]
     presentation_notes: str
 
+
 @dataclass
 class Menu:
     courses: List[Dish]
+
 
 @dataclass
 class CausalLink:
     cause: str
     effect: str
+
 
 @dataclass
 class Justification:
@@ -85,12 +104,14 @@ class Justification:
     causal_links: List[CausalLink]
     major_adaptations: List[str]
 
+
 @dataclass
 class Outcome:
     client_satisfaction: float
     guest_comments: List[str]
     success_metrics: Dict[str, bool]
     adaptation_difficulties: List[str]
+
 
 @dataclass
 class CulinaryCase:
@@ -102,193 +123,184 @@ class CulinaryCase:
     justification: Justification
     outcome: Outcome
 
-# Convenience example case (same contents as before)
-def example_case(case_id="case_001") -> CulinaryCase:
-    return CulinaryCase(
-        id=case_id,
-        context=Context(
-            event_type="Boda",  # Spanish labels to match prototype style
-            season="Invierno",
-            location=EventLocation(country="España", region="Cataluña", urban_or_rural="urbano"),
-            number_of_guests=120,
-            budget_level="alto",
-            formality_level="formal",
-            available_ingredients=["alcachofa", "limón", "lubina", "almendras"],
-            time_constraints=TimeConstraints(prep_time="largo", serving_duration="timed_service")
-        ),
-        client_profile=ClientProfile(
-            dietary_restrictions=["Sin gluten"],  # note Spanish phrasing to align
-            flavor_preferences=FlavorPreferences(likes=["cítrico", "umami"], dislikes=["amargo"]),
-            cultural_affinities=["Mediterránea", "Japonesa"],
-            health_goals="ligero",
-            experience_level="adventurero"
-        ),
-        style_profile=StyleProfile(
-            chef_inspiration=["Ferran Adrià", "Noma"],
-            culinary_tradition=["Catalana", "Nórdica"],
-            techniques_emphasized=["fermentación", "espumas", "sous-vide"],
-            presentation_style="minimalista",
-            sensory_goals=SensoryGoals(texture=["cremoso", "crujiente"], temperature_contrast=True, aromatic_profile=["herbal", "cítrico"])
-        ),
-        menu=Menu(courses=[
-            Dish(course_type="starter", dish_name="Texturas de alcachofa con espuma cítrica",
-                 ingredients=[Ingredient("alcachofa", "principal"), Ingredient("limón", "aroma"), Ingredient("aceite de oliva", "grasa")],
-                 techniques=["asado", "emulsión", "espuma molecular"], cultural_influence=["Mediterránea"], presentation_notes="emplatado vertical con espuma arriba"),
-            Dish(course_type="main", dish_name="Lubina glaseada con cebada fermentada",
-                 ingredients=[Ingredient("lubina", "principal"), Ingredient("miso", "condimento"), Ingredient("cebada", "base")],
-                 techniques=["glaseado", "fermentación", "cocción lenta"], cultural_influence=["Japonesa"], presentation_notes="emplatado minimalista")
-        ]),
-        justification=Justification(
-            why_this_menu=["Uso de ingredientes de temporada: alcachofa, cítricos", "Alineado con preferencias mediterráneo/japonés", "Emplatado formal minimalista", "Se sustituyó soja por tamari sin gluten"],
-            causal_links=[CausalLink("estación invierno", "platos calientes y reconfortantes"), CausalLink("perfil aventurero", "uso de técnicas moleculares")],
-            major_adaptations=["Tamari en vez de salsa de soja", "Blanquear alcachofas para reducir amargor"]
-        ),
-        outcome=Outcome(
-            client_satisfaction=4.7,
-            guest_comments=["Postre memorable", "Excelente equilibrio cítrico"],
-            success_metrics={"budget_compliance": True, "ingredient_availability": True, "timeliness": True},
-            adaptation_difficulties=["Sustitución de almendras por alergia"]
-        )
-    )
 
-# ============================================================
-# Conversion utilities: dataclass case -> simple dict case
-# (Target format matches the prototype: Spanish keys used in prototype)
-# ============================================================
-
-def convert_case_to_simple_dict(case: CulinaryCase) -> dict:
+# -----------------------------
+# Conversion: CulinaryCase -> simple prototype dict (Spanish keys)
+# -----------------------------
+def convert_case_to_simple_dict(culinary_case: CulinaryCase) -> dict:
     """
-    Convert a CulinaryCase (dataclass) into the simple dictionary format
-    used by the existing prototype (Spanish key names).
+    Convert a CulinaryCase dataclass to the simple dict structure used by the prototype.
+    We include many fields from the case so the Retriever can use them.
     """
-    d = asdict(case)
+    # Problem fields
+    # Grupo_Dietario: join dietary restrictions (could be multiple)
+    grupo = ", ".join(culinary_case.client_profile.dietary_restrictions) if culinary_case.client_profile.dietary_restrictions else "Omnívoro"
 
-    # Map course types from English-like keys we used to Spanish menu slots
-    course_map = {
-        "starter": "Primero",
-        "main": "Segundo",
-        "dessert": "Postre",
-        # provide fallback mapping if other types appear
-        "side": "Primero",
-        "drink": "Postre"
+    # Ingredients forbidden: here we take client's dislikes as proxies for forbidden ingredients
+    ingredientes_prohibidos = culinary_case.client_profile.flavor_preferences.dislikes or []
+
+    # Culinary style: flatten lists to allow similarity on traditions/techniques
+    culinary_tradition = culinary_case.style_profile.culinary_tradition or []
+    techniques = culinary_case.style_profile.techniques_emphasized or []
+    presentation = culinary_case.style_profile.presentation_style or ""
+    sensory = culinary_case.style_profile.sensory_goals.texture + culinary_case.style_profile.sensory_goals.aromatic_profile
+
+    simple_problem = {
+        "Tipo_de_Evento": culinary_case.context.event_type,
+        "Estación_Evento": culinary_case.context.season,
+        "Número_comensales": culinary_case.context.number_of_guests,
+        "Grupo_Dietario": grupo,
+        "Ingredientes_prohibidos": ingredientes_prohibidos,
+        # Extended fields for richer similarity
+        "Prep_Time": culinary_case.context.time_constraints.prep_time,
+        "Available_Ingredients": culinary_case.context.available_ingredients,
+        "Culinary_Tradition": culinary_tradition,
+        "Techniques": techniques,
+        "Presentation_Style": presentation,
+        "Sensory_Goals": sensory,
+        "Cultural_Affinities": culinary_case.client_profile.cultural_affinities
     }
 
-    # Problem (query-like) fields (keeping Spanish names)
-    problem = {
-        "Tipo_de_Evento": d["context"]["event_type"],
-        "Estación_Evento": d["context"]["season"],
-        "Número_comensales": d["context"]["number_of_guests"],
-        # Use a conservative mapping for Grupo_Dietario:
-        # If client_profile.dietary_restrictions contains explicit diets like "Vegetariano",
-        # try to provide that; otherwise fall back to experience_level.
-        "Grupo_Dietario": infer_diet_group(d["client_profile"]),
-        "Ingredientes_prohibidos": d["client_profile"]["dietary_restrictions"] or []
-    }
-
-    # Solution: build Platos mapping with Spanish keys
+    # Solution part (Platos): map starter/main/dessert -> Primero/Segundo/Postre
+    course_map = {"starter": "Primero", "main": "Segundo", "dessert": "Postre"}
     platos = {}
-    for dish in d["menu"]["courses"]:
-        ctype = dish["course_type"]
-        spanish_course = course_map.get(ctype, None)
-        if spanish_course:
-            platos[spanish_course] = {"Nombre": dish["dish_name"]}
-    # Ensure keys exist to avoid KeyError in Reuser
-    for key in ("Primero", "Segundo", "Postre"):
-        if key not in platos:
-            platos[key] = {"Nombre": ""}
+    for dish in culinary_case.menu.courses:
+        spanish = course_map.get(dish.course_type, dish.course_type)
+        platos[spanish] = {"Nombre": dish.dish_name}
+
+    # ensure keys
+    for k in ("Primero", "Segundo", "Postre"):
+        if k not in platos:
+            platos[k] = {"Nombre": ""}
 
     simple_case = {
-        "id": d["id"],
-        "problem": problem,
+        "id": culinary_case.id,
+        "problem": simple_problem,
         "solution": {"Platos": platos}
     }
     return simple_case
 
-def infer_diet_group(client_profile_dict: dict) -> str:
-    """
-    Infer a Grupo_Dietario from the client's dietary_restrictions if possible.
-    Fallback order: explicit keywords -> experience_level.
-    """
-    restrictions = [r.lower() for r in (client_profile_dict.get("dietary_restrictions") or [])]
-    if any("veget" in r for r in restrictions):
-        return "Vegetariano"
-    if any("vegano" in r or "veg" == r for r in restrictions):
-        return "Vegano"
-    if any("sin gluten" in r or "celíaco" in r for r in restrictions):
-        return "Sin gluten"
-    # fallback to experience_level (which in example contains "adventurero")
-    exp = client_profile_dict.get("experience_level", "")
-    if exp:
-        # map some known words to our Grupo_Dietario space
-        if "advent" in exp or "experiment" in exp or "adventur" in exp:
-            return "Omnívoro"  # default broad group
-    return "Omnívoro"
 
-# ============================================================
-# Your original prototype classes (Retriever, Reuser, Reviser, Retainer)
-# Slightly adjusted to handle the possibility that some "Nombre" are empty strings
-# ============================================================
-
+# -----------------------------
+# Retriever (uses many features now)
+# -----------------------------
 class Retriever:
     def __init__(self, case_base):
         self.case_base = case_base
 
-        # Weight configuration
+        # New weight configuration (sum should be <= 1; remaining weight is flexible)
         self.weights = {
-            "Tipo": 0.30,
-            "Estacion": 0.20,
-            "Diet": 0.30,
-            "Pax": 0.10,
-            "Forbidden": 0.10
+            "Tipo": 0.18,
+            "Estacion": 0.12,
+            "Diet": 0.15,
+            "Pax": 0.08,
+            "Forbidden": 0.10,
+            "Prep": 0.06,
+            "Tradition": 0.10,
+            "Techniques": 0.08,
+            "Presentation": 0.06,
+            "Sensory": 0.07
         }
 
-    def similarity(self, case1, case2):
-        # case1 and case2 are simple dicts with Spanish keys as in the prototype
+    @staticmethod
+    def jaccard(a, b):
+        if not a and not b:
+            return 1.0
+        s1 = set([x.lower() for x in a])
+        s2 = set([x.lower() for x in b])
+        inter = len(s1 & s2)
+        union = len(s1 | s2)
+        return inter / union if union > 0 else 0.0
+
+    def similarity(self, query: dict, case_problem: dict) -> float:
+        """
+        Query and case_problem are the simple dicts (from convert_case_to_simple_dict)
+        We compute a weighted similarity using many fields of the case.
+        """
         score = 0.0
         w = self.weights
 
-        if case1.get("Tipo_de_Evento") == case2.get("Tipo_de_Evento"):
+        # Event type (exact)
+        if query.get("Tipo_de_Evento", "").lower() == case_problem.get("Tipo_de_Evento", "").lower():
             score += w["Tipo"]
-        if case1.get("Estación_Evento") == case2.get("Estación_Evento"):
-            score += w["Estacion"]
-        if case1.get("Grupo_Dietario") == case2.get("Grupo_Dietario"):
-            score += w["Diet"]
 
-        diff = abs(int(case1.get("Número_comensales", 0)) - int(case2.get("Número_comensales", 0)))
+        # Season
+        if query.get("Estación_Evento", "").lower() == case_problem.get("Estación_Evento", "").lower():
+            score += w["Estacion"]
+
+        # Dietary: compare dietary groups (string of comma separated values)
+        q_diets = set([s.strip().lower() for s in query.get("Grupo_Dietario", "").split(",") if s.strip()])
+        c_diets = set([s.strip().lower() for s in case_problem.get("Grupo_Dietario", "").split(",") if s.strip()])
+        if q_diets or c_diets:
+            inter = len(q_diets & c_diets)
+            union = len(q_diets | c_diets)
+            diet_sim = inter / union if union > 0 else 0.0
+            score += diet_sim * w["Diet"]
+        else:
+            score += w["Diet"] * 0.5
+
+        # Pax similarity (scaled)
+        q_pax = int(query.get("Número_comensales", 0))
+        c_pax = int(case_problem.get("Número_comensales", 0))
+        diff = abs(q_pax - c_pax)
         pax_sim = max(0, 1 - diff / 500)
         score += pax_sim * w["Pax"]
 
-        s1 = set([x.lower() for x in case1.get("Ingredientes_prohibidos", [])])
-        s2 = set([x.lower() for x in case2.get("Ingredientes_prohibidos", [])])
-        union = len(s1 | s2)
-        inter = len(s1 & s2)
-        ing_sim = inter / union if union > 0 else 1
+        # Forbidden ingredients similarity (we want lower overlap of forbidden -> lower score)
+        # But as in previous prototype we treat intersection as similarity of constraints, so keep that behavior
+        q_forbidden = set([s.lower() for s in query.get("Ingredientes_prohibidos", [])])
+        c_forbidden = set([s.lower() for s in case_problem.get("Ingredientes_prohibidos", [])])
+        union = len(q_forbidden | c_forbidden)
+        inter = len(q_forbidden & c_forbidden)
+        ing_sim = inter / union if union > 0 else 1.0
         score += ing_sim * w["Forbidden"]
+
+        # Prep time (exact match gets full weight, otherwise partial)
+        if query.get("Prep_Time", "").lower() == case_problem.get("Prep_Time", "").lower():
+            score += w["Prep"]
+
+        # Culinary tradition (jaccard)
+        tradition_sim = self.jaccard(query.get("Culinary_Tradition", []), case_problem.get("Culinary_Tradition", []))
+        score += tradition_sim * w["Tradition"]
+
+        # Techniques similarity (jaccard)
+        tech_sim = self.jaccard(query.get("Techniques", []), case_problem.get("Techniques", []))
+        score += tech_sim * w["Techniques"]
+
+        # Presentation style (exact or partial)
+        if query.get("Presentation_Style", "").lower() == case_problem.get("Presentation_Style", "").lower():
+            score += w["Presentation"]
+
+        # Sensory goals similarity (treat as set)
+        sensory_sim = self.jaccard(query.get("Sensory_Goals", []), case_problem.get("Sensory_Goals", []))
+        score += sensory_sim * w["Sensory"]
 
         return score
 
     def retrieve_top(self, new_case, top_n=3):
         scored = []
-
-        print("\n[RETRIEVE] Computing similarities...")
+        print("\n[RETRIEVE] Computing similarities (using full case fields)...")
         for case in self.case_base:
             score = self.similarity(new_case, case["problem"])
             print(f"   - Case {case['id']} -> Score: {score:.4f}")
             scored.append((case, score))
 
         scored.sort(key=lambda x: x[1], reverse=True)
-        scored = scored[:top_n]
+        top = scored[:top_n]
 
-        total = sum(s for _, s in scored)
+        total = sum(s for _, s in top)
         if total <= 0:
-            # if all scores are zero, give equal probability
-            normalized = [(c, 1 / len(scored)) for c, _ in scored] if scored else []
+            normalized = [(c, 1 / len(top)) for c, _ in top] if top else []
         else:
-            normalized = [(c, s / total) for c, s in scored]
+            normalized = [(c, s / total) for c, s in top]
 
         print(f"[RETRIEVE] Retrieved top {len(normalized)} cases.")
         return normalized
 
+
+# -----------------------------
+# Reuser, Reviser, Retainer (unchanged logic, only expect 'Platos' format)
+# -----------------------------
 class Reuser:
     def reuse_w(self, retrieved_cases, rejects=None):
         print("[REUSE] Creating possible solution.")
@@ -304,29 +316,21 @@ class Reuser:
             adjusted_cases = []
 
             for case, weight in retrieved_cases:
-                # handle empty or missing dish names gracefully
                 dish_name = case["solution"]["Platos"].get(course, {}).get("Nombre", "")
                 penalty = 1.0
 
-                # ----------------------------------------
-                # APPLY USER FEEDBACK / REJECTION REASON
-                # ----------------------------------------
                 if rejects:
                     for rejected_solution, reason in rejects:
                         reason = reason.lower()
 
-                        # ❌ User rejected this specific course
                         if reason == course.lower():
                             bad_dish = rejected_solution["Platos"][course]["Nombre"]
                             if dish_name == bad_dish:
-                                penalty = 0  # hard reject this dish
+                                penalty = 0
 
-                        # ⚠️ User disliked something else, but not this course
                         elif reason in ("primero", "segundo", "postre"):
-                            # No penalty for this course
                             continue
 
-                        # ⚠️ "otros" → dislike whole menu → apply soft global penalty
                         elif reason == "otros":
                             penalty *= 0.5
 
@@ -337,9 +341,6 @@ class Reuser:
                 print(f"[REUSE] No valid cases for course '{course}' after rejection filtering.")
                 return None
 
-            # ----------------------------------------
-            # SAMPLE DISH BASED ON ADJUSTED WEIGHTS
-            # ----------------------------------------
             dishes = [c["solution"]["Platos"][course]["Nombre"] for c, _ in adjusted_cases]
             weights = [w for _, w in adjusted_cases]
 
@@ -354,6 +355,7 @@ class Reuser:
 
         return new_case
 
+
 class Reviser:
     def __init__(self, reuser):
         self.reuser = reuser
@@ -367,11 +369,9 @@ class Reviser:
         print("\n[REVISE] Proposed Menu:")
         print(json.dumps(proposed_solution, indent=2, ensure_ascii=False))
 
-        # Interactive: ask user to accept or not
         try:
             feedback = input("Do you accept this menu? ([Y]/n): ").strip().lower()
         except (EOFError, KeyboardInterrupt):
-            # if running non-interactively, accept by default
             feedback = 'y'
 
         if feedback == 'n':
@@ -386,6 +386,7 @@ class Reviser:
 
         print("[REVISE] Accepted final solution.")
         return proposed_solution
+
 
 class Retainer:
     def __init__(self, case_base):
@@ -402,10 +403,10 @@ class Retainer:
         print(f"[RETAIN] Stored new case ID {new_id}.")
         return new_case
 
-# ============================================================
-# MenuCBR: loads both toy cases and converted dataclass cases
-# ============================================================
 
+# -----------------------------
+# MenuCBR: loads NEW toy data constructed from CulinaryCase (no old toy cases)
+# -----------------------------
 class MenuCBR:
     def __init__(self):
         self.case_base = []
@@ -417,83 +418,265 @@ class MenuCBR:
         self.retain_module = Retainer(self.case_base)
 
     def _load_toy_data(self):
-        # --- Original toy cases (kept for variety) ---
-        case_1 = {
-            "id": 1,
-            "problem": {
-                "Tipo_de_Evento": "Boda",
-                "Estación_Evento": "Verano",
-                "Número_comensales": 80,
-                "Grupo_Dietario": "Omnívoro",
-                "Ingredientes_prohibidos": ["Mariscos"]
-            },
-            "solution": {
-                "Platos": {
-                    "Primero": {"Nombre": "Ensalada de quinoa"},
-                    "Segundo": {"Nombre": "Filete de ternera"},
-                    "Postre": {"Nombre": "Tarta de frutas"}
-                }
-            }
-        }
+        # Create a diverse set of new toy cases using the dataclasses.
+        cases = []
 
-        case_2 = {
-            "id": 2,
-            "problem": {
-                "Tipo_de_Evento": "Corporativo",
-                "Estación_Evento": "Invierno",
-                "Número_comensales": 200,
-                "Grupo_Dietario": "Vegetariano",
-                "Ingredientes_prohibidos": ["Nueces"]
-            },
-            "solution": {
-                "Platos": {
-                    "Primero": {"Nombre": "Crema de calabaza"},
-                    "Segundo": {"Nombre": "Lasaña de espinacas"},
-                    "Postre": {"Nombre": "Brownie vegano"}
-                }
-            }
-        }
+        # Case A: formal wedding, winter, Mediterranean-Japanese fusion
+        cA = CulinaryCase(
+            id="A",
+            context=Context(
+                event_type="wedding",
+                season="winter",
+                location=EventLocation(country="Spain", region="Catalonia"),
+                number_of_guests=120,
+                budget_level="high",
+                formality_level="formal",
+                available_ingredients=["artichoke", "lemon", "sea bass", "almonds"],
+                time_constraints=TimeConstraints(prep_time="long")
+            ),
+            client_profile=ClientProfile(
+                dietary_restrictions=["gluten-free"],
+                flavor_preferences=FlavorPreferences(likes=["citrus", "umami"], dislikes=["bitter"]),
+                cultural_affinities=["Mediterranean", "Japanese"],
+                health_goals="light",
+                experience_level="adventurous"
+            ),
+            style_profile=StyleProfile(
+                chef_inspiration=["Ferran Adrià"],
+                culinary_tradition=["Catalan", "Nordic"],
+                techniques_emphasized=["fermentation", "foams", "sous-vide"],
+                presentation_style="minimalist",
+                sensory_goals=SensoryGoals(texture=["creamy", "crunchy"], aromatic_profile=["herbal", "citrus"])
+            ),
+            menu=Menu(courses=[
+                Dish(course_type="starter", dish_name="Artichoke Textures with Citrus Foam",
+                     ingredients=[Ingredient("artichoke","main"), Ingredient("lemon","aroma"), Ingredient("olive oil","fat")],
+                     techniques=["roasting","emulsion","foam"],
+                     cultural_influence=["Mediterranean"],
+                     presentation_notes="vertical plating with foam"),
+                Dish(course_type="main", dish_name="Miso-Glazed Sea Bass with Fermented Barley",
+                     ingredients=[Ingredient("sea bass","main"), Ingredient("miso","seasoning"), Ingredient("barley","base")],
+                     techniques=["glazing","fermentation","slow-cook"],
+                     cultural_influence=["Japanese"],
+                     presentation_notes="minimalist plate"),
+                Dish(course_type="dessert", dish_name="Citrus Almond Cream",
+                     ingredients=[Ingredient("citrus blend","main"), Ingredient("almond","fat"), Ingredient("herbs","aroma")],
+                     techniques=["infusion","whipping"],
+                     cultural_influence=["Fusion"],
+                     presentation_notes="creamy mousse with crunchy top")
+            ]),
+            justification=Justification(
+                why_this_menu=["seasonal produce","fusion preferences","formal plating"],
+                causal_links=[CausalLink("winter","warm dishes")],
+                major_adaptations=["tamari for soy sauce"]
+            ),
+            outcome=Outcome(4.7, ["delicious"], {"budget_compliance":True}, ["none"])
+        )
+        cases.append(cA)
 
-        case_3 = {
-            "id": 3,
-            "problem": {
-                "Tipo_de_Evento": "Cumpleaños",
-                "Estación_Evento": "Primavera",
-                "Número_comensales": 20,
-                "Grupo_Dietario": "Omnívoro",
-                "Ingredientes_prohibidos": ["Picante"]
-            },
-            "solution": {
-                "Platos": {
-                    "Primero": {"Nombre": "Palitos de mozzarella"},
-                    "Segundo": {"Nombre": "Mini hamburguesas"},
-                    "Postre": {"Nombre": "Helado de vainilla"}
-                }
-            }
-        }
+        # Case B: corporate gala, summer, Mediterranean traditional
+        cB = CulinaryCase(
+            id="B",
+            context=Context(
+                event_type="gala",
+                season="summer",
+                location=EventLocation(country="France", region="Paris"),
+                number_of_guests=250,
+                budget_level="premium",
+                formality_level="formal",
+                available_ingredients=["foie gras", "strawberries", "truffles"],
+                time_constraints=TimeConstraints(prep_time="long")
+            ),
+            client_profile=ClientProfile(
+                dietary_restrictions=["no_pork"],
+                flavor_preferences=FlavorPreferences(likes=["umami"], dislikes=[]),
+                cultural_affinities=["French"],
+                health_goals=None,
+                experience_level="traditional"
+            ),
+            style_profile=StyleProfile(
+                chef_inspiration=["Bocuse"],
+                culinary_tradition=["French"],
+                techniques_emphasized=["sous-vide","roasting"],
+                presentation_style="elegant",
+                sensory_goals=SensoryGoals(texture=["silky"], aromatic_profile=["herbal"])
+            ),
+            menu=Menu(courses=[
+                Dish(course_type="starter", dish_name="Foie Terrine with Seasonal Jam",
+                     ingredients=[Ingredient("foie gras","main"), Ingredient("jam","sweet")],
+                     techniques=["terrine","preserve"],
+                     cultural_influence=["French"],
+                     presentation_notes="classic"),
+                Dish(course_type="main", dish_name="Roast Sirloin with Truffle Jus",
+                     ingredients=[Ingredient("beef","main"), Ingredient("truffle","aroma")],
+                     techniques=["roasting","sauce-making"],
+                     cultural_influence=["French"],
+                     presentation_notes="plated elegantly"),
+                Dish(course_type="dessert", dish_name="Strawberry Millefeuille",
+                     ingredients=[Ingredient("strawberries","main"), Ingredient("cream","fat")],
+                     techniques=["lamination","assembly"],
+                     cultural_influence=["French"],
+                     presentation_notes="layered dessert")
+            ]),
+            justification=Justification(["premium ingredients","formal event"], [], []),
+            outcome=Outcome(4.9, ["excellent"], {"budget_compliance":True}, [])
+        )
+        cases.append(cB)
 
-        # Append the original toy cases
-        self.case_base.extend([case_1, case_2, case_3])
+        # Case C: family event, spring, casual, vegetarian
+        cC = CulinaryCase(
+            id="C",
+            context=Context(
+                event_type="family_event",
+                season="spring",
+                location=EventLocation(country="USA", region="California"),
+                number_of_guests=30,
+                budget_level="medium",
+                formality_level="casual",
+                available_ingredients=["tomato","basil","mozzarella","bread"],
+                time_constraints=TimeConstraints(prep_time="short")
+            ),
+            client_profile=ClientProfile(
+                dietary_restrictions=["vegetarian"],
+                flavor_preferences=FlavorPreferences(likes=["fresh","acidic"], dislikes=["spicy"]),
+                cultural_affinities=["Italian"],
+                health_goals="light",
+                experience_level="traditional"
+            ),
+            style_profile=StyleProfile(
+                chef_inspiration=["home_cook"],
+                culinary_tradition=["Italian"],
+                techniques_emphasized=["fresh assembly","grilling"],
+                presentation_style="rustic",
+                sensory_goals=SensoryGoals(texture=["fresh","crunchy"], aromatic_profile=["herbal"])
+            ),
+            menu=Menu(courses=[
+                Dish(course_type="starter", dish_name="Tomato Basil Bruschetta",
+                     ingredients=[Ingredient("tomato","main"), Ingredient("basil","aroma"), Ingredient("bread","base")],
+                     techniques=["toasting","assembly"],
+                     cultural_influence=["Italian"],
+                     presentation_notes="rustic toast"),
+                Dish(course_type="main", dish_name="Grilled Vegetable Lasagna",
+                     ingredients=[Ingredient("zucchini","main"), Ingredient("cheese","fat")],
+                     techniques=["grilling","baking"],
+                     cultural_influence=["Italian"],
+                     presentation_notes="family style"),
+                Dish(course_type="dessert", dish_name="Lemon Olive Oil Cake",
+                     ingredients=[Ingredient("lemon","main"), Ingredient("olive oil","fat")],
+                     techniques=["baking"],
+                     cultural_influence=["Mediterranean"],
+                     presentation_notes="simple cake")
+            ]),
+            justification=Justification(["family friendly","fresh"], [], []),
+            outcome=Outcome(4.5, ["kids loved it"], {"budget_compliance":True}, [])
+        )
+        cases.append(cC)
 
-        # --- Add complex dataclass cases, converted to simple dict format ---
-        complex_case = example_case(case_id="case_complex_001")
-        simple_case = convert_case_to_simple_dict(complex_case)
-        # ensure numeric id for uniformity with toy cases (or keep string id)
-        # We'll append as-is (id will be string), prototype uses it only for printing
-        self.case_base.append(simple_case)
+        # Case D: congress lunch, autumn, multicultural, quick prep
+        cD = CulinaryCase(
+            id="D",
+            context=Context(
+                event_type="congress",
+                season="autumn",
+                location=EventLocation(country="Germany", region="Berlin"),
+                number_of_guests=150,
+                budget_level="medium",
+                formality_level="semi-formal",
+                available_ingredients=["potato","carrot","lentils"],
+                time_constraints=TimeConstraints(prep_time="short")
+            ),
+            client_profile=ClientProfile(
+                dietary_restrictions=["vegan"],
+                flavor_preferences=FlavorPreferences(likes=["hearty"], dislikes=[]),
+                cultural_affinities=["International"],
+                health_goals=None,
+                experience_level="experimental"
+            ),
+            style_profile=StyleProfile(
+                chef_inspiration=["casual_chefs"],
+                culinary_tradition=["Fusion"],
+                techniques_emphasized=["stewing","quick-pickles"],
+                presentation_style="accessible",
+                sensory_goals=SensoryGoals(texture=["hearty"], aromatic_profile=["smoky"])
+            ),
+            menu=Menu(courses=[
+                Dish(course_type="starter", dish_name="Spiced Lentil Soup",
+                     ingredients=[Ingredient("lentils","main"), Ingredient("carrot","vegetable")],
+                     techniques=["stewing"],
+                     cultural_influence=["Middle Eastern"],
+                     presentation_notes="bowl service"),
+                Dish(course_type="main", dish_name="Roasted Root Vegetable Bowl",
+                     ingredients=[Ingredient("potato","main"), Ingredient("beet","vegetable")],
+                     techniques=["roasting"],
+                     cultural_influence=["Fusion"],
+                     presentation_notes="bowl"),
+                Dish(course_type="dessert", dish_name="Apple Compote",
+                     ingredients=[Ingredient("apple","main"), Ingredient("cinnamon","aroma")],
+                     techniques=["stewing"],
+                     cultural_influence=["European"],
+                     presentation_notes="simple serving")
+            ]),
+            justification=Justification(["quick to serve","vegan-friendly"], [], []),
+            outcome=Outcome(4.3, ["good"], {"timeliness":True}, [])
+        )
+        cases.append(cD)
 
-        # (Optional) Add another modified complex case for variety
-        complex_case2 = example_case(case_id="case_complex_002")
-        # tweak some fields to diversify
-        complex_case2.context.season = "Verano"
-        complex_case2.context.number_of_guests = 60
-        complex_case2.client_profile.dietary_restrictions = ["Sin frutos secos"]
-        simple_case2 = convert_case_to_simple_dict(complex_case2)
-        self.case_base.append(simple_case2)
+        # Case E: intimate experimental dinner, autumn, adventurous
+        cE = CulinaryCase(
+            id="E",
+            context=Context(
+                event_type="gala",
+                season="autumn",
+                location=EventLocation(country="Japan", region="Tokyo"),
+                number_of_guests=12,
+                budget_level="high",
+                formality_level="semi-formal",
+                available_ingredients=["miso","seaweed","daikon"],
+                time_constraints=TimeConstraints(prep_time="long")
+            ),
+            client_profile=ClientProfile(
+                dietary_restrictions=[],
+                flavor_preferences=FlavorPreferences(likes=["umami","fermented"], dislikes=[]),
+                cultural_affinities=["Japanese"],
+                health_goals=None,
+                experience_level="experimental"
+            ),
+            style_profile=StyleProfile(
+                chef_inspiration=["modern_chefs"],
+                culinary_tradition=["Japanese","Nordic"],
+                techniques_emphasized=["fermentation","smoking"],
+                presentation_style="artistic",
+                sensory_goals=SensoryGoals(texture=["delicate","textured"], aromatic_profile=["umami","smoky"])
+            ),
+            menu=Menu(courses=[
+                Dish(course_type="starter", dish_name="Miso Foam with Seaweed Crisp",
+                     ingredients=[Ingredient("miso","seasoning"), Ingredient("seaweed","crisp")],
+                     techniques=["foam","dehydration"],
+                     cultural_influence=["Japanese"],
+                     presentation_notes="small amuse-bouche"),
+                Dish(course_type="main", dish_name="Smoked Daikon with Barley",
+                     ingredients=[Ingredient("daikon","main"), Ingredient("barley","base")],
+                     techniques=["smoking","braise"],
+                     cultural_influence=["Fusion"],
+                     presentation_notes="minimalist plate"),
+                Dish(course_type="dessert", dish_name="Green Tea Air",
+                     ingredients=[Ingredient("matcha","main"), Ingredient("milk","fat")],
+                     techniques=["molecular","whipping"],
+                     cultural_influence=["Japanese"],
+                     presentation_notes="airy dessert")
+            ]),
+            justification=Justification(["experimental","umami focus"], [], []),
+            outcome=Outcome(4.8, ["imaginative"], {"guest_satisfaction":True}, [])
+        )
+        cases.append(cE)
+
+        # Convert all culinary cases to simple dicts and store in case_base
+        for c in cases:
+            simple = convert_case_to_simple_dict(c)
+            self.case_base.append(simple)
 
     def solve(self, query):
-        print(f"\n======== NEW QUERY: {query['Tipo_de_Evento']} / {query['Grupo_Dietario']} ========")
-
+        print(f"\n======== NEW QUERY: {query.get('Tipo_de_Evento','?')} / {query.get('Grupo_Dietario','?')} ========")
         retrieved_cases = self.retriever.retrieve_top(query, top_n=3)
         if not retrieved_cases:
             print("[CBR] No retrieved cases, cannot propose solution.")
@@ -507,21 +690,28 @@ class MenuCBR:
 
         return revised
 
-# ============================================================
-# Execution example (interactive by default; non-interactive fallback)
-# ============================================================
 
+# -----------------------------
+# Demo: run with an example query that uses many fields
+# -----------------------------
 if __name__ == "__main__":
-    cbr = MenuCBR()
-
+    # Build a rich query dict with the same extended fields used in conversion
     query = {
-        "Tipo_de_Evento": "Boda",
-        "Estación_Evento": "Verano",
-        "Número_comensales": 60,
-        "Grupo_Dietario": "Omnívoro",
-        "Ingredientes_prohibidos": ["Mariscos"]
+        "Tipo_de_Evento": "wedding",
+        "Estación_Evento": "winter",
+        "Número_comensales": 100,
+        "Grupo_Dietario": "gluten-free",
+        "Ingredientes_prohibidos": ["nuts"],
+        "Prep_Time": "long",
+        "Available_Ingredients": ["artichoke", "lemon", "olive oil"],
+        "Culinary_Tradition": ["Catalan", "Mediterranean"],
+        "Techniques": ["fermentation", "foam"],
+        "Presentation_Style": "minimalist",
+        "Sensory_Goals": ["creamy", "citrus"],
+        "Cultural_Affinities": ["Mediterranean", "Japanese"]
     }
 
+    cbr = MenuCBR()
     result = cbr.solve(query)
 
     print("\n--- FINAL RECOMMENDED MENU ---")
