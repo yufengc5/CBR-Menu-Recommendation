@@ -31,7 +31,6 @@ class Context:
     number_of_guests: int
     budget_level: str
     formality_level: str
-    available_ingredients: List[str]
     time_constraints: TimeConstraints
 
 
@@ -163,7 +162,6 @@ def example_case() -> CulinaryCase:
             number_of_guests=120,
             budget_level="high",
             formality_level="formal",
-            available_ingredients=["artichoke", "lemon", "sea bass", "almonds"],
             time_constraints=TimeConstraints(
                 prep_time="long"
             )

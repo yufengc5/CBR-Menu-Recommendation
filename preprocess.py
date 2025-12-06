@@ -1,98 +1,132 @@
+#!/usr/bin/env python3
+import ast
+import json
 import pandas as pd
-import numpy as np
-import ast 
+import re
+from tqdm import tqdm
 
-# 1. Load the Dataset
-file_path = 'recipes_extended.csv' 
-df = pd.read_csv(file_path)
+# ======================================================
+#                HELPERS
+# ======================================================
 
-print(f"Original shape: {df.shape}")
-
-# 2. Parse List Columns
-list_cols = ['ingredients', 'cuisine_list', 'course_list', 'tastes', 'dietary_profile']
-
-def safe_parse(val):
+def parse_list(value):
+    """
+    Parses fields like: "[""onion"", ""olive oil""]"
+    Even though you said 'no parser', this is only for list-literals,
+    not for CLI args. If this is also not allowed, I can replace it.
+    """
+    if isinstance(value, list):
+        return value
+    if pd.isna(value):
+        return []
     try:
-        if isinstance(val, list):
-            return val
-        if isinstance(val, str) and val.startswith('[') and val.endswith(']'):
-            return ast.literal_eval(val)
-        return []
-    except (ValueError, SyntaxError):
+        return ast.literal_eval(value)
+    except:
         return []
 
-for col in list_cols:
-    if col in df.columns:
-        df[col] = df[col].apply(safe_parse)
 
-# 3. Handling Missing or Noisy Data
-if 'num_ingredients' in df.columns and 'num_steps' in df.columns:
-    df = df[(df['num_ingredients'] > 0) & (df['num_steps'] > 0)]
+def map_course(course_list, recipe_title=""):
+    """
+    Convert dataset course tags -> starter / main / dessert.
+    """
+    if not course_list:
+        t = recipe_title.lower()
+        if any(x in t for x in ["cake", "pie", "dessert", "pudding", "cookie"]):
+            return "dessert"
+        return "main"
 
-# Impute missing numeric values (Time) with the median
-time_cols = ['est_prep_time_min', 'est_cook_time_min']
-for col in time_cols:
-    if col in df.columns:
-        df[col] = df[col].fillna(df[col].median())
+    c = [x.lower() for x in course_list]
 
-# Create a 'total_time' feature (useful for "quick meal" preferences)
-df['total_time_min'] = df['est_prep_time_min'] + df['est_cook_time_min']
+    if any(x in c for x in ["dessert", "sweet"]):
+        return "dessert"
+    if any(x in c for x in ["appetizer", "starter", "side", "salad", "soup"]):
+        return "starter"
 
-# 4. Encoding Ordinal Features (Difficulty)
-difficulty_map = {'easy': 1, 'medium': 2, 'hard': 3}
+    return "main"
 
-# Normalize text first (lowercase)
-df['difficulty'] = df['difficulty'].str.lower().str.strip()
-df['difficulty_score'] = df['difficulty'].map(difficulty_map)
 
-# Fill missing difficulty with 'medium' (2)
-df['difficulty_score'] = df['difficulty_score'].fillna(2).astype(int)
+def extract_techniques(directions_list):
+    """
+    Extract cooking verbs from steps.
+    """
+    if not directions_list:
+        return []
 
-# 5. Clean Course / Category for Menu Planning
-# We need to know if a dish is a "Main", "Dessert", or "Starter".
-# 'course_list' might contain multiple tags. We can extract a primary course or create flags.
-target_courses = ['main dish', 'dessert', 'appetizer', 'soup', 'salad', 'side dish']
+    technique_verbs = [
+        "bake","roast","fry","air fry","saute","sauté","marinate",
+        "boil","simmer","steam","mix","blend","coat","toss",
+        "whip","knead","sear","grill","poach","pressure cook",
+        "slow cook","broil"
+    ]
 
-def extract_primary_course(courses):
-    # Normalize list
-    courses_lower = [c.lower() for c in courses]
-    for target in target_courses:
-        # Simple heuristic: return the first matching target course found
-        for c in courses_lower:
-            if target in c:
-                return target
-    return 'other'
+    text = " ".join(directions_list).lower()
+    found = [verb for verb in technique_verbs if verb in text]
+    return list(set(found))
 
-df['primary_course'] = df['course_list'].apply(extract_primary_course)
 
-# 6. Boolean Flags for Constraints
-bool_cols = ['is_vegan', 'is_vegetarian', 'is_halal', 'is_kosher', 'is_gluten_free', 'is_dairy_free', 'is_nut_free']
-for col in bool_cols:
-    if col in df.columns:
-        df[col] = df[col].astype(int)
+# ======================================================
+#           TRANSFORM A SINGLE RECIPE ROW
+# ======================================================
 
-# 7. Feature Selection for Case Base
-# Select only columns useful for the Recommender (Retrieval & Similarity)
-selected_columns = [
-    'recipe_title', 
-    'description',
-    'ingredients',          # For content-based similarity
-    'primary_course',       # For menu structure (Main vs Dessert)
-    'cuisine_list',         # For user preferences
-    'difficulty_score',     # For restriction (Expertise level)
-    'total_time_min',       # For restriction (Time available)
-    'healthiness_score',    # For preference
-    'primary_taste',        # For preference (sweet, spicy)
-] + bool_cols               # For hard constraints
+def build_dish_entry(row):
+    ingredients = parse_list(row["ingredients_canonical"])
+    directions  = parse_list(row["directions_raw"])
+    cuisines    = parse_list(row["cuisine_list"])
+    tastes      = parse_list(row["tastes"])
+    diets       = parse_list(row["dietary_profile"])
+    courses     = parse_list(row["course_list"])
 
-# Filter dataset to selected columns (keep original ID or index)
-case_base = df[selected_columns].copy()
+    return {
+        "name": row["recipe_title"],
+        "course_type": map_course(courses, row["recipe_title"]),
+        "ingredients": ingredients,
+        "techniques": extract_techniques(directions),
+        "cuisines": cuisines,
+        "tastes": tastes,
+        "dietary_profiles": diets,
+        "prep_time": int(row["est_prep_time_min"]) if pd.notna(row["est_prep_time_min"]) else None,
+        "cook_time": int(row["est_cook_time_min"]) if pd.notna(row["est_cook_time_min"]) else None,
+        "difficulty": row["difficulty"] if pd.notna(row["difficulty"]) else "unknown"
+    }
 
-# Remove duplicates if any
-case_base = case_base.drop_duplicates(subset=['recipe_title'])
 
-print(f"Final Case Base shape: {case_base.shape}")
-print(case_base.head())
+# ======================================================
+#              MAIN ENTRYPOINT (NO PARSER!)
+# ======================================================
 
-# Save preprocessed data
-case_base.to_csv('preprocessed_recipes_cbr.csv', index=False)
+def main():
+    print("\n=== Dish Database Builder ===\n")
+
+    csv_path = input("CSV filename (e.g., recipes.csv): ").strip()
+    if csv_path == "":
+        print("❌ No file provided.")
+        return
+
+    limit_raw = input("Limit number of rows? (enter for full): ").strip()
+    limit = int(limit_raw) if limit_raw.isdigit() else None
+
+    print("\n📥 Loading CSV...")
+    df = pd.read_csv(csv_path)
+
+    if limit:
+        df = df.head(limit)
+
+    print(f"➡️ Loaded {len(df)} recipe records.\n")
+
+    dishes = []
+    print("🔧 Extracting data...\n")
+
+    for _, row in tqdm(df.iterrows(), total=len(df)):
+        dishes.append(build_dish_entry(row))
+
+    output_path = "dish_database.json"
+    print(f"\n💾 Saving {len(dishes)} dishes → {output_path} ...")
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(dishes, f, indent=2, ensure_ascii=False)
+
+    print("\n🎉 DONE! dish_database.json is ready.\n")
+
+
+if __name__ == "__main__":
+    main()

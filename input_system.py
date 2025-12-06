@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-# user_query_input.py
-# Visual input form to collect user preferences for the menu CBR system
+# user_query_input_v2.py
+# COMPLETE visual input form for the new CulinaryCase-based menu CBR system
 
 import sys
 
+# ---------- COLORS ----------
 BLUE   = "\033[94m"
 GREEN  = "\033[92m"
 YELLOW = "\033[93m"
@@ -19,31 +20,29 @@ BOLD   = "\033[1m"
 def banner():
     print(BLUE + BOLD)
     print("===============================================")
-    print("           🍽  MENU RECOMMENDER CBR")
+    print("          🍽  ADVANCED MENU CBR INPUT")
     print("===============================================")
-    print("     Please answer the following questions\n" + RESET)
+    print("      Provide event + client + style details\n" + RESET)
 
 def section(title):
     print("\n" + YELLOW + BOLD + f"─── {title} ───" + RESET)
 
 def ask_text_choice(prompt, options):
-    """User types the choice rather than a number."""
     print(GREEN + prompt + RESET)
-    print(YELLOW + "Available options:" + RESET)
+    print(YELLOW + "Options:" + RESET)
     for opt in options:
         print("  -", opt)
 
     while True:
-        choice = input(GREEN + "Type your choice: " + RESET).strip().lower()
+        choice = input(GREEN + "Your choice: " + RESET).strip().lower()
         for opt in options:
             if choice == opt.lower():
                 return opt
-        print(RED + "Invalid choice. Please type exactly one of the listed options." + RESET)
+        print(RED + "Invalid. Type exactly one option." + RESET)
 
 def ask_text_list(prompt, options):
-    """User can type multiple values, comma-separated."""
     print(GREEN + prompt + RESET)
-    print(YELLOW + "Available options (comma-separated allowed):" + RESET)
+    print(YELLOW + "Options (comma-separated allowed):" + RESET)
     for opt in options:
         print("  -", opt)
 
@@ -60,114 +59,158 @@ def ask_text_list(prompt, options):
                     break
         if len(valid) == len(parts):
             return valid
-        print(RED + "Some entries are invalid. Please try again." + RESET)
+        print(RED + "Some entries invalid. Try again." + RESET)
 
 def ask_number(prompt, minv=None, maxv=None):
     while True:
         try:
-            val = int(input(GREEN + prompt + RESET))
-            if (minv is None or val >= minv) and (maxv is None or val <= maxv):
-                return val
-        except ValueError:
+            v = int(input(GREEN + prompt + RESET))
+            if (minv is None or v >= minv) and (maxv is None or v <= maxv):
+                return v
+        except:
             pass
-        print(RED + "Invalid number. Try again." + RESET)
+        print(RED + "Invalid number." + RESET)
 
 def ask_list(prompt):
     print(GREEN + prompt + RESET)
-    raw = input(YELLOW + "Enter items separated by commas (or empty): " + RESET).strip()
+    raw = input(YELLOW + "Comma-separated (or empty): " + RESET).strip()
     if raw == "":
         return []
     return [x.strip() for x in raw.split(",")]
 
 
-# -----------------------------------------------------------
-#               Main Query Builder
-# -----------------------------------------------------------
+# ===========================================================
+#                   ASK NEW FULL QUERY
+# ===========================================================
 
 def ask_query():
 
     banner()
 
-    # -----------------------------
+    # -------------------------------------------------------
     # EVENT CONTEXT
-    # -----------------------------
-    section("EVENT INFORMATION")
+    # -------------------------------------------------------
+    section("EVENT CONTEXT")
 
-    tipo_evento = ask_text_choice(
-        "What type of event is it?",
-        ["Boda", "Corporativo", "Cumpleaños", "Gala", "Congreso", "Familiar"]
+    event_type = ask_text_choice(
+        "Type of event:",
+        ["wedding", "gala", "family_event", "congress", "corporate"]
     )
 
-    estacion = ask_text_choice(
-        "What season will the event take place?",
-        ["Primavera", "Verano", "Otoño", "Invierno"]
+    season = ask_text_choice(
+        "Season of the event:",
+        ["spring", "summer", "autumn", "winter"]
     )
 
-    pax = ask_number("How many guests will attend? ", minv=1, maxv=1000)
-
-    # -----------------------------
-    # DIETARY
-    # -----------------------------
-    section("DIETARY PROFILES")
-
-    diet_groups = ask_text_list(
-        "Which dietary groups must be covered?",
-        ["Omnívoro", "Vegetariano", "Vegano", "Sin gluten", "Halal", "Kosher"]
+    number_of_guests = ask_number(
+        "Number of guests (>0): ",
+        minv=1, maxv=2000
     )
 
-    forbidden = ask_list("List any forbidden ingredients:")
-
-    # -----------------------------
-    # STYLE
-    # -----------------------------
-    section("CULINARY STYLE")
-
-    cuisine = ask_text_choice(
-        "Preferred culinary style:",
-        ["Mediterráneo", "Asiático", "Fusión", "Tradicional", "Moderno"]
-    )
-
-    techniques = ask_text_list(
-        "Preferred techniques:",
-        ["Asado", "Frito", "Al vapor", "Sous-vide", "A la brasa", "Marinado"]
+    budget = ask_text_choice(
+        "Budget level:",
+        ["low", "medium", "high", "premium"]
     )
 
     formality = ask_text_choice(
         "Service formality:",
-        ["Casual", "Semi-formal", "Formal"]
+        ["casual", "semi-formal", "formal"]
     )
 
-    sensory = ask_text_list(
-        "Desired sensory goals:",
-        ["Crocante", "Cremoso", "Ácido", "Dulce", "Ahumado", "Aromático"]
+    prep_time = ask_text_choice(
+        "Allowed preparation time:",
+        ["short", "medium", "long"]
     )
 
-    print("\n" + BLUE + BOLD + "Thank you! Creating query pack..." + RESET)
+    # -------------------------------------------------------
+    # CLIENT PROFILE
+    # -------------------------------------------------------
+    section("CLIENT PROFILE")
+
+    diet_groups = ask_text_list(
+        "Dietary restriction groups (multiple allowed):",
+        ["omnivore", "vegetarian", "vegan", "gluten-free", "halal", "kosher"]
+    )
+
+    forbidden_ingredients = ask_list(
+        "Forbidden ingredients for this group:"
+    )
+
+    flavor_likes = ask_list("Flavors they LIKE:")
+    flavor_dislikes = ask_list("Flavors they DISLIKE:")
+
+    cultural_affinities = ask_list(
+        "Cultural affinities (e.g. Mediterranean, Japanese, Italian):"
+    )
+
+    health_goals = ask_text_choice(
+        "Health goal:",
+        ["light", "high-protein", "low-salt", "none"]
+    )
+
+    experience_level = ask_text_choice(
+        "Experience level (how bold the menu can be):",
+        ["traditional", "adventurous", "experimental"]
+    )
 
     # -------------------------------------------------------
-    #        RETURN MULTIPLE QUERIES (one per diet group)
+    # CULINARY STYLE & SENSORY GOALS
     # -------------------------------------------------------
+    section("CULINARY STYLE")
+
+    culinary_tradition = ask_list(
+        "Preferred culinary traditions (Mediterranean, Nordic, etc.):"
+    )
+
+    techniques_emphasized = ask_list(
+        "Preferred techniques (fermentation, sous-vide, etc.):"
+    )
+
+    presentation_style = ask_text_choice(
+        "Presentation style:",
+        ["rustic", "minimalist", "elegant", "artistic", "simple"]
+    )
+
+    sensory_texture = ask_list(
+        "Desired TEXTURES (creamy, crunchy, silky, etc.):"
+    )
+
+    sensory_aroma = ask_list(
+        "Desired AROMATIC notes (herbal, citrus, smoky, etc.):"
+    )
+
+    # -------------------------------------------------------
+    #   BUILD ONE QUERY PER DIETARY GROUP
+    # -------------------------------------------------------
+    section("BUILDING QUERY PACK")
+
     full_queries = []
 
     for dg in diet_groups:
-        q = {
-            "Tipo_de_Evento": tipo_evento,
-            "Estación_Evento": estacion,
-            "Número_comensales": pax,
-            "Grupo_Dietario": dg,  # SINGLE diet group per generated query
-            "Ingredientes_prohibidos": forbidden,
 
-            # Additional structured preferences
-            "Culinary_Style": {
-                "Cocina": cuisine,
-                "Tecnicas": techniques,
-                "Formalidad": formality,
-                "Sensory_Goals": sensory
-            }
+        q = {
+            # CBR-compatible Problem fields
+            "Tipo_de_Evento": event_type,
+            "Estación_Evento": season,
+            "Número_comensales": number_of_guests,
+            "Grupo_Dietario": dg,
+            "Ingredientes_prohibidos": forbidden_ingredients,
+
+            # EXTENDED similarity fields:
+            "Prep_Time": prep_time,
+            "Culinary_Tradition": [c.lower() for c in culinary_tradition],
+            "Techniques": [t.lower() for t in techniques_emphasized],
+            "Presentation_Style": presentation_style,
+            "Sensory_Goals": [*sensory_texture, *sensory_aroma],
+            "Cultural_Affinities": cultural_affinities,
         }
+
         full_queries.append(q)
 
-    print(GREEN + BOLD + "\nGenerated Queries:" + RESET)
+    # -------------------------------------------------------
+    # PRINT RESULTING QUERY PACK
+    # -------------------------------------------------------
+    print(GREEN + BOLD + "\nGENERATED QUERIES:" + RESET)
     for q in full_queries:
         print(YELLOW + "--------------------------------------" + RESET)
         print(q)
@@ -175,7 +218,7 @@ def ask_query():
     return full_queries
 
 
-# -----------------------------------------------------------
+# ============================================================
 
 if __name__ == "__main__":
     queries = ask_query()
