@@ -2,19 +2,15 @@
 import ast
 import json
 import pandas as pd
-import re
 from tqdm import tqdm
+
 
 # ======================================================
 #                HELPERS
 # ======================================================
 
 def parse_list(value):
-    """
-    Parses fields like: "[""onion"", ""olive oil""]"
-    Even though you said 'no parser', this is only for list-literals,
-    not for CLI args. If this is also not allowed, I can replace it.
-    """
+    """Parses list-like strings from the Kaggle dataset."""
     if isinstance(value, list):
         return value
     if pd.isna(value):
@@ -25,13 +21,11 @@ def parse_list(value):
         return []
 
 
-def map_course(course_list, recipe_title=""):
-    """
-    Convert dataset course tags -> starter / main / dessert.
-    """
+def map_course(course_list, recipe_title):
+    """Convert course_list to starter/main/dessert."""
     if not course_list:
-        t = recipe_title.lower()
-        if any(x in t for x in ["cake", "pie", "dessert", "pudding", "cookie"]):
+        name = recipe_title.lower()
+        if any(x in name for x in ["cake", "pie", "dessert", "cookie", "tart"]):
             return "dessert"
         return "main"
 
@@ -41,22 +35,18 @@ def map_course(course_list, recipe_title=""):
         return "dessert"
     if any(x in c for x in ["appetizer", "starter", "side", "salad", "soup"]):
         return "starter"
-
     return "main"
 
 
 def extract_techniques(directions_list):
-    """
-    Extract cooking verbs from steps.
-    """
     if not directions_list:
         return []
 
     technique_verbs = [
-        "bake","roast","fry","air fry","saute","sauté","marinate",
-        "boil","simmer","steam","mix","blend","coat","toss",
-        "whip","knead","sear","grill","poach","pressure cook",
-        "slow cook","broil"
+        "bake", "roast", "fry", "air fry", "saute", "sauté", "marinate",
+        "boil", "simmer", "steam", "mix", "blend", "coat", "toss",
+        "whip", "knead", "sear", "grill", "poach", "pressure cook",
+        "slow cook", "broil"
     ]
 
     text = " ".join(directions_list).lower()
@@ -64,68 +54,98 @@ def extract_techniques(directions_list):
     return list(set(found))
 
 
+def collect_dietary_tags(row):
+    tags = []
+
+    if row.get("is_vegan", False): tags.append("vegan")
+    if row.get("is_vegetarian", False): tags.append("vegetarian")
+    if row.get("is_halal", False): tags.append("halal")
+    if row.get("is_kosher", False): tags.append("kosher")
+    if row.get("is_nut_free", False): tags.append("nut_free")
+    if row.get("is_dairy_free", False): tags.append("dairy_free")
+    if row.get("is_gluten_free", False): tags.append("gluten_free")
+
+    # Also extend from dietary_profile list
+    profile_list = parse_list(row.get("dietary_profile"))
+    for item in profile_list:
+        tags.append(str(item).lower())
+
+    return sorted(list(set(tags)))
+
+
 # ======================================================
-#           TRANSFORM A SINGLE RECIPE ROW
+#                MAIN EXTRACTION
 # ======================================================
 
 def build_dish_entry(row):
-    ingredients = parse_list(row["ingredients_canonical"])
-    directions  = parse_list(row["directions_raw"])
-    cuisines    = parse_list(row["cuisine_list"])
-    tastes      = parse_list(row["tastes"])
-    diets       = parse_list(row["dietary_profile"])
-    courses     = parse_list(row["course_list"])
-
     return {
         "name": row["recipe_title"],
-        "course_type": map_course(courses, row["recipe_title"]),
-        "ingredients": ingredients,
-        "techniques": extract_techniques(directions),
-        "cuisines": cuisines,
-        "tastes": tastes,
-        "dietary_profiles": diets,
-        "prep_time": int(row["est_prep_time_min"]) if pd.notna(row["est_prep_time_min"]) else None,
-        "cook_time": int(row["est_cook_time_min"]) if pd.notna(row["est_cook_time_min"]) else None,
-        "difficulty": row["difficulty"] if pd.notna(row["difficulty"]) else "unknown"
+        "description": row.get("description", ""),
+
+        "ingredients": parse_list(row["ingredients_canonical"]),
+        "main_ingredient": row.get("main_ingredient", ""),
+
+        "directions": parse_list(row["directions_raw"]),
+        "techniques": extract_techniques(parse_list(row["directions_raw"])),
+
+        "cuisines": parse_list(row["cuisine_list"]),
+        "course_type": map_course(parse_list(row["course_list"]), row["recipe_title"]),
+
+        "tastes": parse_list(row["tastes"]),
+        "primary_taste": row.get("primary_taste", None),
+        "secondary_taste": row.get("secondary_taste", None),
+
+        "dietary_tags": collect_dietary_tags(row),
+
+        "prep_time": row.get("est_prep_time_min"),
+        "cook_time": row.get("est_cook_time_min"),
+        "cook_speed": row.get("cook_speed", None),
+        "difficulty": row.get("difficulty", "unknown"),
+
+        "healthiness_score": row.get("healthiness_score", None),
+        "health_flags": parse_list(row.get("health_flags")),
+        "health_level": row.get("health_level", None),
+
+        "popularity": {
+            "fast_hits": row.get("fast_hits", 0),
+            "slow_hits": row.get("slow_hits", 0),
+            "medium_hits": row.get("medium_hits", 0)
+        }
     }
 
 
 # ======================================================
-#              MAIN ENTRYPOINT (NO PARSER!)
+#                 MAIN SCRIPT
 # ======================================================
 
 def main():
-    print("\n=== Dish Database Builder ===\n")
+    print("\n=== Full Dish Database Builder ===\n")
 
     csv_path = input("CSV filename (e.g., recipes.csv): ").strip()
     if csv_path == "":
-        print("❌ No file provided.")
+        print("❌ No input file.")
         return
 
-    limit_raw = input("Limit number of rows? (enter for full): ").strip()
+    limit_raw = input("Limit rows? (Enter for full): ").strip()
     limit = int(limit_raw) if limit_raw.isdigit() else None
 
-    print("\n📥 Loading CSV...")
+    print("\n📥 Loading CSV…")
     df = pd.read_csv(csv_path)
-
     if limit:
         df = df.head(limit)
 
-    print(f"➡️ Loaded {len(df)} recipe records.\n")
+    print(f"➡️ Loaded {len(df)} entries.\n")
 
     dishes = []
-    print("🔧 Extracting data...\n")
-
+    print("🔧 Processing entries…")
     for _, row in tqdm(df.iterrows(), total=len(df)):
         dishes.append(build_dish_entry(row))
 
-    output_path = "dish_database.json"
-    print(f"\n💾 Saving {len(dishes)} dishes → {output_path} ...")
-
-    with open(output_path, "w", encoding="utf-8") as f:
+    out = "dish_database.json"
+    with open(out, "w", encoding="utf-8") as f:
         json.dump(dishes, f, indent=2, ensure_ascii=False)
 
-    print("\n🎉 DONE! dish_database.json is ready.\n")
+    print(f"\n🎉 DONE! Saved {len(dishes)} clean dishes to {out}\n")
 
 
 if __name__ == "__main__":
