@@ -1,0 +1,169 @@
+from dataclasses import dataclass, asdict
+import math
+from typing import List, Dict, Optional
+
+def jaccard(a, b):
+        if not a and not b:
+            return 1.0
+        s1 = set([x.lower() for x in a])
+        s2 = set([x.lower() for x in b])
+        inter = len(s1 & s2)
+        union = len(s1 | s2)
+        return inter / union if union > 0 else 0.0
+
+@dataclass
+class Ingredient:
+    name: str
+    role: str = None  # e.g., "main", "secondary", "aroma", "fat"
+
+    # Similarity placeholder, for now only name comparison
+    def similarity(self, other : "Ingredient") -> float:
+        if self.name.lower() == other.name.lower():
+            return 1.0
+        else:
+            return 0.0
+
+@dataclass
+class Dish:
+    name: str
+    description: str
+    ingredients: List[str]
+    main_ingredient: str
+    directions: List[str]
+    techniques: List[str]
+    cuisines: List[str]
+    course_type: str
+    tastes: List[str]
+    primary_taste: str
+    secondary_taste: str
+    dietary_tags: List[str]
+    prep_time: int
+    cook_time: int
+    cook_speed: str
+    difficulty: str
+    healthiness_score: int
+    health_flags: List[str]
+    health_level: str
+    popularity: dict
+
+    def similarity(self, other_dish):
+        if not isinstance(other_dish, Dish):
+            raise ValueError("Can only compare similarity with another Dish object, not with {}".format(type(other_dish)))
+
+        raw_score = 0
+        max_score = 0
+
+        # Compare cuisines
+        common_cuisines = jaccard(self.cuisines, other_dish.cuisines)
+        raw_score += common_cuisines * 2
+        max_score += 2
+
+        # Compare tastes
+        common_tastes = jaccard(self.tastes, other_dish.tastes)
+        raw_score += common_tastes * 3
+        max_score += 3
+
+        # Compare ingredients
+        common_ingredients = jaccard(self.ingredients, other_dish.ingredients)
+        raw_score += common_ingredients * 4
+        max_score += 4
+
+        # Compare dietary tags
+        common_dietary_tags = jaccard(self.dietary_tags, other_dish.dietary_tags)
+        raw_score += common_dietary_tags * 2
+        max_score += 2
+
+        # Compare health flags
+        common_health_flags = jaccard(self.health_flags, other_dish.health_flags)
+        raw_score += common_health_flags * 2
+        max_score += 2
+
+        # Compare difficulty level (exact match)
+        if self.difficulty == other_dish.difficulty:
+            raw_score += 3
+        max_score += 3
+
+        # Compare healthiness score (normalized by distance between healthiness scores)
+        health_score_diff = abs(self.healthiness_score - other_dish.healthiness_score)
+        max_possible_health_score_diff = max(self.healthiness_score, other_dish.healthiness_score, 1)  # Avoid division by zero
+        raw_score += 1 - health_score_diff / max_possible_health_score_diff
+        max_score += 1
+
+        # Compare primary tastes (exact match)
+        if self.primary_taste == other_dish.primary_taste:
+            raw_score += 5
+        max_score += 5
+
+        # Compare secondary tastes (exact match)
+        if self.secondary_taste == other_dish.secondary_taste:
+            raw_score += 3
+        max_score += 3
+
+        # Normalize the score: raw_score divided by max_score
+        normalized_score = raw_score / max_score if max_score != 0 else 0.0
+        
+        return normalized_score
+
+@dataclass
+class Menu:
+    first_course: Dish
+    main_course: Dish
+    dessert: Dish
+
+    def similarity(self, other_menu: "Menu", i: int = 3) -> float:
+        score = 0
+        if (i == 0): return 1.0
+        if (i > 0): score += self.first_course.similarity(other_menu.first_course)
+        if (i > 1): score += self.main_course.similarity(other_menu.main_course)
+        if (i > 2): score += self.dessert.similarity(other_menu.dessert)
+        return score
+    def __str__(self):
+        return f"First Course: {self.first_course.name}\nMain Course: {self.main_course.name}\nDessert: {self.dessert.name}"
+
+@dataclass
+class Query:
+    # Queries (what we will use to mass retrieve cases)
+    event_type: str
+    season: str
+    number_of_guests: int
+    techniques: List[str]
+    presentation_style: str
+    sensory_goals: List[str]
+
+    # Refinement
+    description: str  # Once we retrieve some cases, LLM similarity on description
+
+    # Restrictions (constraints to adapt retrievals)
+    culinary_tradition: List[str]
+    dietary_group: str
+    forbidden_ingredients: List[str]
+    prep_time: str
+    healthiness_level: str
+
+    def similarity(self, other_query: "Query") -> float:
+        '''
+        Only uses the fields that are marked as queries. The rest are for refinement or constraints.
+        '''
+        score = 0
+        if self.event_type == other_query.event_type:
+            score += 5
+        
+        if self.season == other_query.season:
+            score += 5
+
+        score -= math.log2(abs(self.number_of_guests - other_query.number_of_guests) + 1)
+        
+        score += jaccard(self.techniques, other_query.techniques) * 3
+        
+        if self.presentation_style == other_query.presentation_style:
+            score += 4
+        
+        score += jaccard(self.sensory_goals, other_query.sensory_goals) * 2
+
+        return score
+
+@dataclass
+class Case:
+    id: int
+    problem: Query
+    solution: Menu
