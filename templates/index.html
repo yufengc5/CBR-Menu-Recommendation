@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>The Grand Chef</h1>
+<p class="subtitle">Get menu recommendation for all types of events and clients.</p>
+
+{% if saved %}
+  <div class="success-message">
+    You have successfully saved your information!
+  </div>
+{% endif %}
+
+<form method="post" action="{{ url_for('recommend') }}">
+
+  <!-- Event info -->
+  <div class="section-title">Event Information</div>
+
+  <label for="event_type">Event type</label>
+  <select id="event_type" name="event_type" required>
+    <option value="">Choose...</option>
+    <option value="casual_dinner">Casual dinner</option>
+    <option value="wedding">Wedding</option>
+    <option value="business_lunch">Business lunch</option>
+    <option value="birthday">Birthday</option>
+    <option value="formal_gala">Formal gala</option>
+  </select>
+
+  <label for="season">Season</label>
+  <select id="season" name="season" required>
+    <option value="">Choose...</option>
+    <option value="spring">Spring</option>
+    <option value="summer">Summer</option>
+    <option value="autumm">Autumm</option>
+    <option value="winter">Winter</option>
+  </select>
+
+  <label for="num_guests">Number of guests</label>
+  <input type="number" id="num_guests" name="num_guests" min="1" required>
+
+  <!-- Dietary restrictions -->
+  <div class="section-title">Dietary Restrictions</div>
+  <div class="checkbox-group">
+    <label><input type="checkbox" name="dietary" value="vegan"> Vegan</label>
+    <label><input type="checkbox" name="dietary" value="vegetarian"> Vegetarian</label>
+    <label><input type="checkbox" name="dietary" value="halal"> Halal</label>
+    <label><input type="checkbox" name="dietary" value="gluten_free"> Gluten-free</label>
+    <label><input type="checkbox" name="dietary" value="lactose_free"> Lactose-free</label>
+  </div>
+
+  <label for="allergies">Allergies (comma-separated)</label>
+  <input type="text" id="allergies" name="allergies" placeholder="e.g. nuts, shellfish">
+
+  <label for="dislikes">Ingredients / flavours you dislike</label>
+  <input type="text" id="dislikes" name="dislikes" placeholder="e.g. cilantro, very spicy">
+
+  <!-- Preferences -->
+  <div class="section-title">Preferences</div>
+
+  <label for="preferred_cuisines">Preferred cuisines</label>
+  <select id="preferred_cuisines" name="preferred_cuisines" multiple size="4">
+    <option value="mediterranean">Mediterranean</option>
+    <option value="japanese">Japanese</option>
+    <option value="mexican">Mexican</option>
+    <option value="fusion">Fusion</option>
+    <option value="french">French</option>
+    <option value="indian">Indian</option>
+    <option value="middle_eastern">Middle Eastern</option>
+  </select>
+  <div class="helper-text">Hold Ctrl (Cmd on Mac) to select multiple.</div>
+
+  <label for="preferred_techniques">Preferred techniques</label>
+  <select id="preferred_techniques" name="preferred_techniques" multiple size="4">
+    <option value="grill">Grill</option>
+    <option value="roast">Roast</option>
+    <option value="steam">Steam</option>
+    <option value="raw">Raw / cold dishes</option>
+    <option value="sous_vide">Sous-vide</option>
+    <option value="stir_fry">Stir-fry</option>
+  </select>
+
+  <label for="preferred_flavours">Preferred flavour profile</label>
+  <select id="preferred_flavours" name="preferred_flavours" multiple size="4">
+    <option value="fresh">Fresh / light</option>
+    <option value="umami">Umami / savoury</option>
+    <option value="smoky">Smoky</option>
+    <option value="spicy">Spicy</option>
+    <option value="sweet">Sweet</option>
+    <option value="sour">Sour / acidic</option>
+  </select>
+
+  <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

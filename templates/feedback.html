@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Rate This Menu</h1>
+<p class="subtitle">Tell us how much you like this menu and why.</p>
+
+<div class="menu-preview" style="
+  background:#f3f7fa;
+  color:#1b3440;
+  border-radius:14px;
+  padding:16px 15px 18px;
+  box-shadow:0 8px 18px rgba(0,0,0,0.25);
+  margin-bottom:20px;
+">
+  <h3 style="margin-top:0;margin-bottom:8px;font-size:15px;font-weight:600;">
+    {{ menu.title }}
+  </h3>
+  <ul style="margin:0;padding-left:18px;font-size:13px;">
+    {% for dish in menu.dishes %}
+      <li>{{ dish }}</li>
+    {% endfor %}
+  </ul>
+</div>
+
+<form method="post">
+  <label for="rating">Rating (1–5)</label>
+  <select id="rating" name="rating" required>
+    <option value="">Choose...</option>
+    {% for r in range(1, 6) %}
+      <option value="{{ r }}">{{ r }}</option>
+    {% endfor %}
+  </select>
+
+  <label for="comments">Why did you like or not like this menu?</label>
+  <textarea id="comments" name="comments" rows="3"
+            placeholder="Your comments here..."></textarea>
+
+  <button type="submit">Submit feedback</button>
+</form>
+
+{% endblock %}
