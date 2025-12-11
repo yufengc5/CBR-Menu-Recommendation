@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Recommended Menus</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background: #EFEFEA;           /* same soft blue background */
+      }
+
+      .wrapper {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px 40px;
+        text-align: center;
+      }
+
+      h1 {
+        margin-top: 10px;
+        margin-bottom: 6px;
+        font-weight: 600;
+        color: #123746;
+      }
+
+      .subtitle {
+        font-size: 14px;
+        color: #234754;
+        margin-bottom: 24px;
+      }
+
+      .cards-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 22px;
+      }
+
+      .menu-card {
+        width: 300px;
+        background: #e05f3b;
+        color: #f5f7f8;
+        border-radius: 18px;
+        padding: 18px 18px 20px;
+        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-6px) scale(1.02);
+        box-shadow: 0 20px 36px rgba(0, 0, 0, 0.38);
+      }
+
+      .menu-card h2 {
+        margin: 0 0 10px;
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      .dish-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        font-size: 13px;
+      }
+
+      .dish-item {
+        margin-bottom: 6px;
+      }
+
+      .dish-name {
+        display: block;
+        font-weight: 500;
+      }
+
+      .dish-description {
+        display: block;
+        font-size: 12px;
+        line-height: 1.4;
+        color: rgba(245, 247, 248, 0.9);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.25s ease, opacity 0.25s ease;
+      }
+
+      .menu-card:hover .dish-description {
+        max-height: 70px;    /* enough to show 2–3 lines per dish */
+        opacity: 1;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-top: 26px;
+        font-size: 14px;
+        color: #123746;
+        text-decoration: none;
+      }
+
+      .back-link span {
+        text-decoration: underline;
+      }
+      .menu-card-link {
+        text-decoration: none;
+        color: inherit;
+        flex: 1 1 0;
+        min-width: 230px;
+    }
+
+      @media (max-width: 900px) {
+        .cards-row {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+  <div class="wrapper">
+    <h1>Recommended Menus</h1>
+    <p class="subtitle">Hover each card to reveal the description of every dish.</p>
+
+    <div class="cards-row">
+      {% for menu in menus %}
+        <a href="{{ url_for('feedback', menu_index=loop.index0) }}" class="menu-card-link">
+          <div class="menu-card">
+            <h2>{{ menu.title }}</h2>
+            <ul class="dish-list">
+              {% for dish in menu.dishes %}
+                <li class="dish-item">
+                  <span class="dish-name">{{ dish }}</span>
+                  <span class="dish-description">
+                    Placeholder description for {{ dish }}. In the real system,
+                    this will explain the main ingredients, style and technique.
+                  </span>
+                </li>
+              {% endfor %}
+            </ul>
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+
+    <a href="{{ url_for('input_form') }}" class="back-link">
+      ← <span>Back to event form</span>
+    </a>
+  </div>
+</body>
+
+</html>
