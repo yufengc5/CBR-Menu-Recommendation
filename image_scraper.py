@@ -1,10 +1,12 @@
 import time
-import requests
 import os
 import io
+import re
 import hashlib
+import base64
 from typing import Optional
 
+import requests
 from PIL import Image
 
 from selenium import webdriver
@@ -13,8 +15,6 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import StaleElementReferenceException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 BLOCKED_HOST_FRAGMENTS = [
     "google.com",
@@ -22,25 +22,31 @@ BLOCKED_HOST_FRAGMENTS = [
     "fonts.gstatic.com",
 ]
 
+# Where Flask can serve files from:
+STATIC_IMG_DIR = os.path.join("static", "dish_images")
+
+
+def slugify(s: str) -> str:
+    return re.sub(r"[^a-zA-Z0-9_-]+", "_", s).strip("_").lower()
+
+
 def handle_consent_form(wd):
     """Try to click the Google consent button (including Chinese 全部接受)."""
     try:
         time.sleep(1)
 
-        # First: your exact element: <div class="QS5gu sy4vM">全部接受</div>
+        # Exact element: <div class="QS5gu sy4vM">全部接受</div>
         try:
             btn = wd.find_element(
                 By.XPATH,
                 "//div[contains(@class,'QS5gu') and contains(@class,'sy4vM') and contains(., '全部接受')]"
             )
             wd.execute_script("arguments[0].click();", btn)
-            print("✔ Consent clicked: 全部接受")
             time.sleep(1)
             return
         except Exception:
             pass
 
-        # Fallback: scan other buttons/divs/spans for known consent keywords
         consent_keywords = [
             "Accept", "I agree", "Agree", "Accept all",
             "Aceptar", "Aceptar todo",
@@ -52,27 +58,24 @@ def handle_consent_form(wd):
 
         elements = wd.find_elements(By.XPATH, "//button | //div | //span")
         for el in elements:
-            txt = el.text.strip()
+            txt = (el.text or "").strip()
             if any(k in txt for k in consent_keywords):
                 try:
                     wd.execute_script("arguments[0].click();", el)
-                    print(f"✔ Consent clicked ({txt})")
                     time.sleep(1)
                     return
                 except Exception:
                     continue
 
-        print("ℹ No recognizable consent popup detected")
-
     except StaleElementReferenceException:
-        # If the element disappears while we’re scanning, just ignore it
-        print("ℹ Consent element went stale, ignoring.")
-    except Exception as e:
-        print("❌ Error handling consent:", e)
+        pass
+    except Exception:
+        pass
+
 
 def get_webdriver():
     chrome_options = Options()
-    # chrome_options.add_argument("--headless=new")  # uncomment if you want headless
+    chrome_options.add_argument("--headless=new")  # enable if you want headless
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument(
@@ -82,9 +85,8 @@ def get_webdriver():
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
 
-def get_first_non_google_img_src(wd):
+def get_first_non_google_img_src(wd) -> Optional[str]:
     imgs = wd.find_elements(By.TAG_NAME, "img")
-    print(f"Found {len(imgs)} <img> elements")
 
     for img in imgs:
         src = img.get_attribute("src") or ""
@@ -95,68 +97,87 @@ def get_first_non_google_img_src(wd):
         if any(fragment in src for fragment in BLOCKED_HOST_FRAGMENTS):
             continue
 
-        # This will accept things like:
+        # Accept:
         # - data:image/jpeg;base64,...
         # - https://some-site.com/image.jpg
-        print("✅ Selected src:", src[:120], "...")
         return src
 
-    print("⚠ No non-Google <img> found")
     return None
 
-def fetch_one_image_url(query: str, wd):
+
+def fetch_one_image_src(query: str, wd) -> Optional[str]:
     search_url = f"https://www.google.com/search?tbm=isch&q={query}"
     wd.get(search_url)
 
     handle_consent_form(wd)
     time.sleep(2)
 
-    src = get_first_non_google_img_src(wd)
-    return src
+    return get_first_non_google_img_src(wd)
 
 
-def persist_image(folder_path: str, file_name: str, url: str):
+def persist_image(folder_path: str, dish_name: str, src: str) -> Optional[str]:
+    """
+    Save image to folder_path and return filename (not full path).
+    Handles both:
+      - http(s) URLs
+      - data:image/...;base64,... URLs
+    """
     try:
-        image_content = requests.get(url, timeout=5).content
-    except Exception as e:
-        print(f"ERROR - Could not download {url} - {e}")
-        return
+        if src.startswith("data:image"):
+            # data:image/jpeg;base64,AAAA
+            _, b64data = src.split(",", 1)
+            image_bytes = base64.b64decode(b64data)
+        else:
+            image_bytes = requests.get(src, timeout=10).content
 
-    try:
-        image_file = io.BytesIO(image_content)
-        image = Image.open(image_file).convert("RGB")
+        img = Image.open(io.BytesIO(image_bytes)).convert("RGB")
 
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
+        os.makedirs(folder_path, exist_ok=True)
 
-        file_path = os.path.join(
-            folder_path, f"{file_name}_{hashlib.sha1(image_content).hexdigest()[:10]}.jpg"
-        )
+        safe = slugify(dish_name)
+        out_name = f"{safe}_{hashlib.sha1(image_bytes).hexdigest()[:10]}.jpg"
+        out_path = os.path.join(folder_path, out_name)
 
-        with open(file_path, "wb") as f:
-            image.save(f, "JPEG", quality=85)
-
-        print(f"SUCCESS - saved {url} - as {file_path}")
+        img.save(out_path, "JPEG", quality=85)
+        return out_name
 
     except Exception as e:
-        print(f"ERROR - Could not save {url} - {e}")
+        print(f"[image] ERROR saving image for '{dish_name}': {e}")
+        return None
 
 
-if __name__ == "__main__":
+def get_cached_image_filename(dish_name: str, folder_path: str = STATIC_IMG_DIR) -> Optional[str]:
+    """If already saved, return cached filename."""
+    os.makedirs(folder_path, exist_ok=True)
+    prefix = slugify(dish_name) + "_"
+    for fn in os.listdir(folder_path):
+        if fn.startswith(prefix) and fn.endswith(".jpg"):
+            return fn
+    return None
+
+
+def get_or_fetch_dish_image(dish_name: str) -> Optional[str]:
+    """
+    Main function used by Flask.
+    Returns a filename under static/dish_images/ or None.
+    Caches results (if already downloaded, reuses).
+    """
+    cached = get_cached_image_filename(dish_name, STATIC_IMG_DIR)
+    if cached:
+        return cached
+
     wd = get_webdriver()
-
     try:
-        queries = ["White Chocolate Thumbprint Cookies"]
-        save_path = "downloaded_images"
-
-        for query in queries:
-            print(f"\n=== QUERY: {query} ===")
-            image_url = fetch_one_image_url(query, wd=wd)
-
-            if image_url:
-                persist_image(save_path, query.replace(" ", "_"), image_url)
-            else:
-                print(f"⚠ No image found for query: {query}")
-
+        src = fetch_one_image_src(dish_name, wd)
+        if not src:
+            return None
+        return persist_image(STATIC_IMG_DIR, dish_name, src)
     finally:
         wd.quit()
+
+
+# Optional: local test
+if __name__ == "__main__":
+    test = "White Chocolate Thumbprint Cookies"
+    fn = get_or_fetch_dish_image(test)
+    print("Saved:", fn)

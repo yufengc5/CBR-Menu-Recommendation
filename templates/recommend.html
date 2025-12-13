@@ -8,14 +8,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
-      * {
-        box-sizing: border-box;
-      }
+      * { box-sizing: border-box; }
 
       body {
         margin: 0;
         font-family: "Poppins", sans-serif;
-        background: #EFEFEA;           /* same soft blue background */
+        background: #EFEFEA;
       }
 
       .wrapper {
@@ -40,29 +38,45 @@
 
       .cards-row {
         display: flex;
-        flex-wrap: wrap;
+        align-items: flex-start;  /* lets hovered card grow downward nicely */
         justify-content: center;
         gap: 22px;
+        flex-wrap: wrap;
+      }
+
+      .menu-card-link {
+        text-decoration: none;
+        color: inherit;
+        flex: 0 0 auto;
       }
 
       .menu-card {
         width: 300px;
+        min-height: 260px;
         background: #e05f3b;
         color: #f5f7f8;
         border-radius: 18px;
         padding: 18px 18px 20px;
         box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.25s ease,
+          box-shadow 0.25s ease,
+          width 0.25s ease,
+          min-height 0.25s ease;
         cursor: pointer;
+        position: relative;
       }
 
       .menu-card:hover {
-        transform: translateY(-6px) scale(1.02);
+        width: 370px;       /* horizontal growth */
+        min-height: 380px;  /* vertical growth */
+        transform: translateY(-8px) scale(1.03);
         box-shadow: 0 20px 36px rgba(0, 0, 0, 0.38);
+        z-index: 10;
       }
 
       .menu-card h2 {
-        margin: 0 0 10px;
+        margin: 0 0 12px;
         font-size: 18px;
         font-weight: 600;
       }
@@ -75,13 +89,41 @@
         font-size: 13px;
       }
 
-      .dish-item {
-        margin-bottom: 6px;
+      .dish-item { margin-bottom: 12px; }
+
+      .dish-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
       }
 
+      .dish-img {
+        width: 54px;
+        height: 54px;
+        border-radius: 14px;
+        object-fit: cover;
+        flex: 0 0 auto;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+        background: rgba(255,255,255,0.12);
+      }
+
+      .dish-text {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* ✅ not cut off: show up to 2 lines normally */
       .dish-name {
         display: block;
         font-weight: 500;
+        line-height: 1.25;
+        overflow: hidden;
+        max-height: 2.6em; /* ~2 lines */
+      }
+
+      /* ✅ on hover: show full name */
+      .menu-card:hover .dish-name {
+        max-height: none;
       }
 
       .dish-description {
@@ -93,10 +135,11 @@
         overflow: hidden;
         opacity: 0;
         transition: max-height 0.25s ease, opacity 0.25s ease;
+        margin-top: 4px;
       }
 
       .menu-card:hover .dish-description {
-        max-height: 70px;    /* enough to show 2–3 lines per dish */
+        max-height: 140px;
         opacity: 1;
       }
 
@@ -108,55 +151,55 @@
         text-decoration: none;
       }
 
-      .back-link span {
-        text-decoration: underline;
-      }
-      .menu-card-link {
-        text-decoration: none;
-        color: inherit;
-        flex: 1 1 0;
-        min-width: 230px;
-    }
+      .back-link span { text-decoration: underline; }
 
       @media (max-width: 900px) {
-        .cards-row {
-          flex-direction: column;
-          align-items: center;
-        }
+        .cards-row { flex-direction: column; align-items: center; }
+        .menu-card, .menu-card:hover { width: 320px; }
       }
     </style>
   </head>
 
   <body>
-  <div class="wrapper">
-    <h1>Recommended Menus</h1>
-    <p class="subtitle">Hover each card to reveal the description of every dish.</p>
+    <div class="wrapper">
+      <h1>Recommended Menus</h1>
+      <p class="subtitle">Hover each card to reveal the description of every dish.</p>
 
-    <div class="cards-row">
-      {% for menu in menus %}
-        <a href="{{ url_for('feedback', menu_index=loop.index0) }}" class="menu-card-link">
-          <div class="menu-card">
-            <h2>{{ menu.title }}</h2>
-            <ul class="dish-list">
-              {% for dish in menu.dishes %}
-                <li class="dish-item">
-                  <span class="dish-name">{{ dish }}</span>
-                  <span class="dish-description">
-                    Placeholder description for {{ dish }}. In the real system,
-                    this will explain the main ingredients, style and technique.
-                  </span>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
-        </a>
-      {% endfor %}
+      <div class="cards-row">
+        {% for menu in menus %}
+          <a href="{{ url_for('feedback', menu_index=loop.index0) }}" class="menu-card-link">
+            <div class="menu-card">
+              <h2>{{ menu.title }}</h2>
+
+              <ul class="dish-list">
+                {% for dish in menu.dishes %}
+                  {% set img = menu.dish_images[dish] %}
+                  <li class="dish-item">
+                    <div class="dish-row">
+                      <img class="dish-img"
+                           src="{% if img %}{{ url_for('static', filename='dish_images/' ~ img) }}{% else %}{{ url_for('static', filename='dish_images/placeholder.jpg') }}{% endif %}"
+                           alt="{{ dish }}">
+
+                      <div class="dish-text">
+                        <span class="dish-name">{{ dish }}</span>
+                        <span class="dish-description">
+                          Placeholder description for {{ dish }}. In the real system,
+                          this will explain the main ingredients, style and technique.
+                        </span>
+                      </div>
+                    </div>
+                  </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+      <a href="{{ url_for('input_form') }}" class="back-link">
+        ← <span>Back to event form</span>
+      </a>
     </div>
-
-    <a href="{{ url_for('input_form') }}" class="back-link">
-      ← <span>Back to event form</span>
-    </a>
-  </div>
-</body>
-
+  </body>
 </html>

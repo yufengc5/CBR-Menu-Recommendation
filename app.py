@@ -1,6 +1,15 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
 import random
 
+# --- your scraper functions ---
+# Make sure image_scraper.py contains:
+# - get_webdriver()
+# - fetch_one_image_url(query, wd)
+# - persist_image(folder_path, file_name, url_or_data_src)   (should handle base64 too, see my earlier version)
+#
+# If your persist_image currently only supports http(s), update it to handle data:image;base64.
+from image_scraper import get_webdriver, fetch_one_image_src, persist_image
+
 # ----- placeholder dishes for menus -----
 DISHES = [
     "Grilled Vegetable Skewers with Herb Quinoa",
@@ -27,19 +36,17 @@ def generate_three_menus():
             dishes = random.sample(remaining, 3)
             used.update(dishes)
 
-        menus.append(
-            {
-                "title": f"Menu {i+1}",
-                "dishes": dishes,
-            }
-        )
+        menus.append({"title": f"Menu {i+1}", "dishes": dishes})
     return menus
 
+
+# ---- NEW: loading route (so user sees “please wait” immediately) ----
 app = Flask(__name__)
 app.secret_key = "yufeng_raul_SBC"
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
+    # Save user data immediately
     data = {
         "event_type": request.form.get("event_type"),
         "num_guests": request.form.get("num_guests"),
@@ -52,17 +59,64 @@ def recommend():
         "preferred_techniques": request.form.getlist("preferred_techniques"),
         "preferred_flavours": request.form.getlist("preferred_flavours"),
     }
-
-    print("=== USER INPUT RECEIVED ===")
-    print(data)
-
-    menus = generate_three_menus()
-
-    # NEW: keep data and menus so the feedback screen can use them
     session["user_data"] = data
+
+    # Generate menus and store them
+    menus = generate_three_menus()
+    session["menus_raw"] = menus  # store before images
+
+    # Redirect to a loading page that will trigger actual work
+    return redirect(url_for("recommend_loading"))
+
+
+@app.route("/recommend/loading", methods=["GET"])
+def recommend_loading():
+    """
+    Shows a loading page that auto-requests /recommend/result.
+    This way the user sees feedback immediately.
+    """
+    return render_template("loading.html")
+
+
+@app.route("/recommend/result", methods=["GET"])
+def recommend_result():
+    """
+    Does the scraping work (still synchronous), but user already saw loading UI.
+    """
+    menus = session.get("menus_raw")
+    if not menus:
+        return redirect(url_for("input_form"))
+
+    # Collect unique dishes shown
+    dish_set = set()
+    for m in menus:
+        dish_set.update(m["dishes"])
+
+    # Use ONE webdriver for all dish queries (much faster)
+    wd = get_webdriver()
+    try:
+        dish_to_img = {}
+        for dish in dish_set:
+            src = fetch_one_image_src(dish, wd=wd)  # may return data:image... or http(s)
+            if src:
+                # Save into Flask static folder so it can be served
+                saved_name = persist_image("static/dish_images", dish, src)
+                # persist_image should return filename (recommended). If yours doesn't, set saved_name=None.
+                dish_to_img[dish] = saved_name
+            else:
+                dish_to_img[dish] = None
+    finally:
+        wd.quit()
+
+    # Attach per-menu mapping
+    for m in menus:
+        m["dish_images"] = {dish: dish_to_img.get(dish) for dish in m["dishes"]}
+
+    # Store final menus (with images) for feedback route
     session["menus"] = menus
 
-    return render_template("recommend.html", menus=menus, user_data=data)
+    user_data = session.get("user_data", {})
+    return render_template("recommend.html", menus=menus, user_data=user_data)
 
 
 @app.route("/feedback/<int:menu_index>", methods=["GET", "POST"])
@@ -89,13 +143,9 @@ def feedback(menu_index):
         print("=== FEEDBACK RECEIVED ===")
         print(feedback_data)
 
-        # after saving feedback, redirect back home (or to a "thank you" page)
-        return redirect(url_for("input_form"))  # change to your index route name if different
+        return redirect(url_for("input_form"))
 
-    # GET: show the feedback form for this menu
-    return render_template("feedback.html",
-                           menu=selected_menu,
-                           menu_index=menu_index)
+    return render_template("feedback.html", menu=selected_menu, menu_index=menu_index)
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -103,7 +153,6 @@ def input_form():
     saved = False
 
     if request.method == "POST":
-        # Collect all form fields (for future CBR use)
         data = {
             "event_type": request.form.get("event_type"),
             "num_guests": request.form.get("num_guests"),
@@ -121,6 +170,7 @@ def input_form():
         saved = True
 
     return render_template("index.html", saved=saved)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
