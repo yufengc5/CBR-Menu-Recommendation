@@ -58,6 +58,17 @@ def load_cases_from_json(json_file_path: str, dishes: Dict[str, Dish]) -> Dict[i
     
     return cases_dict
 
+def load_ingredient_info(json_ingredient_category: str, json_ingredient_replacement: str):
+    """
+    Load cases from a JSON file and return a dictionary with case IDs as keys.
+    """
+    with open(json_ingredient_category, 'r', encoding='utf-8', errors='ignore') as file:
+        ingredient_category = json.load(file)
+    
+    with open(json_ingredient_replacement, 'r', encoding='utf-8', errors='ignore') as file:
+        ingredient_replacement = json.load(file)
+    
+    return ingredient_category, ingredient_replacement
 
 def save_cases_to_json(cases: Dict[int, Case], json_file_path: str, verbose: bool = False):
     """

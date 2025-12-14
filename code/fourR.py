@@ -2,9 +2,16 @@ import math
 from objectclasses import Case, Query, Dish, Menu, jaccard
 import heapq
 import random
+import re
 #from transformers import DistilBertTokenizer, DistilBertModel
 #import torch
 from sklearn.metrics.pairwise import cosine_similarity
+
+def normalize(text: str) -> str:
+    return text.lower()
+
+def tokens(text: str) -> set[str]:
+    return set(re.findall(r"[a-z]+", text.lower()))
 
 class Retriever:
     def __init__(self, case_base):
@@ -40,45 +47,110 @@ class Retriever:
 
 
 class Reuser:
-    def __init__(self, query, dishlist):
+    def __init__(self, query, dishlist, ingredient_category, ingredient_replacement):
         self.query = query
         self.dishlist = dishlist
+        self.ingredient_category = ingredient_category
+        self.ingredient_replacement = ingredient_replacement
 
-    def _apply_constraints(self, dishlist: list[Dish]) -> list[Dish]:
-        culinary_traiditions = self.query.culinary_tradition
-        dietary_group = self.query.dietary_group
-        forbidden_ingredients = self.query.forbidden_ingredients
-        prep_time = self.query.prep_time
+    def _find_replacement(self, ingredient: str, replacements: dict[str, str]) -> str | None:
+        ing_tokens = tokens(ingredient)
 
-        return dishlist
+        # Sort keys by number of words (most specific first)
+        for key in sorted(replacements, key=lambda k: -len(k.split())):
+            key_tokens = tokens(key)
+
+            if key_tokens.issubset(ing_tokens):
+                return replacements[key]
+
+        return None
+
+
+    def _replace_ingredients(self, dish: Dish) -> Dish:
+        """
+        Tries to replace ingredients of a dish to follow dietary constraints.
+        Falls back to _replace_dish if replacement is impossible.
+        """
+
+        print("REPLACING INGREDIENTS!")
+        restrictions = self.query.dietary_group
+        if not restrictions:
+            return dish  # trivial case
+
+        restriction = restrictions[0]
+        replacements = self.ingredient_replacement.get(restriction, {})
+
+        new_ingredients = []
+
+        for ing in dish.ingredients:
+            replacement = self._find_replacement(ing, replacements)
+
+            if replacement:
+                new_ingredients.append(replacement)
+                print(f"REPLACED {ing} by {replacement}")
+
+            elif (
+                ing in self.ingredient_category
+                and restriction in self.ingredient_category[ing]
+            ):
+                print("REPLACING DISH!")
+                return self._replace_dish(dish)
+
+            else:
+                new_ingredients.append(ing)
+
+        return dish.copy_with(ingredients=new_ingredients)
     
+    def _replace_dish(self, dish: Dish) -> Dish:
+        '''
+        Replaces all dishes that don't follow dietary constraints by the most similar ones that do.
+        '''
+        restrictions = self.query.dietary_group
+        
+        if restrictions is None: return dish  # Check trivial case
+
+        dishes, weights = self._get_weighted_knn(dish, 4, constraints=restrictions)
+        
+        if dishes == []: return None
+        
+        elected = random.choices(dishes, weights=weights, k=1)[0]
+        return self.dishlist[elected]
+
     def _mutate(self, dish : Dish):
-        dishes, weights = self._get_weighted_knn()
-        return random.choice(dishes, weights=weights)
+        dishes, weights = self._get_weighted_knn(dish, 4)
+        elected = random.choices(dishes, weights=weights)[0]
+        return self.dishlist[elected]
     
-    def _get_weighted_knn(self, dish: Dish, n: int) -> tuple[list[str], list[float]]:
+    def _get_weighted_knn(self, dish: Dish, n: int, constraints: list[str] = None) -> tuple[list[str], list[float]]:
+        '''
+        Returns the names of the top n similar dishes and their normalized weights
+        '''
         heap = []
         total_similarity = 0
-        
+
         # Calculate similarities and push them into the heap
         for d in self.dishlist.values():
             if d == dish:
                 continue
+            if constraints:
+                if set(constraints).issubset(set(d.dietary_tags)):  # Check if it follows dietary restriction
+                    continue
             sim = dish.similarity(d)
             heapq.heappush(heap, (-sim, d.name))
             total_similarity += sim
         
         closest_dish_names = []
         normalized_similarities = []
-        for _ in range(n):
+        
+        for _ in range(min(n, len(heap))):
             sim, d = heapq.heappop(heap)
             normalized_sim = -sim / total_similarity  # Normalize similarity
             closest_dish_names.append(d)
             normalized_similarities.append(normalized_sim)
         
         return closest_dish_names, normalized_similarities
-        
-    
+
+
     def reuse(self, retrieved_cases : list[tuple[Case, float]], rejects=None) -> Menu:
         '''
         Takes in a list of retrieved cases and their weights, as well as previously rejected cases and the reason why,
@@ -137,6 +209,14 @@ class Reuser:
                 weights = [w / total for w in weights]
 
             selected = random.choices(dishes, weights=weights, k=1)[0]
+            
+            # Mutate with random 10 % possibility
+            if random.random() > 0.9:
+                selected = self._mutate(selected)
+
+            # Now we adapt it to the dietary restrictions if applicable
+            selected = self._replace_ingredients(selected) or selected
+
             setattr(new_case, course, selected)
 
         return new_case

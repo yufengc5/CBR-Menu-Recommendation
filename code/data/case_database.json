@@ -10,7 +10,7 @@
             "sensory_goals": ["savory", "comforting"],
             "description": "Guests want a warm and hearty meal with simple ingredients that are easily accessible.",
             "culinary_tradition": ["american", "mediterranean"],
-            "dietary_group": "vegetarian",
+            "dietary_group": ["vegetarian"],
             "forbidden_ingredients": ["meat", "dairy"],
             "prep_time": 90,
             "healthiness_level": "moderate"
@@ -32,7 +32,7 @@
             "sensory_goals": ["savory", "spicy"],
             "description": "The family prefers a relaxed, outdoor event with bold flavors and grilling.",
             "culinary_tradition": ["american", "korean"],
-            "dietary_group": "gluten_free",
+            "dietary_group": ["gluten_free"],
             "forbidden_ingredients": ["gluten", "soy"],
             "prep_time": 60,
             "healthiness_level": "moderate"
@@ -54,7 +54,7 @@
             "sensory_goals": ["sweet", "sour"],
             "description": "Guests are looking for indulgent desserts with a festive flair and savory appetizers.",
             "culinary_tradition": ["american", "european"],
-            "dietary_group": "vegan",
+            "dietary_group": ["vegan"],
             "forbidden_ingredients": ["dairy", "eggs"],
             "prep_time": 120,
             "healthiness_level": "unhealthy"
@@ -76,7 +76,7 @@
             "sensory_goals": ["smoky", "savory"],
             "description": "The guests are looking for a flavorful, filling meal that doesn't require a lot of effort.",
             "culinary_tradition": ["american", "mediterranean"],
-            "dietary_group": "kosher",
+            "dietary_group": ["kosher"],
             "forbidden_ingredients": ["pork", "shellfish"],
             "prep_time": 45,
             "healthiness_level": "healthy"
@@ -98,7 +98,7 @@
             "sensory_goals": ["savory", "spicy"],
             "description": "Guests want bold flavors with grilled meats, with a variety of side dishes and a refreshing dessert.",
             "culinary_tradition": ["american", "mexican"],
-            "dietary_group": "nut_free",
+            "dietary_group": ["nut_free"],
             "forbidden_ingredients": ["nuts", "dairy"],
             "prep_time": 90,
             "healthiness_level": "unhealthy"

@@ -1,4 +1,4 @@
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, replace
 import math
 from typing import List, Dict, Optional
 
@@ -103,6 +103,9 @@ class Dish:
         normalized_score = raw_score / max_score if max_score != 0 else 0.0
         
         return normalized_score
+    
+    def copy_with(self, **changes):
+        return replace(self, **changes)
 
 @dataclass
 class Menu:
