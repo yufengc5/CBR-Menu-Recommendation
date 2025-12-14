@@ -10,6 +10,11 @@ import random
 # If your persist_image currently only supports http(s), update it to handle data:image;base64.
 from image_scraper import get_webdriver, fetch_one_image_src, persist_image
 
+from objectclasses import Dish, Ingredient, Query
+from typing import List, Dict
+import dataloader
+from fourR import Retriever, Reuser, Reviser
+
 # ----- placeholder dishes for menus -----
 DISHES = [
     "Grilled Vegetable Skewers with Herb Quinoa",
@@ -62,7 +67,7 @@ def recommend():
     session["user_data"] = data
 
     # Generate menus and store them
-    menus = generate_three_menus(data)
+    menus = generate_three_menus()
     session["menus_raw"] = menus  # store before images
 
     # Redirect to a loading page that will trigger actual work
@@ -170,7 +175,6 @@ def input_form():
         saved = True
 
     return render_template("index.html", saved=saved)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

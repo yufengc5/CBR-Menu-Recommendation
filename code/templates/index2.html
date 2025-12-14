@@ -1,0 +1,437 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>The Grand Chef</h1>
+<p class="subtitle">Get AI-powered menu recommendations for all types of events and clients.</p>
+
+{% if saved %}
+  <div class="success-message">
+    You have successfully saved your information!
+  </div>
+{% endif %}
+
+<form method="post" action="{{ url_for('recommend') }}">
+
+  <!-- Event info -->
+  <div class="section-title">Event Information</div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="event_type">Event type</label>
+      <select id="event_type" name="event_type" required>
+        <option value="">Choose...</option>
+        <option value="casual">Casual dinner</option>
+        <option value="formal">Formal dinner</option>
+        <option value="celebration">Celebration</option>
+        <option value="wedding">Wedding</option>
+        <option value="business_lunch">Business lunch</option>
+        <option value="birthday">Birthday</option>
+        <option value="formal_gala">Formal gala</option>
+        <option value="weeknight">Weeknight meal</option>
+        <option value="weekend">Weekend gathering</option>
+        <option value="quick">Quick meal</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="event_date">Event date</label>
+      <input type="date" id="event_date" name="event_date" required>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="num_guests">Number of guests</label>
+      <input type="number" id="num_guests" name="num_guests" min="1" max="100" value="4" required>
+    </div>
+
+    <div class="form-group">
+      <label for="event_notes">Special notes</label>
+      <textarea id="event_notes" name="event_notes" rows="2" placeholder="Any special requests or notes about your event..."></textarea>
+    </div>
+  </div>
+
+  <!-- Season is now auto-detected from date, but we can keep it as manual override -->
+  <div class="form-group">
+    <label for="season">Season (optional - auto-detected from date)</label>
+    <select id="season" name="season">
+      <option value="">Auto-detect from date</option>
+      <option value="spring">Spring</option>
+      <option value="summer">Summer</option>
+      <option value="autumn">Autumn</option>
+      <option value="winter">Winter</option>
+    </select>
+  </div>
+
+  <!-- Dietary restrictions -->
+  <div class="section-title">Dietary Restrictions</div>
+  
+  <div class="form-group">
+    <div class="checkbox-group">
+      <label><input type="checkbox" name="dietary" value="vegetarian"> Vegetarian</label>
+      <label><input type="checkbox" name="dietary" value="vegan"> Vegan</label>
+      <label><input type="checkbox" name="dietary" value="halal"> Halal</label>
+      <label><input type="checkbox" name="dietary" value="gluten_free"> Gluten-free</label>
+      <label><input type="checkbox" name="dietary" value="lactose_free"> Lactose-free</label>
+      <label><input type="checkbox" name="dietary" value="dairy_free"> Dairy-free</label>
+      <label><input type="checkbox" name="dietary" value="kosher"> Kosher</label>
+      <label><input type="checkbox" name="dietary" value="pescatarian"> Pescatarian</label>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <label for="allergies">Allergies (comma-separated)</label>
+      <input type="text" id="allergies" name="allergies" placeholder="e.g. nuts, shellfish, soy">
+    </div>
+
+    <div class="form-group">
+      <label for="dislikes">Ingredients / flavours you dislike</label>
+      <input type="text" id="dislikes" name="dislikes" placeholder="e.g. cilantro, very spicy, mushrooms">
+    </div>
+  </div>
+
+  <!-- Preferences -->
+  <div class="section-title">Culinary Preferences</div>
+
+  <div class="form-group">
+    <label for="preferred_cuisines">Preferred cuisines</label>
+    <div class="checkbox-group columns-3">
+      <label><input type="checkbox" name="preferred_cuisines" value="italian"> Italian</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="french"> French</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="asian"> Asian</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="mediterranean"> Mediterranean</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="japanese"> Japanese</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="mexican"> Mexican</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="indian"> Indian</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="middle_eastern"> Middle Eastern</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="thai"> Thai</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="chinese"> Chinese</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="spanish"> Spanish</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="greek"> Greek</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="american"> American</label>
+      <label><input type="checkbox" name="preferred_cuisines" value="fusion"> Fusion</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="preferred_techniques">Preferred cooking techniques</label>
+    <div class="checkbox-group columns-3">
+      <label><input type="checkbox" name="preferred_techniques" value="grill"> Grill</label>
+      <label><input type="checkbox" name="preferred_techniques" value="roast"> Roast</label>
+      <label><input type="checkbox" name="preferred_techniques" value="steam"> Steam</label>
+      <label><input type="checkbox" name="preferred_techniques" value="raw"> Raw / cold dishes</label>
+      <label><input type="checkbox" name="preferred_techniques" value="sous_vide"> Sous-vide</label>
+      <label><input type="checkbox" name="preferred_techniques" value="stir_fry"> Stir-fry</label>
+      <label><input type="checkbox" name="preferred_techniques" value="bake"> Bake</label>
+      <label><input type="checkbox" name="preferred_techniques" value="braise"> Braise</label>
+      <label><input type="checkbox" name="preferred_techniques" value="saute"> Sauté</label>
+      <label><input type="checkbox" name="preferred_techniques" value="fry"> Fry</label>
+      <label><input type="checkbox" name="preferred_techniques" value="poach"> Poach</label>
+      <label><input type="checkbox" name="preferred_techniques" value="smoke"> Smoke</label>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="preferred_flavours">Preferred flavour profile</label>
+    <div class="checkbox-group columns-3">
+      <label><input type="checkbox" name="preferred_flavours" value="fresh"> Fresh / light</label>
+      <label><input type="checkbox" name="preferred_flavours" value="umami"> Umami / savoury</label>
+      <label><input type="checkbox" name="preferred_flavours" value="smoky"> Smoky</label>
+      <label><input type="checkbox" name="preferred_flavours" value="spicy"> Spicy</label>
+      <label><input type="checkbox" name="preferred_flavours" value="sweet"> Sweet</label>
+      <label><input type="checkbox" name="preferred_flavours" value="sour"> Sour / acidic</label>
+      <label><input type="checkbox" name="preferred_flavours" value="bitter"> Bitter</label>
+      <label><input type="checkbox" name="preferred_flavours" value="salty"> Salty</label>
+      <label><input type="checkbox" name="preferred_flavours" value="herbal"> Herbal</label>
+      <label><input type="checkbox" name="preferred_flavours" value="citrus"> Citrus</label>
+      <label><input type="checkbox" name="preferred_flavours" value="creamy"> Creamy</label>
+      <label><input type="checkbox" name="preferred_flavours" value="rich"> Rich / hearty</label>
+    </div>
+  </div>
+
+  <!-- Additional CBR-specific fields -->
+  <div class="section-title">Additional Preferences (Optional)</div>
+  
+  <div class="form-row">
+    <div class="form-group">
+      <label for="presentation_style">Presentation style</label>
+      <select id="presentation_style" name="presentation_style">
+        <option value="">Any style</option>
+        <option value="casual">Casual / rustic</option>
+        <option value="formal">Formal / elegant</option>
+        <option value="modern">Modern / minimalist</option>
+        <option value="family_style">Family style</option>
+        <option value="plated">Plated service</option>
+        <option value="buffet">Buffet</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="healthiness_level">Healthiness preference</label>
+      <select id="healthiness_level" name="healthiness_level">
+        <option value="">No preference</option>
+        <option value="very_healthy">Very healthy</option>
+        <option value="healthy">Healthy</option>
+        <option value="moderate">Moderate</option>
+        <option value="indulgent">Indulgent / treat</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="prep_time">Preferred preparation time</label>
+    <select id="prep_time" name="prep_time">
+      <option value="">No preference</option>
+      <option value="quick">Quick (under 30 min)</option>
+      <option value="medium">Medium (30-60 min)</option>
+      <option value="long">Long (1-2 hours)</option>
+      <option value="extended">Extended (2+ hours)</option>
+    </select>
+  </div>
+
+  <div class="ai-info">
+    <div class="ai-icon">🤖</div>
+    <p><strong>AI-Powered Recommendations:</strong> Our system analyzes thousands of recipes and past events to create the perfect menu for your occasion.</p>
+  </div>
+
+  <button type="submit" id="submit-btn" class="submit-button">
+    <span class="button-text">Generate Personalized Menus</span>
+    <span class="button-loading" style="display: none;">
+      <span class="spinner"></span> Analyzing your preferences...
+    </span>
+  </button>
+
+  <p class="form-footer">
+    By submitting, you agree to our AI analyzing your preferences to create personalized menu recommendations.
+  </p>
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Set minimum date to today
+  const today = new Date().toISOString().split('T')[0];
+  const dateInput = document.getElementById('event_date');
+  if (dateInput) {
+    dateInput.min = today;
+    
+    // Set default to 2 weeks from today
+    const twoWeeksFromNow = new Date();
+    twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
+    const defaultDate = twoWeeksFromNow.toISOString().split('T')[0];
+    dateInput.value = defaultDate;
+  }
+
+  // Form submission handler
+  const form = document.querySelector('form');
+  const submitBtn = document.getElementById('submit-btn');
+  const buttonText = submitBtn.querySelector('.button-text');
+  const buttonLoading = submitBtn.querySelector('.button-loading');
+
+  form.addEventListener('submit', function(e) {
+    // Basic validation
+    const eventType = document.getElementById('event_type').value;
+    const numGuests = document.getElementById('num_guests').value;
+    const eventDate = document.getElementById('event_date').value;
+
+    if (!eventType || !numGuests || !eventDate) {
+      alert('Please fill in all required fields: Event type, Number of guests, and Event date.');
+      e.preventDefault();
+      return;
+    }
+
+    // Show loading state
+    buttonText.style.display = 'none';
+    buttonLoading.style.display = 'inline';
+    submitBtn.disabled = true;
+  });
+
+  // Auto-update season based on date
+  const seasonSelect = document.getElementById('season');
+  if (seasonSelect && dateInput) {
+    dateInput.addEventListener('change', function() {
+      if (seasonSelect.value === '') {
+        const date = new Date(this.value);
+        const month = date.getMonth() + 1;
+        
+        let season = '';
+        if (month >= 3 && month <= 5) season = 'spring';
+        else if (month >= 6 && month <= 8) season = 'summer';
+        else if (month >= 9 && month <= 11) season = 'autumn';
+        else season = 'winter';
+        
+        // Find and select the matching option
+        for (let option of seasonSelect.options) {
+          if (option.value === season) {
+            option.selected = true;
+            break;
+          }
+        }
+      }
+    });
+  }
+
+  // Character counter for textareas
+  const textareas = document.querySelectorAll('textarea');
+  textareas.forEach(textarea => {
+    const counter = document.createElement('div');
+    counter.className = 'char-counter';
+    counter.textContent = '0/500';
+    textarea.parentNode.insertBefore(counter, textarea.nextSibling);
+
+    textarea.addEventListener('input', function() {
+      const length = this.value.length;
+      counter.textContent = `${length}/500`;
+      
+      if (length > 500) {
+        counter.style.color = '#e74c3c';
+      } else if (length > 400) {
+        counter.style.color = '#f39c12';
+      } else {
+        counter.style.color = '#7f8c8d';
+      }
+    });
+  });
+});
+</script>
+
+<style>
+/* Additional styles for enhanced form */
+.form-row {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  flex: 1;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.checkbox-group.columns-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.checkbox-group label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 16px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.ai-info {
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.ai-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.ai-info p {
+  margin: 0;
+  color: #555;
+}
+
+.form-footer {
+  text-align: center;
+  margin-top: 15px;
+  color: #7f8c8d;
+  font-size: 14px;
+}
+
+.char-counter {
+  text-align: right;
+  font-size: 12px;
+  color: #7f8c8d;
+  margin-top: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .checkbox-group.columns-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .checkbox-group.columns-3 {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+{% endblock %}
