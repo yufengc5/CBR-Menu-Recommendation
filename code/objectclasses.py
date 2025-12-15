@@ -138,7 +138,7 @@ class Query:
 
     # Restrictions (constraints to adapt retrievals)
     culinary_tradition: List[str]
-    dietary_group: str
+    dietary_group: List[str]
     forbidden_ingredients: List[str]
     prep_time: str
     healthiness_level: str
