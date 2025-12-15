@@ -53,17 +53,19 @@ app.secret_key = "yufeng_raul_SBC"
 def recommend():
     # Save user data immediately
     data = {
-        "event_type": request.form.get("event_type"),
-        "num_guests": request.form.get("num_guests"),
-        "event_date": request.form.get("event_date"),
-        "event_notes": request.form.get("event_notes"),
-        "dietary": request.form.getlist("dietary"),
-        "allergies": request.form.get("allergies"),
-        "dislikes": request.form.get("dislikes"),
-        "preferred_cuisines": request.form.getlist("preferred_cuisines"),
-        "preferred_techniques": request.form.getlist("preferred_techniques"),
-        "preferred_flavours": request.form.getlist("preferred_flavours"),
-    }
+            "event_type": request.form.get("event_type"),
+            "season": request.form.get("season"),
+            "number_of_guests": request.form.get("number_of_guests"),
+            "description": request.form.get("description"),
+            "dietary_groups": request.form.get("dietary"),
+            "preferred_techniques": request.form.getlist("preferred_techniques"),
+            "presentation_style": request.form.get("presentation_style"),
+            "sensory_goals": request.form.getlist("sensory_goals"),
+            "culinary_traditions": request.form.getlist("culinary_traditions"),            
+            "forbidden_ingredients": request.form.getlist("forbidden_ingredients"),
+            "prep_time": request.form.get("prep_time"),
+            "healthiness_level": request.form.get("healthiness_level")
+            }
     session["user_data"] = data
 
     # Generate menus and store them
@@ -76,11 +78,8 @@ def recommend():
 
 @app.route("/recommend/loading", methods=["GET"])
 def recommend_loading():
-    """
-    Shows a loading page that auto-requests /recommend/result.
-    This way the user sees feedback immediately.
-    """
-    return render_template("loading.html")
+    debug_data = session.get("user_data") or session.get("debug_user_data")
+    return render_template("loading.html", debug_data=debug_data)
 
 
 @app.route("/recommend/result", methods=["GET"])
@@ -160,18 +159,20 @@ def input_form():
     if request.method == "POST":
         data = {
             "event_type": request.form.get("event_type"),
-            "num_guests": request.form.get("num_guests"),
-            "event_date": request.form.get("event_date"),
-            "event_notes": request.form.get("event_notes"),
-            "dietary": request.form.getlist("dietary"),
-            "allergies": request.form.get("allergies"),
-            "dislikes": request.form.get("dislikes"),
-            "preferred_cuisines": request.form.getlist("preferred_cuisines"),
+            "season": request.form.get("season"),
+            "number_of_guests": request.form.get("number_of_guests"),
+            "description": request.form.get("description"),
+            "dietary_groups": request.form.get("dietary"),
             "preferred_techniques": request.form.getlist("preferred_techniques"),
-            "preferred_flavours": request.form.getlist("preferred_flavours"),
-        }
-        print("=== USER INPUT RECEIVED ===")
-        print(data)
+            "presentation_style": request.form.get("presentation_style"),
+            "sensory_goals": request.form.getlist("sensory_goals"),
+            "culinary_traditions": request.form.getlist("culinary_traditions"),            
+            "forbidden_ingredients": request.form.getlist("forbidden_ingredients"),
+            "prep_time": request.form.get("prep_time"),
+            "healthiness_level": request.form.get("healthiness_level")
+            }
+
+        session["debug_user_data"] = data   # ← one line
         saved = True
 
     return render_template("index.html", saved=saved)

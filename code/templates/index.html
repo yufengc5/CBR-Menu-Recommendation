@@ -23,6 +23,7 @@
     <option value="business_lunch">Business lunch</option>
     <option value="birthday">Birthday</option>
     <option value="formal_gala">Formal gala</option>
+    <option value="party">Party</option>
   </select>
 
   <label for="season">Season</label>
@@ -34,8 +35,11 @@
     <option value="winter">Winter</option>
   </select>
 
-  <label for="num_guests">Number of guests</label>
-  <input type="number" id="num_guests" name="num_guests" min="1" required>
+  <label for="number_of_guests">Number of guests</label>
+  <input type="number" id="number_of_guests" name="number_of_guests" min="1" required>
+
+  <label for="description">Description of the event</label>
+  <input type="text" id="description" name="description" placeholder="e.g. A dinner with my coworkers." required>
 
   <!-- Dietary restrictions -->
   <div class="section-title">Dietary Restrictions</div>
@@ -45,49 +49,110 @@
     <label><input type="checkbox" name="dietary" value="halal"> Halal</label>
     <label><input type="checkbox" name="dietary" value="gluten_free"> Gluten-free</label>
     <label><input type="checkbox" name="dietary" value="lactose_free"> Lactose-free</label>
+    <label><input type="checkbox" name="dietary" value="kasher"> Kosher</label>
   </div>
 
-  <label for="allergies">Allergies (comma-separated)</label>
-  <input type="text" id="allergies" name="allergies" placeholder="e.g. nuts, shellfish">
-
-  <label for="dislikes">Ingredients / flavours you dislike</label>
-  <input type="text" id="dislikes" name="dislikes" placeholder="e.g. cilantro, very spicy">
-
-  <!-- Preferences -->
   <div class="section-title">Preferences</div>
 
-  <label for="preferred_cuisines">Preferred cuisines</label>
-  <select id="preferred_cuisines" name="preferred_cuisines" multiple size="4">
-    <option value="mediterranean">Mediterranean</option>
-    <option value="japanese">Japanese</option>
-    <option value="mexican">Mexican</option>
-    <option value="fusion">Fusion</option>
-    <option value="french">French</option>
-    <option value="indian">Indian</option>
-    <option value="middle_eastern">Middle Eastern</option>
-  </select>
-  <div class="helper-text">Hold Ctrl (Cmd on Mac) to select multiple.</div>
 
+  <div class="helper-text">Hold Ctrl (Cmd on Mac) to select multiple.</div>
   <label for="preferred_techniques">Preferred techniques</label>
   <select id="preferred_techniques" name="preferred_techniques" multiple size="4">
+    <option value="air_fry">Air fry</option>
+    <option value="bake">Bake</option>
+    <option value="blend">Blend</option>
+    <option value="boil">Boil</option>
+    <option value="broil">Broil</option>
+    <option value="coat">Coat</option>
+    <option value="fry">Fry</option>
     <option value="grill">Grill</option>
+    <option value="knead">Knead</option>
+    <option value="marinate">Marinate</option>
+    <option value="mix">Mix</option>
+    <option value="poach">Poach</option>
+    <option value="pressure_cook">Pressure cook</option>
     <option value="roast">Roast</option>
+    <option value="saute">Saute</option>
+    <option value="sear">Sear</option>
+    <option value="simmer">Simmer</option>
+    <option value="slow_cook">Slow cook</option>
     <option value="steam">Steam</option>
-    <option value="raw">Raw / cold dishes</option>
-    <option value="sous_vide">Sous-vide</option>
-    <option value="stir_fry">Stir-fry</option>
+    <option value="toss">Toss</option>
+    <option value="whip">Whip</option>
   </select>
 
-  <label for="preferred_flavours">Preferred flavour profile</label>
-  <select id="preferred_flavours" name="preferred_flavours" multiple size="4">
-    <option value="fresh">Fresh / light</option>
-    <option value="umami">Umami / savoury</option>
-    <option value="smoky">Smoky</option>
-    <option value="spicy">Spicy</option>
+  <label for="presentation_style">Presentation Style</label>
+  <select id="presentation_style" name="presentation_style" required>
+    <option value="">Choose...</option>
+    <option value="buffet">Buffet</option>
+    <option value="plated">Plated</option>
+    <option value="casual">Casual</option>
+  </select>
+
+  <label for="sensory_goals">Sensory Goals</label>
+  <select id="sensory_goals" name="sensory_goals" multiple size="4">
     <option value="sweet">Sweet</option>
-    <option value="sour">Sour / acidic</option>
+    <option value="spicy">Spicy</option>
+    <option value="sour">Sour</option>
+    <option value="savory">Savory</option>
+    <option value="salty">Salty</option>
+    <option value="comforting">Comforting</option>
+    <option value="bitter">Bitter</option>
+    <option value="umami">Umami</option>
+    <option value="smoky">Smoky</option>
+    <option value="earthy">Earthy</option>
+    <option value="crispy">Crispy</option>
+    <option value="creamy">Creamy</option>
+    <option value="exotic">Exotic</option>
+    <option value="refreshing">Refreshing</option>
   </select>
 
+  <!-- Preferences -->
+  <label for="culinary_traditions">Culinary Traditions</label>
+  <select id="culinary_traditions" name="culinary_traditions" multiple size="4">
+    <option value="african">African</option>
+    <option value="american">American</option>
+    <option value="american_region">American Region</option>
+    <option value="asian">Asian</option>
+    <option value="british">British</option>
+    <option value="caribbean">Caribbean</option>
+    <option value="chinese">Chinese</option>
+    <option value="european">European</option>
+    <option value="filipino">Filipino</option>
+    <option value="french">French</option>
+    <option value="german">German</option>
+    <option value="greek">Greek</option>
+    <option value="indian">Indian</option>
+    <option value="italian">Italian</option>
+    <option value="japanese">Japanese</option>
+    <option value="korean">Korean</option>
+    <option value="latin_american">Latin American</option>
+    <option value="mediterranean">Mediterranean</option>
+    <option value="mexican">Mexican</option>
+    <option value="middle_eastern">Middle Eastern</option>
+    <option value="middle_eastern_region">Middle Eastern Region</option>
+    <option value="russian">Russian</option>
+    <option value="spanish">Spanish</option>
+    <option value="thai">Thai</option>
+    <option value="turkish">Turkish</option>
+    <option value="unknown">Unknown</option>
+    <option value="vietnamese">Vietnamese</option>
+  </select>
+
+  <label for="forbidden_ingredients">Forbidden Ingredients</label>
+  <input type="text" id="forbidden_ingredients" name="forbidden_ingredients" placeholder="e.g. potato,tomato (comma-separated)">
+  
+  <label for="prep_time">Preparation Time</label>
+  <input type="number" id="prep_time" name="prep_time" min="1" required>
+
+  <label for="healthiness_level">Healthiness Level</label>
+  <select id="healthiness_level" name="healthiness_level" required>
+    <option value="">Choose...</option>
+    <option value="healthy">Healthy</option>
+    <option value="moderate">Moderate</option>
+    <option value="unhealthy">Unhealthy</option>
+  </select>
+  
   <button type="submit">Submit</button>
 </form>
 
