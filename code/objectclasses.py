@@ -170,3 +170,76 @@ class Case:
     id: int
     problem: Query
     solution: Menu
+
+class CompressedTrieNode:
+    def __init__(self):
+        self.children = {}
+        self.is_end = False
+
+class CompressedTrie:
+    def __init__(self):
+        self.root = CompressedTrieNode()
+
+    def insert(self, word):
+        node = self.root
+        while word:
+            # Find if any child edge matches a prefix of the word
+            for edge in node.children:
+                common_prefix_len = self._common_prefix_length(edge, word)
+                if common_prefix_len > 0:
+                    # Split edge if needed
+                    if common_prefix_len < len(edge):
+                        # Split the edge
+                        existing_child = node.children.pop(edge)
+                        new_child = CompressedTrieNode()
+                        new_child.children[edge[common_prefix_len:]] = existing_child
+                        new_child.is_end = existing_child.is_end if common_prefix_len == len(word) else False
+                        node.children[edge[:common_prefix_len]] = new_child
+                        node = new_child
+                    else:
+                        node = node.children[edge]
+                    word = word[common_prefix_len:]
+                    break
+            else:
+                # No matching edge, add a new child
+                node.children[word] = CompressedTrieNode()
+                node.children[word].is_end = True
+                return
+        node.is_end = True
+
+    def _common_prefix_length(self, s1, s2):
+        """Return the length of the common prefix of s1 and s2"""
+        i = 0
+        while i < min(len(s1), len(s2)) and s1[i] == s2[i]:
+            i += 1
+        return i
+
+    def autocomplete(self, prefix):
+        node = self.root
+        path = prefix
+
+        while prefix:
+            for edge, child in node.children.items():
+                if edge.startswith(prefix):
+                    # The edge fully matches the prefix, return all words from here
+                    return self._dfs(child, path[:-len(prefix)] + edge)
+                elif prefix.startswith(edge):
+                    # The edge is a prefix of the remaining prefix, go deeper
+                    node = child
+                    prefix = prefix[len(edge):]
+                    break
+            else:
+                # No matching edges
+                return []
+        
+        # If prefix is exhausted
+        return self._dfs(node, path)
+
+    def _dfs(self, node, prefix):
+        """Depth-first search to collect all words under this node"""
+        results = []
+        if node.is_end:
+            results.append(prefix)
+        for edge, child in node.children.items():
+            results.extend(self._dfs(child, prefix + edge))
+        return results
