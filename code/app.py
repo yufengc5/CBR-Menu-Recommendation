@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session, abort
+from program import run_recommender
 import random
 
 # --- your scraper functions ---
@@ -66,10 +67,14 @@ def recommend():
             "prep_time": request.form.get("prep_time"),
             "healthiness_level": request.form.get("healthiness_level")
             }
+    result = run_recommender(data)   # <-- pass dict to program.py
+    print("APP.PY GOT BACK:", result, flush=True)   
     session["user_data"] = data
 
     # Generate menus and store them
     menus = generate_three_menus()
+    print("\n === GENERATED MENUS ===")
+    print(menus)
     session["menus_raw"] = menus  # store before images
 
     # Redirect to a loading page that will trigger actual work
