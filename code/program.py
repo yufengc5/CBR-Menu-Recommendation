@@ -107,6 +107,7 @@ if __name__ == "__main__":
             "dishes": [str(proposal3.first_course.name), str(proposal3.main_course.name), str(proposal3.dessert.name)]
         }
     ])
+    
 
     #proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
 

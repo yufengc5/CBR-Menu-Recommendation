@@ -71,8 +71,8 @@ def recommend():
     session["user_data"] = data
 
     # Generate menus and store them
-    menus = generate_three_menus()  # placeholder
-    #menus = run_recommender(data)
+    #menus = generate_three_menus()  # placeholder
+    menus = run_recommender(data)
     print("\n === GENERATED MENUS ===")
     print(menus)
     session["menus_raw"] = menus  # store before images
