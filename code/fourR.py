@@ -66,11 +66,13 @@ class Reuser:
         return None
 
 
-    def _replace_ingredients(self, dish: Dish) -> Dish:
+    def _replace_ingredients(self, dish: Dish) -> Dish: # also outputs justification
         """
         Tries to replace ingredients of a dish to follow dietary constraints.
         Falls back to _replace_dish if replacement is impossible.
         """
+        justification = ""
+        newname = dish.name
 
         restrictions = self.query.dietary_group
         if not restrictions:
@@ -78,8 +80,11 @@ class Reuser:
 
         restriction = restrictions[0]
         replacements = self.ingredient_replacement.get(restriction, {})
+        
+        newname = f"(ADAPTED) {str(restriction)} version of " + newname
 
         new_ingredients = []
+        replaced_str = ""
 
         for ing in dish.ingredients:
             replacement = self._find_replacement(ing, replacements)
@@ -87,6 +92,7 @@ class Reuser:
             if replacement:
                 new_ingredients.append(replacement)
                 print(f"REPLACED {ing} by {replacement}")
+                replaced_str += f"{ing} by {replacement}, "
 
             elif (
                 ing in self.ingredient_category
@@ -97,7 +103,9 @@ class Reuser:
             else:
                 new_ingredients.append(ing)
 
-        return dish.copy_with(ingredients=new_ingredients)
+        justification = f"Replaced {replaced_str} to make the dish {restriction}"
+
+        return dish.copy_with(ingredients=new_ingredients, name=newname), justification
     
     def _replace_dish(self, dish: Dish) -> Dish:
         '''
