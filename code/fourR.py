@@ -72,7 +72,6 @@ class Reuser:
         Falls back to _replace_dish if replacement is impossible.
         """
 
-        print("REPLACING INGREDIENTS!")
         restrictions = self.query.dietary_group
         if not restrictions:
             return dish  # trivial case
@@ -93,7 +92,6 @@ class Reuser:
                 ing in self.ingredient_category
                 and restriction in self.ingredient_category[ing]
             ):
-                print("REPLACING DISH!")
                 return self._replace_dish(dish)
 
             else:
