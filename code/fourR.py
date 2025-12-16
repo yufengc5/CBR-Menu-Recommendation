@@ -105,7 +105,7 @@ class Reuser:
 
         justification = f"Replaced {replaced_str} to make the dish {restriction}"
 
-        return dish.copy_with(ingredients=new_ingredients, name=newname), justification
+        return dish.copy_with(ingredients=new_ingredients, name=newname, justification=justification)
     
     def _replace_dish(self, dish: Dish) -> Dish:
         '''
