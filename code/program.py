@@ -54,8 +54,12 @@ if __name__ == "__main__":
     
     topn = retriever.retrieve_top(query, top_n=4)
     
-    proposal = reuser.reuse([(cases[x], y) for x, y in topn], rejects=None)
-    proposal = reviser.revise(proposal, query, [(cases[x], y) for x, y in topn], rejects=None)
+    proposal1 = reuser.reuse([(cases[x], y) for x, y in topn], rejects=None)
+    proposal2 = reuser.reuse([(cases[x], y) for x, y in topn], rejects=[[proposal1, "others"]])
+    proposal3 = reuser.reuse([(cases[x], y) for x, y in topn], rejects=[[proposal1, "others"],
+                                                                        [proposal2, "others"]])
+
+    proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
 
     print("Proposed Menu:")
     print(proposal)
