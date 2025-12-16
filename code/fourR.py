@@ -184,8 +184,11 @@ class Reuser:
                         elif reason in ("first_course", "main_course", "dessert"):
                             continue
 
-                        elif reason == "others":
+                        elif reason == "others":  # add medium penalty when overall menu is rejected
                             penalty *= 0.5
+                        
+                        elif reason == "avoid":  # add a strong penalty to already proposed dishes
+                            penalty *= 0.01
 
                 menu_similarity = case.solution.similarity(new_case, i=index)
                 penalty *= menu_similarity*2
