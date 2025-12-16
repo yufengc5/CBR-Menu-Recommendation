@@ -36,10 +36,18 @@
     </div>
 
     <script>
-      // Trigger the heavy work after the loading screen is visible
-      setTimeout(() => {
-        window.location.href = "{{ url_for('recommend_result') }}";
-      }, 50);
-    </script>
+  const DEBUG = true;   // ← set to true to enable alert
+
+    if (DEBUG) {
+      const debugData = {{ (debug_data or {}) | tojson | safe }};
+      if (Object.keys(debugData).length) {
+        alert("USER INPUT:\n\n" + JSON.stringify(debugData, null, 2));
+      }
+    }
+
+    setTimeout(() => {
+      window.location.href = "{{ url_for('recommend_result') }}";
+    }, 50);
+</script>
   </body>
 </html>
