@@ -21,22 +21,49 @@ def dict_to_query(data: dict) -> Query:
 
 # USAR COMO UNA API
 def run_recommender(user_data: dict):
-    # For now just prove we received it
     dishes, cuisines = dataloader.load_dishes_from_json('data/dish_database_5k.json')
     cases = dataloader.load_cases_from_json('data/case_database.json', dishes)
-    ingredient_category, ingredient_replacement = dataloader.load_ingredient_info('data/ingredient_category.json', 'data/ingredient_replacement.json')
+    ingredient_category, ingredient_replacement = dataloader.load_ingredient_info(
+        'data/ingredient_category.json',
+        'data/ingredient_replacement.json'
+    )
+
     query = dict_to_query(user_data)
-    #print("QUERY TRANSFORMED:", query, flush=True)
+
     retriever = Retriever(cases)
     reuser = Reuser(query, dishes, ingredient_category, ingredient_replacement)
     reviser = Reviser(reuser)
-    
+
     topn = retriever.retrieve_top(query, top_n=4)
-    
-    proposal = reuser.reuse([(cases[x], y) for x, y in topn], rejects=None)
-    proposal = reviser.revise(proposal, query, [(cases[x], y) for x, y in topn], rejects=None)
+
+    proposal1 = reuser.reuse([(cases[x], y) for x, y in topn], rejects=None)
+    proposal2 = reuser.reuse(
+        [(cases[x], y) for x, y in topn],
+        rejects=[[proposal1, "avoid"]]
+    )
+    proposal3 = reuser.reuse(
+        [(cases[x], y) for x, y in topn],
+        rejects=[[proposal1, "avoid"], [proposal2, "avoid"]]
+    )
+
+    return [
+        {
+            "title": "Menu 1",
+            "dishes": [str(proposal1.first_course.name), str(proposal1.main_course.name), str(proposal1.dessert.name)]
+        },
+        {
+            "title": "Menu 2",
+            "dishes": [str(proposal2.first_course.name), str(proposal2.main_course.name), str(proposal2.dessert.name)]
+        },
+        {
+            "title": "Menu 3",
+            "dishes": [str(proposal3.first_course.name), str(proposal3.main_course.name), str(proposal3.dessert.name)]
+        }
+    ]
+
+    # proposal = reviser.revise(proposal, query, [(cases[x], y) for x, y in topn], rejects=None)
     # later: return recommendations
-    return proposal
+    #return proposal
 
 
 if __name__ == "__main__":
@@ -45,7 +72,7 @@ if __name__ == "__main__":
     cases = dataloader.load_cases_from_json('data/case_database.json', dishes)
     ingredient_category, ingredient_replacement = dataloader.load_ingredient_info('data/ingredient_category.json', 'data/ingredient_replacement.json')
 
-    query = cases[1].problem  
+    query = cases[2].problem  
     #print("Query:")
     #print(query)
     retriever = Retriever(cases)
