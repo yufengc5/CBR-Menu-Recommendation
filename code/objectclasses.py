@@ -122,8 +122,7 @@ class Menu:
         if (i > 2): score += self.dessert.similarity(other_menu.dessert)
         return score
     def __str__(self):
-        return f"First Course: {self.first_course.name}\nMain Course: {self.main_course.name}\nDessert: {self.dessert.name}"
-
+        return str([self.first_course.name, self.main_course.name, self.dessert.name])
 @dataclass
 class Query:
     # Queries (what we will use to mass retrieve cases)
