@@ -45,7 +45,7 @@ class Dish:
     health_flags: List[str]
     health_level: str
     popularity: dict
-    justification: str
+    justification: str = ""
 
     def similarity(self, other_dish):
         if not isinstance(other_dish, Dish):
