@@ -103,7 +103,10 @@ class Reuser:
             else:
                 new_ingredients.append(ing)
 
-        justification = f"Replaced {replaced_str} to make the dish {restriction}"
+        justification = (
+                        f"Replaced {replaced_str} to make the dish {restriction}" if len(replaced_str) > 0
+                        else f"Dish chosen to adapt to {restriction} dietary group."
+                         )
 
         return dish.copy_with(ingredients=new_ingredients, name=newname, justification=justification)
     
@@ -172,6 +175,8 @@ class Reuser:
             for case, weight in retrieved_cases:
                 dish_name = getattr(case.solution, course).name
                 penalty = 1.0
+
+                penalty *= math.log2(case.rating) / 2.32192809489
 
                 if self.query.healthiness_level == "healthy":  # penalize unhealthy dishes
                     penalty *= (self.dishlist[dish_name].healthiness_score / 100)

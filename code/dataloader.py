@@ -93,6 +93,3 @@ def save_cases_to_json(cases: Dict[int, Case], json_file_path: str, verbose: boo
         json.dump(cases_list, file, indent=4)
     if verbose:
         print(f"Saved {len(cases_list)} cases to {json_file_path}!")
-
-def load_ANN(dishes: dict):
-    return

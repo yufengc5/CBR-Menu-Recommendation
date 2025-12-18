@@ -170,6 +170,7 @@ class Case:
     id: int
     problem: Query
     solution: Menu
+    rating: int = 5  # rating defaults to 5 for ground truth cases.
 
 class CompressedTrieNode:
     def __init__(self):
