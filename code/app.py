@@ -19,7 +19,6 @@ app.secret_key = "yufeng_raul_SBC"
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
-    # Save user data
     data = {
             "event_type": request.form.get("event_type"),
             "season": request.form.get("season"),
@@ -37,6 +36,7 @@ def recommend():
 
     session["user_data"] = data
 
+    print(data)
     # Generate menus and store them
     menus, all_justifications = run_recommender(data)
 
@@ -125,14 +125,12 @@ def recommend_result():
     for m in menus:
         dishes = m.get("dishes", [])
 
-        # ✅ Attach descriptions aligned with dishes
+        # Attach descriptions aligned with dishes
         m["dish_descriptions"] = []
         for dish_name in dishes:
             key = clean_name(dish_name)  # removes "*"
             m["dish_descriptions"].append(desc_by_name.get(key, ""))
 
-        # ✅ Justifications MUST already be provided by run_recommender (from Dish objects).
-        # If missing or wrong length, pad/truncate to match dishes so templates never break.
         if "dish_justifications" not in m or not isinstance(m["dish_justifications"], list):
             m["dish_justifications"] = [""] * len(dishes)
         else:
@@ -196,7 +194,7 @@ def input_form():
             "healthiness_level": request.form.get("healthiness_level")
             }
 
-        session["debug_user_data"] = data   # ← one line
+        session["debug_user_data"] = data  
         saved = True
 
     return render_template("index.html", saved=saved)

@@ -38,7 +38,7 @@
 
       .cards-row {
         display: flex;
-        align-items: flex-start;  /* lets hovered card grow downward nicely */
+        align-items: flex-start; 
         justify-content: center;
         gap: 22px;
         flex-wrap: wrap;
@@ -68,8 +68,8 @@
       }
 
       .menu-card:hover {
-        width: 370px;       /* horizontal growth */
-        min-height: 380px;  /* vertical growth */
+        width: 370px;      
+        min-height: 380px;  
         transform: translateY(-8px) scale(1.03);
         box-shadow: 0 20px 36px rgba(0, 0, 0, 0.38);
         z-index: 10;
@@ -112,16 +112,14 @@
         min-width: 0;
       }
 
-      /* ✅ not cut off: show up to 2 lines normally */
       .dish-name {
         display: block;
         font-weight: 500;
         line-height: 1.25;
         overflow: hidden;
-        max-height: 2.6em; /* ~2 lines */
+        max-height: 2.6em; 
       }
 
-      /* ✅ on hover: show full name */
       .menu-card:hover .dish-name {
         max-height: none;
       }

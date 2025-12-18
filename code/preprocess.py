@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 '''
 Preprocesses the dishes dataset, in particular ingredients which had fractional quantities.
 '''

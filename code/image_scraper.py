@@ -1,6 +1,5 @@
 '''
 This program tries to fetch the first image of a Google search for a specific query.
-
 It is used to get the images for the dishes.
 '''
 
@@ -81,7 +80,7 @@ def handle_consent_form(wd):
 
 def get_webdriver():
     chrome_options = Options()
-    chrome_options.add_argument("--headless=new")  # enable if you want headless
+    chrome_options.add_argument("--headless=new")
     chrome_options.add_argument("--disable-gpu")
     chrome_options.add_argument("--no-sandbox")
     chrome_options.add_argument(
@@ -99,13 +98,8 @@ def get_first_non_google_img_src(wd) -> Optional[str]:
         if not src:
             continue
 
-        # Skip Google / gstatic / fonts
         if any(fragment in src for fragment in BLOCKED_HOST_FRAGMENTS):
             continue
-
-        # Accept:
-        # - data:image/jpeg;base64,...
-        # - https://some-site.com/image.jpg
         return src
 
     return None
@@ -123,10 +117,7 @@ def fetch_one_image_src(query: str, wd) -> Optional[str]:
 
 def persist_image(folder_path: str, dish_name: str, src: str) -> Optional[str]:
     """
-    Save image to folder_path and return filename (not full path).
-    Handles both:
-      - http(s) URLs
-      - data:image/...;base64,... URLs
+    Save image to folder_path and return filename.
     """
     try:
         if src.startswith("data:image"):
@@ -166,7 +157,6 @@ def get_or_fetch_dish_image(dish_name: str) -> Optional[str]:
     """
     Main function used by Flask.
     Returns a filename under static/dish_images/ or None.
-    Caches results (if already downloaded, reuses).
     """
     cached = get_cached_image_filename(dish_name, STATIC_IMG_DIR)
     if cached:
@@ -182,7 +172,6 @@ def get_or_fetch_dish_image(dish_name: str) -> Optional[str]:
         wd.quit()
 
 
-# Optional: local test
 if __name__ == "__main__":
     test = "White Chocolate Thumbprint Cookies"
     fn = get_or_fetch_dish_image(test)
