@@ -54,16 +54,9 @@ def recommend_loading():
 
 
 def build_description_lookup(json_path: str) -> dict[str, str]:
-    """
-    Returns: { dish_name: description_string }
-    Works even if you don't have Dish objects in Flask.
-    """
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
 
-    # Support both formats:
-    # - list of dicts: [{"name": "...", "description": "..."}, ...]
-    # - dict of dishes: {"...": {"name": "...", "description": "..."}, ...}
     if isinstance(data, dict):
         values = data.values()
     else:
@@ -76,6 +69,7 @@ def build_description_lookup(json_path: str) -> dict[str, str]:
             desc = d.get("description") or d.get("desc") or ""
             if name:
                 lookup[name] = desc
+
     return lookup
 
 @app.route("/recommend/result", methods=["GET"])

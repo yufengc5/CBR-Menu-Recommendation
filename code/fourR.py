@@ -85,7 +85,7 @@ class Reuser:
         restriction = restrictions[0]
         replacements = self.ingredient_replacement.get(restriction, {})
         
-        newname = newname +"*"
+        newname = newname
 
         new_ingredients = []
         replaced_str = ""
