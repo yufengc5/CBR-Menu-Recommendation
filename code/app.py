@@ -38,13 +38,28 @@ def recommend():
     session["user_data"] = data
 
     # Generate menus and store them
-    menus = run_recommender(data)
+    menus, all_justifications = run_recommender(data)
+
+    # Attach justifications to each menu (aligned by menu index)
+    for i, m in enumerate(menus):
+        m["dish_justifications"] = all_justifications[i] if i < len(all_justifications) else [""] * len(m.get("dishes", []))
+
     print("\n === GENERATED MENUS ===")
     print(menus)
     session["menus_raw"] = menus  # store before images
 
     # Redirect to loading page
     return redirect(url_for("recommend_loading"))
+
+
+@app.route("/recommend/view", methods=["GET"])
+def recommend_view():
+    menus = session.get("menus")
+    if not menus:
+        return redirect(url_for("input_form"))
+
+    user_data = session.get("user_data", {})
+    return render_template("recommend.html", menus=menus, user_data=user_data)
 
 
 @app.route("/recommend/loading", methods=["GET"])
@@ -84,7 +99,7 @@ def recommend_result():
     # Collect unique dishes shown
     dish_set = set()
     for m in menus:
-        dish_set.update(m["dishes"])
+        dish_set.update(m.get("dishes", []))
 
     # Use ONE webdriver for all dish queries
     wd = get_webdriver()
@@ -102,22 +117,35 @@ def recommend_result():
 
     # Attach per-menu mapping
     for m in menus:
-        m["dish_images"] = {dish: dish_to_img.get(dish) for dish in m["dishes"]}
+        m["dish_images"] = {dish: dish_to_img.get(dish) for dish in m.get("dishes", [])}
 
-    # Build dish lookup (name -> Dish object)
+    # Descriptions come from JSON database (base dishes)
     desc_by_name = build_description_lookup("data/dish_database_5k.json")
 
     for m in menus:
+        dishes = m.get("dishes", [])
+
+        # ✅ Attach descriptions aligned with dishes
         m["dish_descriptions"] = []
-        for dish_name in m["dishes"]:
-            key = clean_name(dish_name)
-            desc = desc_by_name.get(key, "")
-            m["dish_descriptions"].append(desc)
+        for dish_name in dishes:
+            key = clean_name(dish_name)  # removes "*"
+            m["dish_descriptions"].append(desc_by_name.get(key, ""))
+
+        # ✅ Justifications MUST already be provided by run_recommender (from Dish objects).
+        # If missing or wrong length, pad/truncate to match dishes so templates never break.
+        if "dish_justifications" not in m or not isinstance(m["dish_justifications"], list):
+            m["dish_justifications"] = [""] * len(dishes)
+        else:
+            justs = m["dish_justifications"]
+            if len(justs) < len(dishes):
+                m["dish_justifications"] = justs + [""] * (len(dishes) - len(justs))
+            elif len(justs) > len(dishes):
+                m["dish_justifications"] = justs[:len(dishes)]
+
     session["menus"] = menus
 
     user_data = session.get("user_data", {})
     return render_template("recommend.html", menus=menus, user_data=user_data)
-
 
 @app.route("/feedback/<int:menu_index>", methods=["GET", "POST"])
 def feedback(menu_index):

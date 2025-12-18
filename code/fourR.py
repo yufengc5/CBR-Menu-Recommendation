@@ -78,7 +78,7 @@ class Reuser:
         if not restrictions:
             return dish  # trivial case
 
-        restriction = restrictions[0]
+        restriction = restrictions
         replacements = self.ingredient_replacement.get(restriction, {})
         
         newname = newname +"*"

@@ -52,6 +52,16 @@ def run_recommender(user_data: dict):
         [(cases[x], y) for x, y in topn],
         rejects=[[proposal1, "avoid"], [proposal2, "avoid"]]
     )
+    proposals = [proposal1, proposal2, proposal3]
+
+    all_justifications = [
+        [
+            getattr(p.first_course, "justification", "") or "",
+            getattr(p.main_course, "justification", "") or "",
+            getattr(p.dessert, "justification", "") or "",
+        ]
+        for p in proposals
+    ]
 
     return [
         {
@@ -66,7 +76,7 @@ def run_recommender(user_data: dict):
             "title": "Menu 3",
             "dishes": [str(proposal3.first_course.name), str(proposal3.main_course.name), str(proposal3.dessert.name)]
         }
-    ]
+    ], all_justifications
 
     # proposal = reviser.revise(proposal, query, [(cases[x], y) for x, y in topn], rejects=None)
     # later: return recommendations
@@ -114,8 +124,8 @@ if __name__ == "__main__":
             "dishes": [str(proposal3.first_course.name), str(proposal3.main_course.name), str(proposal3.dessert.name)]
         }
     ])
-    
-
+    print("\n\n\n")
+    print("JUSTIFICATION: " + proposal3.dessert.justification)
     #proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
 
     #print("Proposed Menu:")
