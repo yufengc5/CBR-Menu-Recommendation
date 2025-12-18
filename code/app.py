@@ -72,6 +72,9 @@ def build_description_lookup(json_path: str) -> dict[str, str]:
 
     return lookup
 
+def clean_name(s: str) -> str:
+    return s.replace("*", "").strip()
+
 @app.route("/recommend/result", methods=["GET"])
 def recommend_result():
     menus = session.get("menus_raw")
@@ -107,13 +110,8 @@ def recommend_result():
     for m in menus:
         m["dish_descriptions"] = []
         for dish_name in m["dishes"]:
-            # exact match
-            desc = desc_by_name.get(dish_name, "")
-
-            # optional: light fallback (common mismatch: extra spaces)
-            if not desc:
-                desc = desc_by_name.get(dish_name.strip(), "")
-
+            key = clean_name(dish_name)
+            desc = desc_by_name.get(key, "")
             m["dish_descriptions"].append(desc)
     session["menus"] = menus
 

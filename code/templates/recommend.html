@@ -17,7 +17,7 @@
       }
 
       .wrapper {
-        max-width: 1100px;
+        max-width: 1400px;
         margin: 40px auto;
         padding: 0 20px 40px;
         text-align: center;
@@ -33,51 +33,45 @@
       .subtitle {
         font-size: 14px;
         color: #234754;
-        margin-bottom: 24px;
+        margin-bottom: 26px;
       }
 
       .cards-row {
         display: flex;
-        align-items: flex-start;  /* lets hovered card grow downward nicely */
+        align-items: flex-start;
         justify-content: center;
-        gap: 22px;
+        gap: 26px;
         flex-wrap: wrap;
       }
 
       .menu-card-link {
         text-decoration: none;
         color: inherit;
-        flex: 0 0 auto;
       }
 
+      /* ✅ BIG cards by default */
       .menu-card {
-        width: 300px;
-        min-height: 260px;
+        width: 420px;
+        min-height: 360px;
         background: #e05f3b;
         color: #f5f7f8;
-        border-radius: 18px;
-        padding: 18px 18px 20px;
-        box-shadow: 0 14px 28px rgba(0, 0, 0, 0.32);
-        transition:
-          transform 0.25s ease,
-          box-shadow 0.25s ease,
-          width 0.25s ease,
-          min-height 0.25s ease;
-        cursor: pointer;
+        border-radius: 22px;
+        padding: 22px 22px 24px;
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.32);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
         position: relative;
       }
 
+      /* subtle lift only */
       .menu-card:hover {
-        width: 370px;       /* horizontal growth */
-        min-height: 380px;  /* vertical growth */
-        transform: translateY(-8px) scale(1.03);
-        box-shadow: 0 20px 36px rgba(0, 0, 0, 0.38);
+        transform: translateY(-6px);
+        box-shadow: 0 22px 44px rgba(0, 0, 0, 0.38);
         z-index: 10;
       }
 
       .menu-card h2 {
-        margin: 0 0 12px;
-        font-size: 18px;
+        margin: 0 0 16px;
+        font-size: 22px;
         font-weight: 600;
       }
 
@@ -86,24 +80,25 @@
         padding: 0;
         margin: 0;
         text-align: left;
-        font-size: 13px;
       }
 
-      .dish-item { margin-bottom: 12px; }
+      .dish-item {
+        margin-bottom: 16px;
+      }
 
       .dish-row {
         display: flex;
-        align-items: center;
-        gap: 12px;
+        align-items: flex-start;
+        gap: 14px;
       }
 
       .dish-img {
-        width: 54px;
-        height: 54px;
-        border-radius: 14px;
+        width: 64px;
+        height: 64px;
+        border-radius: 16px;
         object-fit: cover;
         flex: 0 0 auto;
-        box-shadow: 0 8px 18px rgba(0,0,0,0.22);
+        box-shadow: 0 10px 22px rgba(0,0,0,0.24);
         background: rgba(255,255,255,0.12);
       }
 
@@ -112,40 +107,36 @@
         min-width: 0;
       }
 
-      /* ✅ not cut off: show up to 2 lines normally */
       .dish-name {
         display: block;
-        font-weight: 500;
+        font-weight: 600;
+        font-size: 15px;
         line-height: 1.25;
-        overflow: hidden;
-        max-height: 2.6em; /* ~2 lines */
       }
 
-      /* ✅ on hover: show full name */
-      .menu-card:hover .dish-name {
-        max-height: none;
-      }
-
+      /* 🔴 HIDDEN by default */
       .dish-description {
-    display: block;
-    font-size: 12px;
-    line-height: 1.4;
-    color: rgba(245, 247, 248, 0.9);
-    margin-top: 4px;
+        display: block;
+        font-size: 13px;
+        line-height: 1.45;
+        color: rgba(245, 247, 248, 0.92);
+        margin-top: 6px;
 
-    /* always visible */
-    max-height: none;
-    opacity: 1;
-  }
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.25s ease, opacity 0.25s ease;
+      }
 
+      /* 🟢 SHOW on card hover */
       .menu-card:hover .dish-description {
-        max-height: 140px;
+        max-height: 160px;
         opacity: 1;
       }
 
       .back-link {
         display: inline-block;
-        margin-top: 26px;
+        margin-top: 28px;
         font-size: 14px;
         color: #123746;
         text-decoration: none;
@@ -154,8 +145,15 @@
       .back-link span { text-decoration: underline; }
 
       @media (max-width: 900px) {
-        .cards-row { flex-direction: column; align-items: center; }
-        .menu-card, .menu-card:hover { width: 320px; }
+        .cards-row {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .menu-card {
+          width: 92vw;
+          max-width: 460px;
+        }
       }
     </style>
   </head>
@@ -163,7 +161,7 @@
   <body>
     <div class="wrapper">
       <h1>Recommended Menus</h1>
-      <p class="subtitle">Hover each card to reveal the description of every dish.</p>
+      <p class="subtitle">Hover a card to reveal the description of each dish.</p>
 
       <div class="cards-row">
         {% for menu in menus %}

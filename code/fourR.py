@@ -1,7 +1,3 @@
-'''
-This program implements the logic for the four main CBR modules (RETRIEVE, REUSE, REVISE, RETAIN)
-'''
-
 import math
 from objectclasses import Case, Query, Dish, Menu, jaccard
 import heapq
@@ -85,7 +81,7 @@ class Reuser:
         restriction = restrictions[0]
         replacements = self.ingredient_replacement.get(restriction, {})
         
-        newname = newname
+        newname = newname +"*"
 
         new_ingredients = []
         replaced_str = ""
