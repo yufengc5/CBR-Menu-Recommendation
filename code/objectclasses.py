@@ -107,6 +107,9 @@ class Dish:
     
     def copy_with(self, **changes):
         return replace(self, **changes)
+    
+    def get_description(self) -> str:
+        return str(self.description)
 
 @dataclass
 class Menu:

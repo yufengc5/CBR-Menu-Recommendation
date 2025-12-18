@@ -127,16 +127,16 @@
       }
 
       .dish-description {
-    display: block;
-    font-size: 12px;
-    line-height: 1.4;
-    color: rgba(245, 247, 248, 0.9);
-    margin-top: 4px;
-
-    /* always visible */
-    max-height: none;
-    opacity: 1;
-  }
+        display: block;
+        font-size: 12px;
+        line-height: 1.4;
+        color: rgba(245, 247, 248, 0.9);
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: max-height 0.25s ease, opacity 0.25s ease;
+        margin-top: 4px;
+      }
 
       .menu-card:hover .dish-description {
         max-height: 140px;
@@ -183,7 +183,8 @@
                       <div class="dish-text">
                         <span class="dish-name">{{ dish }}</span>
                         <span class="dish-description">
-                          {{ menu.dish_descriptions[loop.index0] }}
+                          Placeholder description for {{ dish }}. In the real system,
+                          this will explain the main ingredients, style and technique.
                         </span>
                       </div>
                     </div>

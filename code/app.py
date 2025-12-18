@@ -86,12 +86,35 @@ def recommend_loading():
     debug_data = session.get("user_data") or session.get("debug_user_data")
     return render_template("loading.html", debug_data=debug_data)
 
+import json
+
+def build_description_lookup(json_path: str) -> dict[str, str]:
+    """
+    Returns: { dish_name: description_string }
+    Works even if you don't have Dish objects in Flask.
+    """
+    with open(json_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    # Support both formats:
+    # - list of dicts: [{"name": "...", "description": "..."}, ...]
+    # - dict of dishes: {"...": {"name": "...", "description": "..."}, ...}
+    if isinstance(data, dict):
+        values = data.values()
+    else:
+        values = data
+
+    lookup = {}
+    for d in values:
+        if isinstance(d, dict):
+            name = d.get("name") or d.get("title")
+            desc = d.get("description") or d.get("desc") or ""
+            if name:
+                lookup[name] = desc
+    return lookup
 
 @app.route("/recommend/result", methods=["GET"])
 def recommend_result():
-    """
-    Does the scraping work (still synchronous), but user already saw loading UI.
-    """
     menus = session.get("menus_raw")
     if not menus:
         return redirect(url_for("input_form"))
@@ -106,11 +129,9 @@ def recommend_result():
     try:
         dish_to_img = {}
         for dish in dish_set:
-            src = fetch_one_image_src(dish, wd=wd)  # may return data:image... or http(s)
+            src = fetch_one_image_src(dish, wd=wd)
             if src:
-                # Save into Flask static folder so it can be served
                 saved_name = persist_image("static/dish_images", dish, src)
-                # persist_image should return filename (recommended). If yours doesn't, set saved_name=None.
                 dish_to_img[dish] = saved_name
             else:
                 dish_to_img[dish] = None
@@ -121,7 +142,20 @@ def recommend_result():
     for m in menus:
         m["dish_images"] = {dish: dish_to_img.get(dish) for dish in m["dishes"]}
 
-    # Store final menus (with images) for feedback route
+    # ✅ Build dish lookup ONCE (name -> Dish object)
+    desc_by_name = build_description_lookup("data/dish_database_5k.json")
+
+    for m in menus:
+        m["dish_descriptions"] = []
+        for dish_name in m["dishes"]:
+            # exact match
+            desc = desc_by_name.get(dish_name, "")
+
+            # optional: light fallback (common mismatch: extra spaces)
+            if not desc:
+                desc = desc_by_name.get(dish_name.strip(), "")
+
+            m["dish_descriptions"].append(desc)
     session["menus"] = menus
 
     user_data = session.get("user_data", {})
@@ -183,4 +217,4 @@ def input_form():
     return render_template("index.html", saved=saved)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)
