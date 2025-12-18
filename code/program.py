@@ -93,30 +93,14 @@ if __name__ == "__main__":
     proposal3 = reuser.reuse([(cases[x], y) for x, y in topn], rejects=[[proposal1, "avoid"],
                                                                         [proposal2, "avoid"]])
 
-    print("Proposed Menu 1:")
-    print(proposal1)
-    print("Proposed Menu 2:")
-    print(proposal2)
-    print("Proposed Menu 3:")
-    print(proposal3)
+    print("\nProposed Menu 1:")
+    print(proposal1.first_course.name + ", " + proposal1.main_course.name + ", " + proposal1.dessert.name)
+    print("\nProposed Menu 2:")
+    print(proposal2.first_course.name + ", " + proposal2.main_course.name + ", " + proposal2.dessert.name)
+    print("\nProposed Menu 3:")
+    print(proposal3.first_course.name + ", " + proposal3.main_course.name + ", " + proposal3.dessert.name)
 
-    print([
-        {
-            "title": "Menu 1",
-            "dishes": [str(proposal1.first_course.name), str(proposal1.main_course.name), str(proposal1.dessert.name)]
-        },
-        {
-            "title": "Menu 2",
-            "dishes": [str(proposal2.first_course.name), str(proposal2.main_course.name), str(proposal2.dessert.name)]
-        },
-        {
-            "title": "Menu 3",
-            "dishes": [str(proposal3.first_course.name), str(proposal3.main_course.name), str(proposal3.dessert.name)]
-        }
-    ])
-    
-
-    #proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
+    proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
 
     #print("Proposed Menu:")
     #print(proposal)

@@ -7,8 +7,9 @@ from objectclasses import Case, Query, Dish, Menu, jaccard
 import heapq
 import random
 import re
-#from transformers import DistilBertTokenizer, DistilBertModel
-#import torch
+from transformers import DistilBertTokenizer, DistilBertModel
+import torch
+import torch.nn.functional as F
 from sklearn.metrics.pairwise import cosine_similarity
 
 def normalize(text: str) -> str:
@@ -84,8 +85,6 @@ class Reuser:
 
         restriction = restrictions[0]
         replacements = self.ingredient_replacement.get(restriction, {})
-        
-        newname = newname +"*"
 
         new_ingredients = []
         replaced_str = ""
