@@ -14,11 +14,18 @@ El sistema disposa de **dues formes d’execució**:
 
 ---
 
-## 🚀 Com executar el projecte
+##  Com executar el projecte
 
-### ▶️ Versió web (Flask)
+### Versió web (Flask)
 Per executar la versió web del programa:
 
 ```bash
 cd code
 python3 app.py
+
+### Versió per terminal
+Per executar la versió per terminal
+
+```bash
+cd code
+python3 program.py
