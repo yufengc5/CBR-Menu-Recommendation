@@ -22,6 +22,7 @@ Per executar la versió web del programa:
 ```bash
 cd code
 python3 app.py
+exit
 
 ### Versió per terminal
 Per executar la versió per terminal
