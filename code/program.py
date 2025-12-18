@@ -1,3 +1,10 @@
+'''
+This program runs a test build of the backend.
+
+It runs on the terminal, and will automatically fetch a case from the database without asking for user input.
+It is meant for testing purposes.
+'''
+
 from objectclasses import Dish, Ingredient, Query
 from typing import List, Dict
 import dataloader
@@ -114,4 +121,4 @@ if __name__ == "__main__":
     #print("Proposed Menu:")
     #print(proposal)
 
-    #dataloader.save_cases_to_json(cases, 'data/case_database2.json', verbose=True)
+    dataloader.save_cases_to_json(cases, 'data/case_database2.json', verbose=True)

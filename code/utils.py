@@ -1,3 +1,7 @@
+'''
+Utility script to generate datasets out of the dishes data.
+'''
+
 import json
 import csv
 
@@ -13,7 +17,7 @@ for recipe in recipes:
 # Remove duplicates and sort alphabetically
 unique_ingredients = sorted(set(all_ingredients))
 
-# --- Save as CSV ---
+# Save as CSV
 with open("data/techniques.csv", "w", newline="", encoding="utf-8") as f:
     writer = csv.writer(f)
     for ingredient in unique_ingredients:

@@ -1,3 +1,8 @@
+'''
+This script loads the data from and into their appropriate disk formats (JSON, CSV) and loads it onto their
+appropriate datastructures (mainly dicts).
+'''
+
 from typing import Dict, List
 from objectclasses import Dish, Case, Query, Menu
 import json

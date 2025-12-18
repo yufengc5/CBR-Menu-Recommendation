@@ -1,4 +1,12 @@
-from dataclasses import dataclass, asdict, replace
+'''
+Script containing all main object classes
+
+It contains INGREDIENT, DISH, MENU, QUERY, CASE and a TRIE implementation.
+The TRIE implementation was meant for the frontend's word suggestion, but we
+discarded it due to time constraints.
+'''
+
+from dataclasses import dataclass, replace
 import math
 from typing import List, Dict, Optional
 

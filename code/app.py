@@ -1,58 +1,25 @@
+'''
+The main app logic. Includes loading the html templates and calls to the appropriate backend functions.
+'''
+
 from flask import Flask, render_template, request, redirect, url_for, session, abort
 from program import run_recommender
 import random
 
-# --- your scraper functions ---
-# Make sure image_scraper.py contains:
-# - get_webdriver()
-# - fetch_one_image_url(query, wd)
-# - persist_image(folder_path, file_name, url_or_data_src)   (should handle base64 too, see my earlier version)
-#
-# If your persist_image currently only supports http(s), update it to handle data:image;base64.
 from image_scraper import get_webdriver, fetch_one_image_src, persist_image
 
 from objectclasses import Dish, Ingredient, Query
 from typing import List, Dict
 import dataloader
 from fourR import Retriever, Reuser, Reviser
+import json
 
-# ----- placeholder dishes for menus -----
-DISHES = [
-    "Grilled Vegetable Skewers with Herb Quinoa",
-    "Creamy Pumpkin Soup with Toasted Seeds",
-    "Tofu Stir-Fry with Seasonal Vegetables",
-    "Seared Salmon with Lemon Dill Sauce",
-    "Roast Chicken with Garlic Mashed Potatoes",
-    "Mushroom Risotto with Truffle Oil",
-    "Chickpea and Spinach Curry with Basmati Rice",
-    "Pasta Primavera with Fresh Basil",
-    "Chocolate Lava Cake with Vanilla Ice Cream",
-    "Seasonal Fruit Tart with Almond Cream",
-]
-
-def generate_three_menus():
-    """Return 3 placeholder menus with minimal overlap."""
-    menus = []
-    used = set()
-    for i in range(3):
-        remaining = [d for d in DISHES if d not in used]
-        if len(remaining) < 3:
-            dishes = random.sample(DISHES, 3)
-        else:
-            dishes = random.sample(remaining, 3)
-            used.update(dishes)
-
-        menus.append({"title": f"Menu {i+1}", "dishes": dishes})
-    return menus
-
-
-# ---- NEW: loading route (so user sees “please wait” immediately) ----
 app = Flask(__name__)
 app.secret_key = "yufeng_raul_SBC"
 
 @app.route("/recommend", methods=["POST"])
 def recommend():
-    # Save user data immediately
+    # Save user data
     data = {
             "event_type": request.form.get("event_type"),
             "season": request.form.get("season"),
@@ -71,13 +38,12 @@ def recommend():
     session["user_data"] = data
 
     # Generate menus and store them
-    #menus = generate_three_menus()  # placeholder
     menus = run_recommender(data)
     print("\n === GENERATED MENUS ===")
     print(menus)
     session["menus_raw"] = menus  # store before images
 
-    # Redirect to a loading page that will trigger actual work
+    # Redirect to loading page
     return redirect(url_for("recommend_loading"))
 
 
@@ -86,7 +52,6 @@ def recommend_loading():
     debug_data = session.get("user_data") or session.get("debug_user_data")
     return render_template("loading.html", debug_data=debug_data)
 
-import json
 
 def build_description_lookup(json_path: str) -> dict[str, str]:
     """
@@ -124,7 +89,7 @@ def recommend_result():
     for m in menus:
         dish_set.update(m["dishes"])
 
-    # Use ONE webdriver for all dish queries (much faster)
+    # Use ONE webdriver for all dish queries
     wd = get_webdriver()
     try:
         dish_to_img = {}
@@ -142,7 +107,7 @@ def recommend_result():
     for m in menus:
         m["dish_images"] = {dish: dish_to_img.get(dish) for dish in m["dishes"]}
 
-    # ✅ Build dish lookup ONCE (name -> Dish object)
+    # Build dish lookup (name -> Dish object)
     desc_by_name = build_description_lookup("data/dish_database_5k.json")
 
     for m in menus:

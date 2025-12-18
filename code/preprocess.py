@@ -1,4 +1,8 @@
 #!/usr/bin/env python3
+'''
+Preprocesses the dishes dataset, in particular ingredients which had fractional quantities.
+'''
+
 import ast
 import json
 import pandas as pd

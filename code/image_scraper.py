@@ -1,3 +1,9 @@
+'''
+This program tries to fetch the first image of a Google search for a specific query.
+
+It is used to get the images for the dishes.
+'''
+
 import time
 import os
 import io
@@ -31,7 +37,7 @@ def slugify(s: str) -> str:
 
 
 def handle_consent_form(wd):
-    """Try to click the Google consent button (including Chinese 全部接受)."""
+    """Try to click the Google consent button."""
     try:
         time.sleep(1)
 
