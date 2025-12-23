@@ -3,9 +3,9 @@ from objectclasses import Case, Query, Dish, Menu, jaccard
 import heapq
 import random
 import re
-from transformers import DistilBertTokenizer, DistilBertModel
-import torch
-import torch.nn.functional as F
+#from transformers import DistilBertTokenizer, DistilBertModel
+#import torch
+#import torch.nn.functional as F
 from sklearn.metrics.pairwise import cosine_similarity
 
 def normalize(text: str) -> str:

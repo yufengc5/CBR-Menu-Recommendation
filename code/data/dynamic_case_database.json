@@ -1,0 +1,1482 @@
+[
+    {
+        "id": 1,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Fall",
+            "number_of_guests": 8,
+            "techniques": [
+                "roast",
+                "simmer"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "savory",
+                "comforting"
+            ],
+            "description": "Guests want a warm and hearty meal with simple ingredients that are easily accessible.",
+            "culinary_tradition": [
+                "american",
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat",
+                "dairy"
+            ],
+            "prep_time": 90,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Carrot Gelatin Salad",
+            "main_course": "Sweet Chili Popcorn Chicken",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Some dishes were tasty, but the menu didn’t really match the vegetarian restrictions, so it wasn’t ideal for everyone."
+        }
+    },
+    {
+        "id": 2,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Summer",
+            "number_of_guests": 12,
+            "techniques": [
+                "grill",
+                "stir-fry"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "savory",
+                "spicy"
+            ],
+            "description": "The family prefers a relaxed, outdoor event with bold flavors and grilling.",
+            "culinary_tradition": [
+                "american",
+                "korean"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten",
+                "soy"
+            ],
+            "prep_time": 60,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Panzanella Panini",
+            "main_course": "Grilled Marinated Shrimp",
+            "dessert": "Blueberry Crumble"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Overall it was enjoyable and worked well for a summer gathering, but a couple of dishes didn’t fully fit the gluten-free needs."
+        }
+    },
+    {
+        "id": 3,
+        "problem": {
+            "event_type": "Holiday Celebration",
+            "season": "Winter",
+            "number_of_guests": 20,
+            "techniques": [
+                "bake",
+                "fry"
+            ],
+            "presentation_style": "Buffet",
+            "sensory_goals": [
+                "sweet",
+                "sour"
+            ],
+            "description": "Guests are looking for indulgent desserts with a festive flair and savory appetizers.",
+            "culinary_tradition": [
+                "american",
+                "european"
+            ],
+            "dietary_group": [
+                "vegan"
+            ],
+            "forbidden_ingredients": [
+                "dairy",
+                "eggs"
+            ],
+            "prep_time": 120,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Easy Apple Cinnamon Muffins",
+            "main_course": "Easy Gluten-Free Macaroni and Cheese",
+            "dessert": "Butterscotch Cheesecake Bars"
+        },
+        "response": {
+            "rating": 1,
+            "feedback": "The menu felt festive, but it didn’t really work for a vegan group, so most guests couldn’t fully enjoy it."
+        }
+    },
+    {
+        "id": 4,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Spring",
+            "number_of_guests": 6,
+            "techniques": [
+                "grill",
+                "bake"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "smoky",
+                "savory"
+            ],
+            "description": "The guests are looking for a flavorful, filling meal that doesn't require a lot of effort.",
+            "culinary_tradition": [
+                "american",
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "kosher"
+            ],
+            "forbidden_ingredients": [
+                "pork",
+                "shellfish"
+            ],
+            "prep_time": 45,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Burger Sliders",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Everyone liked it. Simple, filling, and easy to eat. It worked well for a relaxed dinner."
+        }
+    },
+    {
+        "id": 5,
+        "problem": {
+            "event_type": "BBQ Party",
+            "season": "Summer",
+            "number_of_guests": 15,
+            "techniques": [
+                "grill",
+                "smoke"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "savory",
+                "spicy"
+            ],
+            "description": "Guests want bold flavors with grilled meats, with a variety of side dishes and a refreshing dessert.",
+            "culinary_tradition": [
+                "american",
+                "mexican"
+            ],
+            "dietary_group": [
+                "nut_free"
+            ],
+            "forbidden_ingredients": [
+                "nuts",
+                "dairy"
+            ],
+            "prep_time": 90,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Pickled Onion and Cilantro Coleslaw for Pulled Pork",
+            "main_course": "Spicy Rapid Roast Chicken",
+            "dessert": "Tiramisu"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "The BBQ dishes were good and fit the vibe, but the dessert wasn’t great for everyone because of the dairy."
+        }
+    },
+    {
+        "id": 6,
+        "problem": {
+            "event_type": "birthday",
+            "season": "winter",
+            "number_of_guests": 5,
+            "techniques": [
+                "grill",
+                "bake",
+                "fry",
+                "steam"
+            ],
+            "presentation_style": "casual",
+            "sensory_goals": [
+                "savory",
+                "spicy"
+            ],
+            "description": "A dinner celebrating my mother's 50th birthday",
+            "culinary_tradition": [
+                "chinese",
+                "japanese",
+                "mediterranean"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 80,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Easy Tuna Casserole",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "We liked every dish that was proposed, but just didn't fulfill our expectations"
+        }
+    },
+    {
+        "id": 7,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Spring",
+            "number_of_guests": 5,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Simple dinner with friends at home.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 45,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Anytime Canned Corn Salad",
+            "main_course": "Great Mac and Cheese",
+            "dessert": "The Best Homemade Cupcakes"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Easy and comforting, everyone liked it."
+        }
+    },
+    {
+        "id": 8,
+        "problem": {
+            "event_type": "BBQ Party",
+            "season": "Summer",
+            "number_of_guests": 14,
+            "techniques": [
+                "grill",
+                "slow cook"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "smoky",
+                "savory"
+            ],
+            "description": "Outdoor BBQ with friends.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 90,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Macaroni Salad for a Crowd",
+            "main_course": "Slow Cooker Barbeque Chicken",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Perfect for a BBQ, people were very happy."
+        }
+    },
+    {
+        "id": 9,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Winter",
+            "number_of_guests": 10,
+            "techniques": [
+                "simmer"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Family meal during cold weather.",
+            "culinary_tradition": [
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 120,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Smothered Round Steak with Gravy",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Very filling and warm, good winter food."
+        }
+    },
+    {
+        "id": 10,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Fall",
+            "number_of_guests": 6,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "sweet",
+                "savory"
+            ],
+            "description": "Relaxed dinner with friends.",
+            "culinary_tradition": [
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 60,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Panzanella Panini",
+            "main_course": "Mexican Rice and Beans",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Some dishes were better than others."
+        }
+    },
+    {
+        "id": 11,
+        "problem": {
+            "event_type": "Holiday Celebration",
+            "season": "Winter",
+            "number_of_guests": 18,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Buffet",
+            "sensory_goals": [
+                "sweet"
+            ],
+            "description": "Big family holiday gathering.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 150,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Sauerkraut Onion Bread",
+            "main_course": "Tennessee Meatloaf",
+            "dessert": "Best Ever Cinnamon Pull Aparts"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Classic food, everyone ate well."
+        }
+    },
+    {
+        "id": 12,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Summer",
+            "number_of_guests": 4,
+            "techniques": [
+                "air fry"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Quick dinner on a hot day.",
+            "culinary_tradition": [
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegan"
+            ],
+            "forbidden_ingredients": [
+                "meat",
+                "dairy"
+            ],
+            "prep_time": 30,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Ma's Frozen Pickles",
+            "main_course": "Air Fryer Baked Potatoes",
+            "dessert": "Million-Dollar Pickles"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Light and refreshing but a bit repetitive."
+        }
+    },
+    {
+        "id": 13,
+        "problem": {
+            "event_type": "Birthday",
+            "season": "Summer",
+            "number_of_guests": 9,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "sweet"
+            ],
+            "description": "Small birthday celebration.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 50,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Carrot Gelatin Salad",
+            "main_course": "Burger Sliders",
+            "dessert": "The Best Homemade Cupcakes"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Fun and easy, good party food."
+        }
+    },
+    {
+        "id": 14,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Winter",
+            "number_of_guests": 7,
+            "techniques": [
+                "simmer"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Dinner with coworkers.",
+            "culinary_tradition": [
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 90,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Sauerkraut Onion Bread",
+            "main_course": "Anna's Amazing Goulash",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Tasty but a bit heavy."
+        }
+    },
+    {
+        "id": 15,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Spring",
+            "number_of_guests": 11,
+            "techniques": [
+                "boil"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Weekend family lunch.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten"
+            ],
+            "prep_time": 60,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Air Fryer Baked Potatoes",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Mostly worked, but not everything fit the diet."
+        }
+    },
+    {
+        "id": 16,
+        "problem": {
+            "event_type": "BBQ Party",
+            "season": "Summer",
+            "number_of_guests": 16,
+            "techniques": [
+                "grill"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "smoky"
+            ],
+            "description": "Large BBQ with friends.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 100,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Macaroni Salad for a Crowd",
+            "main_course": "Crispy Slow Cooker Carnitas",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Great BBQ menu, people loved it."
+        }
+    },
+    {
+        "id": 17,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Spring",
+            "number_of_guests": 8,
+            "techniques": [
+                "roast"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "savory",
+                "fresh"
+            ],
+            "description": "Dinner with friends, nothing too fancy.",
+            "culinary_tradition": [
+                "mediterranean"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 75,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Spicy Rapid Roast Chicken",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Nice and fresh, felt balanced overall."
+        }
+    },
+    {
+        "id": 18,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Fall",
+            "number_of_guests": 13,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Big family lunch on the weekend.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 90,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Carrot Gelatin Salad",
+            "main_course": "Mexican Rice and Beans",
+            "dessert": "Best Ever Cinnamon Pull Aparts"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Some liked it more than others, but it worked."
+        }
+    },
+    {
+        "id": 19,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Winter",
+            "number_of_guests": 2,
+            "techniques": [
+                "simmer"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Quiet dinner for two at home.",
+            "culinary_tradition": [
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 50,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Sauerkraut Onion Bread",
+            "main_course": "Anna's Amazing Goulash",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Very cozy and filling."
+        }
+    },
+    {
+        "id": 20,
+        "problem": {
+            "event_type": "BBQ Party",
+            "season": "Summer",
+            "number_of_guests": 20,
+            "techniques": [
+                "grill",
+                "smoke"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "smoky",
+                "savory"
+            ],
+            "description": "Large summer BBQ.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "nut_free"
+            ],
+            "forbidden_ingredients": [
+                "nuts"
+            ],
+            "prep_time": 120,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Pickled Onion and Cilantro Coleslaw for Pulled Pork",
+            "main_course": "Slow Cooker Barbeque Chicken",
+            "dessert": "The Best Homemade Cupcakes"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Great BBQ vibe, everyone enjoyed it."
+        }
+    },
+    {
+        "id": 21,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Summer",
+            "number_of_guests": 6,
+            "techniques": [
+                "no-cook"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "fresh"
+            ],
+            "description": "Light summer dinner indoors.",
+            "culinary_tradition": [
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegan"
+            ],
+            "forbidden_ingredients": [
+                "meat",
+                "dairy"
+            ],
+            "prep_time": 35,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Ma's Frozen Pickles",
+            "main_course": "Mexican Rice and Beans",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Light and refreshing, good for hot weather."
+        }
+    },
+    {
+        "id": 22,
+        "problem": {
+            "event_type": "Birthday",
+            "season": "Winter",
+            "number_of_guests": 9,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "sweet"
+            ],
+            "description": "Birthday celebration at home.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 65,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Anytime Canned Corn Salad",
+            "main_course": "Great Mac and Cheese",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Comfort food, everyone was happy."
+        }
+    },
+    {
+        "id": 23,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Spring",
+            "number_of_guests": 10,
+            "techniques": [
+                "boil",
+                "mix"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Lunch with relatives.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten"
+            ],
+            "prep_time": 55,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Air Fryer Baked Potatoes",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Mostly okay, some dishes fit better than others."
+        }
+    },
+    {
+        "id": 24,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Fall",
+            "number_of_guests": 3,
+            "techniques": [
+                "air fry"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Quick dinner during the week.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 30,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Air Fryer Baked Potatoes",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Easy and quick, no complaints."
+        }
+    },
+    {
+        "id": 25,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Winter",
+            "number_of_guests": 7,
+            "techniques": [
+                "slow cook"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Dinner with friends on a cold night.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 110,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Tennessee Meatloaf",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Very filling and warm."
+        }
+    },
+    {
+        "id": 26,
+        "problem": {
+            "event_type": "Holiday Celebration",
+            "season": "Winter",
+            "number_of_guests": 16,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Buffet",
+            "sensory_goals": [
+                "sweet"
+            ],
+            "description": "End-of-year celebration.",
+            "culinary_tradition": [
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 140,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Sauerkraut Onion Bread",
+            "main_course": "Smothered Round Steak with Gravy",
+            "dessert": "Best Ever Cinnamon Pull Aparts"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Classic and heavy, but people liked it."
+        }
+    },
+    {
+        "id": 27,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Spring",
+            "number_of_guests": 4,
+            "techniques": [
+                "mix"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "fresh"
+            ],
+            "description": "Light dinner during the week.",
+            "culinary_tradition": [
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 35,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Mexican Rice and Beans",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Fresh and simple, worked well."
+        }
+    },
+    {
+        "id": 28,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Summer",
+            "number_of_guests": 14,
+            "techniques": [
+                "grill"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Summer family dinner outside.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 80,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Macaroni Salad for a Crowd",
+            "main_course": "Burger Sliders",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Easy and fun, everyone ate well."
+        }
+    },
+    {
+        "id": 29,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Fall",
+            "number_of_guests": 6,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Dinner with friends at home.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "nut_free"
+            ],
+            "forbidden_ingredients": [
+                "nuts"
+            ],
+            "prep_time": 70,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Carrot Gelatin Salad",
+            "main_course": "Great Mac and Cheese",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Tasted good, but nothing special."
+        }
+    },
+    {
+        "id": 30,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Winter",
+            "number_of_guests": 2,
+            "techniques": [
+                "pressure cook"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Quick dinner after work.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 30,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Air Fryer Baked Potatoes",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Warm and easy, good for a weekday."
+        }
+    },
+    {
+        "id": 31,
+        "problem": {
+            "event_type": "Birthday",
+            "season": "Spring",
+            "number_of_guests": 7,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "sweet"
+            ],
+            "description": "Small birthday celebration.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 60,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Anytime Canned Corn Salad",
+            "main_course": "Burger Sliders",
+            "dessert": "Best Ever Cinnamon Pull Aparts"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Nice party menu, everyone enjoyed it."
+        }
+    },
+    {
+        "id": 32,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Fall",
+            "number_of_guests": 8,
+            "techniques": [
+                "stir-fry"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "savory",
+                "spicy"
+            ],
+            "description": "Dinner with friends who like bold flavors.",
+            "culinary_tradition": [
+                "asian"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 60,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Spicy Rapid Roast Chicken",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Some dishes were good, but it didn’t really fit the vegetarian idea."
+        }
+    },
+    {
+        "id": 33,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Summer",
+            "number_of_guests": 14,
+            "techniques": [
+                "grill"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "smoky"
+            ],
+            "description": "Outdoor family meal with mixed tastes.",
+            "culinary_tradition": [
+                "middle_eastern"
+            ],
+            "dietary_group": [
+                "halal"
+            ],
+            "forbidden_ingredients": [
+                "pork"
+            ],
+            "prep_time": 85,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Macaroni Salad for a Crowd",
+            "main_course": "Burger Sliders",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "It was okay, but not everyone felt comfortable with the menu."
+        }
+    },
+    {
+        "id": 34,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Winter",
+            "number_of_guests": 3,
+            "techniques": [
+                "simmer"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Simple dinner after a long day.",
+            "culinary_tradition": [
+                "latin_american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 45,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Mexican Rice and Beans",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Pretty comforting and filling, worked well."
+        }
+    },
+    {
+        "id": 35,
+        "problem": {
+            "event_type": "Birthday",
+            "season": "Summer",
+            "number_of_guests": 10,
+            "techniques": [
+                "no-cook"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "fresh"
+            ],
+            "description": "Birthday meal during a heat wave.",
+            "culinary_tradition": [
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegan"
+            ],
+            "forbidden_ingredients": [
+                "meat",
+                "dairy"
+            ],
+            "prep_time": 30,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Ma's Frozen Pickles",
+            "main_course": "Avocado Salad",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Nice and fresh, but it didn’t really feel like a birthday menu."
+        }
+    },
+    {
+        "id": 36,
+        "problem": {
+            "event_type": "Holiday Celebration",
+            "season": "Winter",
+            "number_of_guests": 22,
+            "techniques": [
+                "bake"
+            ],
+            "presentation_style": "Buffet",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Large group holiday dinner.",
+            "culinary_tradition": [
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 150,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Sauerkraut Onion Bread",
+            "main_course": "Anna's Amazing Goulash",
+            "dessert": "Best Ever Cinnamon Pull Aparts"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Very heavy food, some people liked it, others didn’t."
+        }
+    },
+    {
+        "id": 37,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Spring",
+            "number_of_guests": 7,
+            "techniques": [
+                "mix"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "fresh",
+                "savory"
+            ],
+            "description": "Dinner with colleagues.",
+            "culinary_tradition": [
+                "asian"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten"
+            ],
+            "prep_time": 55,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Avocado Salad",
+            "main_course": "Anna's Amazing Goulash",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Some dishes didn’t really match the diet or the style."
+        }
+    },
+    {
+        "id": 38,
+        "problem": {
+            "event_type": "BBQ Party",
+            "season": "Summer",
+            "number_of_guests": 17,
+            "techniques": [
+                "grill"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "smoky",
+                "savory"
+            ],
+            "description": "Casual BBQ with coworkers.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "nut_free"
+            ],
+            "forbidden_ingredients": [
+                "nuts"
+            ],
+            "prep_time": 95,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Macaroni Salad for a Crowd",
+            "main_course": "Spicy Rapid Roast Chicken",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Good BBQ food, nothing surprising."
+        }
+    },
+    {
+        "id": 39,
+        "problem": {
+            "event_type": "Casual Dinner",
+            "season": "Fall",
+            "number_of_guests": 2,
+            "techniques": [
+                "air fry"
+            ],
+            "presentation_style": "Casual",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Quick dinner at home.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 25,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Anytime Canned Corn Salad",
+            "main_course": "Air Fryer Baked Potatoes",
+            "dessert": "Bavarian Brownies"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Fine for a quick meal, but a bit boring."
+        }
+    },
+    {
+        "id": 40,
+        "problem": {
+            "event_type": "Family Gathering",
+            "season": "Spring",
+            "number_of_guests": 12,
+            "techniques": [
+                "bake",
+                "slow cook"
+            ],
+            "presentation_style": "Family-Style",
+            "sensory_goals": [
+                "comforting"
+            ],
+            "description": "Relaxed Sunday family lunch.",
+            "culinary_tradition": [
+                "american"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 100,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Carrot Gelatin Salad",
+            "main_course": "Tennessee Meatloaf",
+            "dessert": "Streusel-Topped Blueberry Muffins"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Classic food, most people enjoyed it."
+        }
+    },
+    {
+        "id": 41,
+        "problem": {
+            "event_type": "Dinner Party",
+            "season": "Winter",
+            "number_of_guests": 6,
+            "techniques": [
+                "simmer"
+            ],
+            "presentation_style": "Plated",
+            "sensory_goals": [
+                "savory"
+            ],
+            "description": "Small winter dinner with friends.",
+            "culinary_tradition": [
+                "european"
+            ],
+            "dietary_group": [
+                "vegan"
+            ],
+            "forbidden_ingredients": [
+                "meat",
+                "dairy"
+            ],
+            "prep_time": 80,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Instant Pot Chili",
+            "main_course": "Smothered Round Steak with Gravy",
+            "dessert": "Raspberry Sorbet"
+        },
+        "response": {
+            "rating": 1,
+            "feedback": "Didn’t really work for us, some dishes didn’t fit at all."
+        }
+    },
+    {
+        "id": 42,
+        "problem": {
+            "culinary_traditions": [
+                "american",
+                "european",
+                "mediterranean"
+            ],
+            "description": "it's my sister's birthday, a lot of friends will come",
+            "dietary_groups": "gluten_free",
+            "event_type": "birthday",
+            "forbidden_ingredients": [
+                ""
+            ],
+            "healthiness_level": "moderate",
+            "number_of_guests": "20",
+            "preferred_techniques": [
+                "bake",
+                "blend"
+            ],
+            "prep_time": "70",
+            "presentation_style": "plated",
+            "season": "spring",
+            "sensory_goals": [
+                "spicy",
+                "sour",
+                "savory"
+            ]
+        },
+        "solution": {
+            "first_course": "Panzanella Panini",
+            "main_course": "Grilled Marinated Shrimp",
+            "dessert": "Tiramisu"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Good menu, we like the tiramisu"
+        }
+    }
+]

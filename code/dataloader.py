@@ -6,6 +6,7 @@ appropriate datastructures (mainly dicts).
 from typing import Dict, List
 from objectclasses import Dish, Case, Query, Menu
 import json
+import os
 
 def load_dishes_from_json(json_file_path: str) -> tuple[dict[int, Case], dict[str, List[Dish]]]:
     """
@@ -75,26 +76,56 @@ def load_ingredient_info(json_ingredient_category: str, json_ingredient_replacem
     
     return ingredient_category, ingredient_replacement
 
-def save_cases_to_json(cases: Dict[int, Case], json_file_path: str, verbose: bool = False):
+def to_dict(obj):
     """
-    Save cases from a dictionary to a JSON file.
+    Converts objects (dataclass or normal objects) to dict safely.
     """
-    cases_list = []
+    if obj is None:
+        return None
+    if isinstance(obj, dict):
+        return obj
+    if hasattr(obj, "__dict__"):
+        return obj.__dict__
+    return str(obj)
+
+def save_cases_to_json(query, proposal, response, json_file_path: str, verbose: bool = False):
+    """
+    Append ONE new case to the JSON case base.
+    """
     
-    for case in cases.values():
-        # Convert the 'problem' and 'solution' to dictionaries (assuming they are dataclasses)
-        case_dict = {
-            'id': case.id,
-            'problem': case.problem.__dict__,
-            'solution': {
-                'first_course': case.solution.first_course.name,
-                'main_course': case.solution.main_course.name,
-                'dessert': case.solution.dessert.name
-            }
-        }
-        cases_list.append(case_dict)
-    
-    with open(json_file_path, 'w', encoding='utf-8') as file:
-        json.dump(cases_list, file, indent=4)
+    if os.path.exists(json_file_path):
+        try:
+            with open(json_file_path, "r", encoding="utf-8") as f:
+                cases = json.load(f)
+            if not isinstance(cases, list):
+                cases = []
+        except Exception:
+            cases = []
+    else:
+        cases = []
+
+    if cases:
+        max_id = max(c.get("id", 0) for c in cases if isinstance(c, dict))
+        new_id = max_id + 1
+    else:
+        new_id = 1
+
+    sol = {
+        "first_course": proposal.first_course.name,
+        "main_course": proposal.main_course.name,
+        "dessert": proposal.dessert.name,
+    }
+
+    case_dict = {
+        "id": new_id,
+        "problem": to_dict(query),
+        "solution": sol,
+        "response": to_dict(response),
+    }
+
+    cases.append(case_dict)
+    with open(json_file_path, "w", encoding="utf-8") as f:
+        json.dump(cases, f, indent=4, ensure_ascii=False)
+
     if verbose:
-        print(f"Saved {len(cases_list)} cases to {json_file_path}!")
+        print(f"Saved new case (id={new_id}) to {json_file_path}")

@@ -13,6 +13,9 @@ from typing import List, Dict
 import dataloader
 from fourR import Retriever, Reuser, Reviser
 import json
+from dataloader import save_cases_to_json
+from objectclasses import Query
+
 
 app = Flask(__name__)
 app.secret_key = "yufeng_raul_SBC"
@@ -145,34 +148,55 @@ def recommend_result():
     user_data = session.get("user_data", {})
     return render_template("recommend.html", menus=menus, user_data=user_data)
 
+class DishStub:
+    def __init__(self, name: str):
+        self.name = name
+
+class ProposalStub:
+    def __init__(self, first, main, dessert):
+        self.first_course = DishStub(first)
+        self.main_course = DishStub(main)
+        self.dessert = DishStub(dessert)
+
+
 @app.route("/feedback/<int:menu_index>", methods=["GET", "POST"])
 def feedback(menu_index):
     menus = session.get("menus")
+    query = session.get("user_data")
+
     if not menus or menu_index < 0 or menu_index >= len(menus):
         abort(404)
 
     selected_menu = menus[menu_index]
-    user_data = session.get("user_data", {})
 
     if request.method == "POST":
-        rating = request.form.get("rating")
+        rating = int(request.form.get("rating"))
         comments = request.form.get("comments")
 
-        feedback_data = {
-            "menu_index": menu_index,
-            "selected_menu": selected_menu,
+        response = {
             "rating": rating,
-            "comments": comments,
-            "user_data": user_data,
+            "feedback": comments
         }
 
-        print("=== FEEDBACK RECEIVED ===")
-        print(feedback_data)
+        dishes = selected_menu.get("dishes", [])
+
+        proposal = ProposalStub(
+            first=dishes[0] if len(dishes) > 0 else None,
+            main=dishes[1] if len(dishes) > 1 else None,
+            dessert=dishes[2] if len(dishes) > 2 else None,
+        )
+
+        save_cases_to_json(
+            query=query,
+            proposal=proposal,
+            response=response,
+            json_file_path="data/dynamic_case_database.json",
+            verbose=True
+        )
 
         return redirect(url_for("input_form"))
 
     return render_template("feedback.html", menu=selected_menu, menu_index=menu_index)
-
 
 @app.route("/", methods=["GET", "POST"])
 def input_form():

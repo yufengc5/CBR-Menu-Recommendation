@@ -9,6 +9,7 @@ from objectclasses import Dish, Ingredient, Query
 from typing import List, Dict
 import dataloader
 from fourR import Retriever, Reuser, Reviser
+from input_system import ask_query, ask_response
 
 def dict_to_query(data: dict) -> Query:
     return Query(
@@ -29,7 +30,7 @@ def dict_to_query(data: dict) -> Query:
 # USAR COMO UNA API
 def run_recommender(user_data: dict):
     dishes, cuisines = dataloader.load_dishes_from_json('data/dish_database_5k.json')
-    cases = dataloader.load_cases_from_json('data/case_database.json', dishes)
+    cases = dataloader.load_cases_from_json('data/original_case_database.json', dishes)
     ingredient_category, ingredient_replacement = dataloader.load_ingredient_info(
         'data/ingredient_category.json',
         'data/ingredient_replacement.json'
@@ -86,10 +87,11 @@ def run_recommender(user_data: dict):
 if __name__ == "__main__":
 
     dishes, cuisines = dataloader.load_dishes_from_json('data/dish_database_5k.json')
-    cases = dataloader.load_cases_from_json('data/case_database.json', dishes)
+    cases = dataloader.load_cases_from_json('data/original_case_database.json', dishes)
     ingredient_category, ingredient_replacement = dataloader.load_ingredient_info('data/ingredient_category.json', 'data/ingredient_replacement.json')
 
-    query = cases[2].problem  
+    #query = cases[2].problem  
+    query = dict_to_query(ask_query(saved=False))
     #print("Query:")
     #print(query)
     retriever = Retriever(cases)
@@ -112,7 +114,7 @@ if __name__ == "__main__":
 
     proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
 
-    #print("Proposed Menu:")
-    #print(proposal)
+    print("\n Feedback Revised Menu: tell us what you think about this menu!")
+    response = ask_response()
 
-    dataloader.save_cases_to_json(cases, 'data/case_database2.json', verbose=True)
+    dataloader.save_cases_to_json(query, proposal, response, 'data/dynamic_case_database.json', verbose=True)
