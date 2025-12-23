@@ -1,0 +1,10 @@
+23/12/2025
+    - Añadido un input system para el programa de terminal.
+    - Añadido una sección de response para los casos.
+    - Modificado la función save_cases_to_json() de dataloader.py
+    para que haga append del nuevo caso.
+    - Modificado los dos bases de casos, uno estatico y otro
+    dinámico, también completado response que faltaban
+    - Ampliado el base de casos inicial a 41 casos con el uso de LLMs.
+    - Adaptado la aplicación web para que funcione igual que la app terminal
+    los dos aceptan feedback y guardan nuevo caso
