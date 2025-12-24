@@ -1,5 +1,245 @@
 [
   {
+    "name": "Melon Spherical Caviar",
+    "description": "Small melon juice spheres imitate caviar droplets using spherification for an elegant appetizer.",
+    "ingredients": [
+      "melon juice",
+      "sodium alginate",
+      "calcium chloride",
+      "mint leaves"
+    ],
+    "main_ingredient": "melon",
+    "directions": [
+      "Blend melon juice and filter.",
+      "Mix sodium alginate into juice until dissolved.",
+      "Prepare calcium bath and drop melon mix to form spheres.",
+      "Rinse and serve with mint garnish."
+    ],
+    "techniques": ["spherification", "blend", "chill"],
+    "cuisines": ["modernist", "spanish", "molecular_gastronomy"],
+    "course_type": "starter",
+    "tastes": ["sweet", "fresh"],
+    "primary_taste": "sweet",
+    "secondary_taste": "fresh",
+    "dietary_tags": ["vegetarian", "nut_free"],
+    "prep_time": 20,
+    "cook_time": 0,
+    "cook_speed": "fast",
+    "difficulty": "hard",
+    "healthiness_score": 85
+  },
+  {
+    "name": "Tomato Water Ice with Oregano",
+    "description": "Tomato water frozen into a silky, modernist ice; refreshes palate and surprises texture.",
+    "ingredients": [
+      "tomato water",
+      "fresh oregano",
+      "salt"
+    ],
+    "main_ingredient": "tomato",
+    "directions": [
+      "Strain tomato water for clarity.",
+      "Add oregano and freeze in shallow tray.",
+      "Scrape to produce fine ice shards.",
+      "Serve immediately."
+    ],
+    "techniques": ["freeze", "strain"],
+    "cuisines": ["modernist", "spanish", "molecular_gastronomy"],
+    "course_type": "intermezzo",
+    "tastes": ["savory", "fresh"],
+    "primary_taste": "savory",
+    "secondary_taste": "fresh",
+    "dietary_tags": ["vegan", "gluten_free"],
+    "prep_time": 30,
+    "cook_time": 0,
+    "cook_speed": "fast",
+    "difficulty": "medium",
+    "healthiness_score": 90
+  },
+  {
+    "name": "White Bean Foam with Sea Urchin",
+    "description": "Light foam made from seasoned white beans topped with raw sea urchin.",
+    "ingredients": ["white beans", "sea urchin", "broth", "cream"],
+    "main_ingredient": "white beans",
+    "directions": [
+      "Cook beans until soft.",
+      "Blend with broth and strain.",
+      "Add cream and use siphon to form foam.",
+      "Spoon over sea urchin on plate."
+    ],
+    "techniques": ["blend", "foam"],
+    "cuisines": ["modernist", "molecular_gastronomy"],
+    "course_type": "starter",
+    "tastes": ["umami"],
+    "primary_taste": "umami",
+    "secondary_taste": "savory",
+    "dietary_tags": ["gluten_free"],
+    "prep_time": 45,
+    "cook_time": 30,
+    "cook_speed": "fast",
+    "difficulty": "hard",
+    "healthiness_score": 65
+  },
+  { "name": "Deconstructed Potato Omelette", "description": "Classic omelette components presented with separate textures.", "ingredients": ["potatoes","eggs","olive oil","salt"], "main_ingredient": "potatoes", "directions": ["Slice and fry potato crisps.","Cook eggs gently.","Plate separately for deconstructed effect."], "techniques": ["fry","separate"], "cuisines": ["modernist","spanish", "molecular_gastronomy"], "course_type": "starter", "tastes": ["savory"], "primary_taste": "savory","secondary_taste": "salty","dietary_tags":["vegetarian"],"prep_time":20,"cook_time":30,"cook_speed": "fast","difficulty":"medium","healthiness_score":70},
+  { "name": "Chocolate Air with Fruit Dust", "description": "Chocolate turned to airy foam with fruit powder garnish.", "ingredients":["dark chocolate","lecithin","freeze dried fruit"],"main_ingredient":"chocolate","directions":["Melt chocolate.","Blend with lecithin.","Aerate and top with fruit dust."],"techniques":["foam","blend"],"cuisines":["modernist", "molecular_gastronomy"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"bitter","dietary_tags":["vegetarian"],"prep_time":15,"cook_time":5, "cook_speed": "fast","difficulty":"hard","healthiness_score":50},
+  { "name": "Gazpacho with Compressed Melon", "description": "Cold tomato gazpacho paired with compressed melon for contrasting textures.","ingredients":["tomatoes","cucumber","melon","olive oil"],"main_ingredient":"tomato","directions":["Blend tomatoes and cucumber.","Compress melon.","Serve chilled."],"techniques":["blend","compress"],"cuisines":["modernist","spanish", "molecular_gastronomy"],"course_type":"starter","tastes":["fresh"],"primary_taste":"fresh","secondary_taste":"savory","dietary_tags":["vegan"],"prep_time":25,"cook_time":0, "cook_speed": "fast","difficulty":"medium","healthiness_score":85},
+  { "name": "Liquid Olive Oil Pearls", "description": "Tiny olive oil spheres mimic caviar over salad.","ingredients":["olive oil","sodium alginate","calcium lactate"],"main_ingredient":"olive oil","directions":["Prepare alginate bath.","Form olive oil pearls.","Rinse and serve."],"techniques":["spherification"],"cuisines":["modernist", "molecular_gastronomy"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"salty","dietary_tags":["vegetarian","gluten_free"],"prep_time":30,"cook_time":0,"cook_speed": "fast","difficulty":"hard","healthiness_score":80},
+  { "name": "Citrus Foam with Basil", "description":"Aerated citrus foam accented with basil.","ingredients":["citrus juice","basil","lecithin"],"main_ingredient":"citrus","directions":["Juice citrus.","Add basil and lecithin.","Whip until foam forms."],"techniques":["foam"],"cuisines":["modernist", "molecular_gastronomy"],"course_type":"intermezzo","tastes":["sour"],"primary_taste":"sour","secondary_taste":"herbal","dietary_tags":["vegan","nut_free"],"prep_time":15,"cook_time":0,"cook_speed": "fast","difficulty":"medium","healthiness_score":88},
+  { "name": "Tomato Consommé Gelée", "description":"Clear tomato consommé set as gelée cubes.","ingredients":["tomato juice","agar-agar","herbs"],"main_ingredient":"tomato","directions":["Clarify tomato juice.","Add agar.","Cool to set.","Cut cubes."],"techniques":["gelify"],"cuisines":["modernist", "molecular_gastronomy"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"herbal","dietary_tags":["vegetarian"],"prep_time":40,"cook_time":10,"cook_speed": "fast","difficulty":"medium","healthiness_score":82},
+  { "name": "Apple Foam with Cardamom", "description":"Light apple foam accented with cardamom spice.","ingredients":["apple juice","cardamom","lecithin"],"main_ingredient":"apple","directions":["Heat juice.","Add cardamom.","Blend with lecithin.","Form foam."],"techniques":["foam","blend"],"cuisines":["modernist", "molecular_gastronomy"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"spicy","dietary_tags":["vegetarian","nut_free"],"prep_time":20,"cook_time":5,"cook_speed": "fast","difficulty":"medium","healthiness_score":75},
+  {
+    "name": "Confit of Potatoes with Herbs",
+    "description": "Slow-cooked confit potatoes infused with fresh Basque herbs.",
+    "ingredients": ["potatoes","olive oil","rosemary","thyme","salt"],
+    "main_ingredient": "potatoes",
+    "directions":["Preheat oven.","Rub potatoes with oil and herbs.","Slow roast until tender."],
+    "techniques":["roast","season"],
+    "cuisines":["basque","spanish", "author_cuisine_arzak"],
+    "course_type":"side",
+    "tastes":["savory"],
+    "primary_taste":"savory","secondary_taste":"herbal","dietary_tags":["vegetarian"],
+    "prep_time":15,"cook_time":90,"cook_speed":"slow","difficulty":"medium","healthiness_score":78
+  },
+  {
+    "name": "Basque Cod with Piperade",
+    "description": "Cod fillets poached and served over a Basque pepper-tomato ragout.",
+    "ingredients":["cod","bell peppers","tomatoes","onion","garlic"],
+    "main_ingredient":"cod",
+    "directions":["Cook peppers and tomatoes.","Poach cod.","Serve over bed of piperade."],
+    "techniques":["poach","sauté"],
+    "cuisines":["basque", "author_cuisine_arzak"],"course_type":"main","tastes":["savory"],
+    "primary_taste":"savory","secondary_taste":"sweet","dietary_tags":["gluten_free"],
+    "prep_time":20,"cook_time":25,"cook_speed":"medium","difficulty":"medium","healthiness_score":82
+  },
+  {
+    "name":"Mushroom Risotto with Idiazabal","description":"Creamy mushroom risotto accented with smoky Basque Idiazabal cheese.","ingredients":["arborio rice","mushrooms","parmesan","idiazabal","stock"],"main_ingredient":"rice","directions":["Sauté mushrooms.","Cook rice with stock.","Stir in cheese."],"techniques":["sauté","stir"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"main","tastes":["savory"],"primary_taste":"umami","secondary_taste":"smoky","dietary_tags":["vegetarian"],"prep_time":15,"cook_time":30,"cook_speed":"medium","difficulty":"medium","healthiness_score":75},
+  { "name":"Txangurro (Basque Crab)","description":"Baked Basque crab with herbs and breadcrumbs.","ingredients":["crab meat","parsley","breadcrumbs","olive oil"],"main_ingredient":"crab","directions":["Mix crab with herbs.","Top with crumbs.","Bake."],"techniques":["bake"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"briny","dietary_tags":[],"prep_time":15,"cook_time":15,"cook_speed":"fast","difficulty":"hard","healthiness_score":68},
+  { "name":"Chicken with Green Pepper Sauce","description":"Tender chicken in a Basque-style piquillo pepper sauce.","ingredients":["chicken","piquillo peppers","cream","garlic"],"main_ingredient":"chicken","directions":["Sear chicken.","Blend peppers and cream.","Simmer sauce."],"techniques":["sear","simmer"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"sweet","dietary_tags":[],"prep_time":20,"cook_time":35,"cook_speed":"medium","difficulty":"medium","healthiness_score":70},
+  { "name":"Basque Tomato Bread","description":"Rustic Basque tomato bread with olive oil.","ingredients":["bread","tomatoes","olive oil","garlic"],"main_ingredient":"bread","directions":["Toast bread.","Rub with garlic and tomato.","Drizzle oil."],"techniques":["toast","rub"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"fresh","dietary_tags":["vegetarian"],"prep_time":10,"cook_time":10,"cook_speed":"fast","difficulty":"easy","healthiness_score":82},
+  { "name":"Basque Lamb Stew","description":"Hearty stew of lamb with Basque spices.","ingredients":["lamb","onion","carrots","paprika"],"main_ingredient":"lamb","directions":["Brown meat.","Simmer with veggies and stock."],"techniques":["brown","simmer"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"earthy","dietary_tags":[],"prep_time":20,"cook_time":120,"cook_speed":"slow","difficulty":"medium","healthiness_score":70},
+  { "name":"Grilled Piquillo Peppers with Aioli","description":"Smoky grilled peppers dipped in garlic aioli.","ingredients":["piquillo peppers","garlic","olive oil","egg yolk"],"main_ingredient":"piquillo peppers","directions":["Grill peppers.","Make aioli.","Dip and serve."],"techniques":["grill","blend"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"starter","tastes":["smoky"],"primary_taste":"smoky","secondary_taste":"savory","dietary_tags":[],"prep_time":15,"cook_time":10,"cook_speed":"fast","difficulty":"medium","healthiness_score":75},
+  { "name":"Quinoa Basque Salad","description":"Fresh salad with quinoa and Basque herbs.","ingredients":["quinoa","tomatoes","olive oil","parsley"],"main_ingredient":"quinoa","directions":["Cook quinoa.","Mix veggies.","Dress."],"techniques":["boil","mix"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"starter","tastes":["fresh"],"primary_taste":"fresh","secondary_taste":"savory","dietary_tags":["gluten_free","vegetarian"],"prep_time":15,"cook_time":15,"cook_speed":"medium","difficulty":"easy","healthiness_score":88},
+  { "name":"Basque Almond Tart","description":"Sweet tart with almonds and lemon zest.","ingredients":["flour","almonds","sugar","butter"],"main_ingredient":"almonds","directions":["Make dough.","Bake tart.","Cool and serve."],"techniques":["bake"],"cuisines":["basque", "author_cuisine_arzak"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"nutty","dietary_tags":["vegetarian"],"prep_time":20,"cook_time":40,"cook_speed":"medium","difficulty":"medium","healthiness_score":65},
+  {
+    "name":"Boeuf Bourguignon",
+    "description":"Traditional French beef stew braised in Burgundy wine with mushrooms and carrots.",
+    "ingredients":["beef chuck","red wine","mushrooms","carrots","onions"],
+    "main_ingredient":"beef",
+    "directions":["Brown beef.","Add wine and veggies.","Simmer low and slow."],
+    "techniques":["sear","simmer"],
+    "cuisines":["classic_french"],
+    "course_type":"main",
+    "tastes":["savory"],
+    "primary_taste":"savory","secondary_taste":"rich","dietary_tags":[],
+    "prep_time":30,"cook_time":180,"cook_speed":"slow","difficulty":"medium","healthiness_score":60
+  },
+  {
+    "name":"Coq au Vin",
+    "description":"Chicken braised in red wine with bacon, mushrooms and aromatics.",
+    "ingredients":["chicken","red wine","bacon","mushrooms","thyme"],
+    "main_ingredient":"chicken",
+    "directions":["Brown chicken.","Combine with wine and herbs.","Cook until tender."],
+    "techniques":["braise","sear"],
+    "cuisines":["classic_french"],
+    "course_type":"main",
+    "tastes":["savory"],
+    "primary_taste":"savory","secondary_taste":"earthy","dietary_tags":[],
+    "prep_time":20,"cook_time":120,"cook_speed":"slow","difficulty":"medium","healthiness_score":62
+  },
+  {
+    "name":"French Onion Soup",
+    "description":"Caramelized onion broth topped with toasted bread and melted cheese.",
+    "ingredients":["onions","beef broth","baguette","gruyere cheese"],
+    "main_ingredient":"onions",
+    "directions":["Caramelize onions.","Add broth.","Top with bread and cheese and bake."],
+    "techniques":["caramelize","bake"],
+    "cuisines":["classic_french"],
+    "course_type":"starter",
+    "tastes":["savory"],
+    "primary_taste":"savory","secondary_taste":"sweet","dietary_tags":[],
+    "prep_time":15,"cook_time":90,"cook_speed":"slow","difficulty":"medium","healthiness_score":55
+  },
+  {
+    "name":"Ratatouille",
+    "description":"Provençal vegetable stew of eggplant, zucchini, peppers, and tomato.",
+    "ingredients":["eggplant","zucchini","peppers","tomato","herbs"],
+    "main_ingredient":"vegetables",
+    "directions":["Slice veggies.","Sauté and simmer gently until tender."],
+    "techniques":["sauté","simmer"],
+    "cuisines":["classic_french"],
+    "course_type":"main",
+    "tastes":["savory"],
+    "primary_taste":"savory","secondary_taste":"herbal","dietary_tags":["vegetarian","gluten_free"],
+    "prep_time":20,"cook_time":40,"cook_speed":"medium","difficulty":"medium","healthiness_score":88
+  },
+  {
+    "name":"Pommes Anna",
+    "description":"Classic French layered potatoes baked in butter until crisp and tender.","ingredients":["potatoes","butter","salt","pepper"],"main_ingredient":"potatoes","directions":["Layer potatoes with butter.","Bake until crisp and cooked through."],"techniques":["bake"],"cuisines":["classic_french"],"course_type":"side","tastes":["savory"],"primary_taste":"savory","secondary_taste":"buttery","dietary_tags":["vegetarian"],"prep_time":15,"cook_time":60,"cook_speed":"medium","difficulty":"medium","healthiness_score":70
+  },
+  {
+    "name":"Salade Niçoise",
+    "description":"Composed salad of tuna, olives, eggs, and fresh vegetables dressed in vinaigrette.","ingredients":["tuna","tomatoes","olives","eggs","beans"],"main_ingredient":"tuna","directions":["Arrange ingredients.","Dress with vinaigrette."],"techniques":["assemble"],"cuisines":["classic_french"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"fresh","dietary_tags":["gluten_free"],"prep_time":15,"cook_time":10,"cook_speed":"fast","difficulty":"easy","healthiness_score":82
+  },
+  {
+    "name":"Blanquette de Veau",
+    "description":"Veal stew simmered in a creamy white sauce with carrots and onions.","ingredients":["veal","carrots","cream","stock","onions"],"main_ingredient":"veal","directions":["Simmer veal and veggies.","Enrich sauce with cream."],"techniques":["simmer"],"cuisines":["classic_french"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"creamy","dietary_tags":[],"prep_time":20,"cook_time":90,"cook_speed":"slow","difficulty":"medium","healthiness_score":60
+  },
+  {
+    "name":"Sole Meunière",
+    "description":"Pan-fried sole with lemon butter and parsley.","ingredients":["sole","butter","lemon","parsley"],"main_ingredient":"sole","directions":["Dust fish with flour.","Pan fry in butter.","Finish with lemon and parsley."],"techniques":["fry"],"cuisines":["french"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"citrus","dietary_tags":[],"prep_time":10,"cook_time":15,"cook_speed":"fast","difficulty":"medium","healthiness_score":75
+  },
+  {
+    "name":"Coq au Riesling",
+    "description":"Alsatian variation of coq au vin using Riesling wine.","ingredients":["chicken","riesling","bacon","mushrooms"],"main_ingredient":"chicken","directions":["Brown chicken.","Add wine and cook slowly."],"techniques":["braise"],"cuisines":["classic_french"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"wine-rich","dietary_tags":[],"prep_time":20,"cook_time":90,"cook_speed":"slow","difficulty":"medium","healthiness_score":65
+  },
+  {
+    "name":"Crêpes Suzette",
+    "description":"Thin pancakes served with a buttery orange sauce and optional flame finish.","ingredients":["flour","eggs","milk","orange zest","butter"],"main_ingredient":"crêpe","directions":["Make crêpe batter.","Cook thin crepes.","Prepare orange sauce and serve."],"techniques":["pan_fry"],"cuisines":["french"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"citrus","dietary_tags":["vegetarian"],"prep_time":15,"cook_time":20,"cook_speed":"medium","difficulty":"medium","healthiness_score":60
+  },
+  {
+    "name":"French Baguette",
+    "description":"Crisp crust and soft interior bread, staple of French cuisine.","ingredients":["flour","yeast","salt","water"],"main_ingredient":"bread","directions":["Mix dough.","Let rise.","Bake until golden."],"techniques":["bake"],"cuisines":["classic_french"],"course_type":"side","tastes":["savory"],"primary_taste":"savory","secondary_taste":"nutty","dietary_tags":["vegetarian"],"prep_time":180,"cook_time":30,"cook_speed":"slow","difficulty":"medium","healthiness_score":70
+  },
+  {
+    "name":"Gravlax with Dill Mustard Sauce",
+    "description":"Cured salmon served with a mustard-dill sauce.",
+    "ingredients":["salmon","salt","sugar","dill","mustard"],
+    "main_ingredient":"salmon",
+    "directions":["Cure salmon with salt, sugar, dill.","Slice thin.","Serve with mustard sauce."],
+    "techniques":["cure","slice"],
+    "cuisines":["nordic"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"herbal","dietary_tags":["gluten_free"],"prep_time":10,"cook_time":0,"cook_speed":"slow","difficulty":"medium","healthiness_score":92
+  },
+  {
+    "name":"Hasselback Potatoes",
+    "description":"Thinly sliced baked potatoes with crisp edges and soft center.",
+    "ingredients":["potatoes","butter","salt","herbs"],
+    "main_ingredient":"potatoes",
+    "directions":["Slice potatoes thinly.","Brush with butter.","Bake until crisp."],
+    "techniques":["bake","slice"],
+    "cuisines":["nordic"],"course_type":"side","tastes":["savory"],"primary_taste":"savory","secondary_taste":"buttery","dietary_tags":["vegetarian"],"prep_time":15,"cook_time":45,"cook_speed":"medium","difficulty":"easy","healthiness_score":80
+  },
+  {
+    "name":"Finnish Salmon Soup (Lohikeitto)",
+    "description":"Creamy soup of salmon, potatoes, dill and allspice.",
+    "ingredients":["salmon","potatoes","cream","dill","stock"],
+    "main_ingredient":"salmon",
+    "directions":["Simmer potatoes.","Add salmon.","Add cream and dill."],
+    "techniques":["simmer"],"cuisines":["nordic"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"creamy","dietary_tags":["gluten_free"],"prep_time":15,"cook_time":30,"cook_speed":"medium","difficulty":"medium","healthiness_score":85
+  },
+  {
+    "name":"Swedish Meatballs",
+    "description":"Tender meatballs served with creamy sauce and lingonberries.",
+    "ingredients":["ground beef","breadcrumbs","milk","lingonberry jam"],"main_ingredient":"beef","directions":["Mix ingredients.","Form balls.","Pan fry and serve with sauce."],"techniques":["mix","fry"],"cuisines":["nordic"],"course_type":"main","tastes":["savory"],"primary_taste":"savory","secondary_taste":"sweet","dietary_tags":[],"prep_time":20,"cook_time":30,"cook_speed":"medium","difficulty":"medium","healthiness_score":70
+  },
+  {
+    "name":"Rye Bread with Smoked Salmon","description":"Dense rye bread topped with smoked salmon and dill cream.","ingredients":["rye bread","smoked salmon","cream cheese","dill"],"main_ingredient":"smoked salmon","directions":["Toast bread.","Spread cream cheese.","Top with salmon and dill."],"techniques":["toast"],"cuisines":["nordic"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"herbal","dietary_tags":["nut_free"],"prep_time":10,"cook_time":5,"cook_speed":"fast","difficulty":"easy","healthiness_score":82},
+  { "name":"Lingonberry Jam Tart","description":"Sweet tart with lingonberry filling.","ingredients":["flour","butter","sugar","lingonberries"],"main_ingredient":"lingonberries","directions":["Prepare crust.","Fill with jam.","Bake until golden."],"techniques":["bake"],"cuisines":["nordic"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"tart","dietary_tags":["vegetarian"],"prep_time":20,"cook_time":30,"cook_speed":"medium","difficulty":"medium","healthiness_score":65},
+  { "name":"Nordic Pickled Herring","description":"Herring fillets pickled in vinegar and spices.","ingredients":["herring","vinegar","onion","spices"],"main_ingredient":"herring","directions":["Layer fish and onions.","Pour vinegar mix.","Chill."],"techniques":["pickle"],"cuisines":["nordic"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"sour","dietary_tags":["gluten_free"],"prep_time":15,"cook_time":0,"cook_speed":"slow","difficulty":"easy","healthiness_score":85},
+  { "name":"Skyr with Berries","description":"Traditional Icelandic skyr served with fresh berries.","ingredients":["skyr","berries","honey"],"main_ingredient":"skyr","directions":["Spoon skyr.","Top with berries and honey."],"techniques":["assemble"],"cuisines":["nordic"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"fresh","dietary_tags":["gluten_free","vegetarian"],"prep_time":5,"cook_time":0,"cook_speed":"fast","difficulty":"easy","healthiness_score":95},
+  { "name":"Gravlax Potato Salad","description":"Potato salad with dill and cured salmon.","ingredients":["potatoes","gravlax","dill","vinaigrette"],"main_ingredient":"potatoes","directions":["Boil potatoes.","Combine with gravlax and herbs.","Dress."],"techniques":["boil","mix"],"cuisines":["nordic"],"course_type":"side","tastes":["savory"],"primary_taste":"savory","secondary_taste":"fresh","dietary_tags":["gluten_free"],"prep_time":15,"cook_time":15,"cook_speed":"medium","difficulty":"easy","healthiness_score":88},
+  { "name":"Herring and Beetroot Salad","description":"Pickled herring with beetroot and cream.","ingredients":["herring","beetroot","cream","onion"],"main_ingredient":"herring","directions":["Mix all ingredients and chill."],"techniques":["mix"],"cuisines":["nordic"],"course_type":"starter","tastes":["savory"],"primary_taste":"savory","secondary_taste":"earthy","dietary_tags":["gluten_free"],"prep_time":20,"cook_time":0,"cook_speed":"fast","difficulty":"easy","healthiness_score":80},
+  { "name":"Nordic Forest Berry Compote","description":"Mixed forest berries simmered with honey and served warm.","ingredients":["berries","honey","lemon"],"main_ingredient":"berries","directions":["Simmer berries and honey.","Serve warm."],"techniques":["simmer"],"cuisines":["nordic"],"course_type":"dessert","tastes":["sweet"],"primary_taste":"sweet","secondary_taste":"tangy","dietary_tags":["vegetarian","gluten_free"],"prep_time":10,"cook_time":15,"cook_speed":"medium","difficulty":"easy","healthiness_score":90},
+  {
     "name": "Pound Cake with Lemon Coconut Glaze",
     "description": "Healthier take on pound cake; indulge with no regrets!",
     "ingredients": [

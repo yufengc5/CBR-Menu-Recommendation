@@ -207,7 +207,7 @@ def ask_query(saved=False):
 
     culinary_traditions = ask_text_list(
         "Culinary Traditions (multiple allowed)",
-        ["african", "american", "american_region", "asian", "british", "caribbean", "chinese",
+        ["molecular_gastronomy", "author_cuisine_arzak", "classic_french", "nordic", "african", "american", "american_region", "asian", "british", "caribbean", "chinese",
          "european", "filipino", "french", "german", "greek", "indian", "italian", "japanese",
          "korean", "latin_american", "mediterranean", "mexican", "middle_eastern",
          "middle_eastern_region", "russian", "spanish", "thai", "turkish", "unknown", "vietnamese"],

@@ -6,7 +6,7 @@ The TRIE implementation was meant for the frontend's word suggestion, but we
 discarded it due to time constraints.
 '''
 
-from dataclasses import dataclass, replace
+from dataclasses import dataclass, replace, field
 import math
 from typing import List, Dict, Optional
 
@@ -50,9 +50,9 @@ class Dish:
     cook_speed: str
     difficulty: str
     healthiness_score: int
-    health_flags: List[str]
-    health_level: str
-    popularity: dict
+    health_flags: list[str] = field(default_factory=list)
+    health_level: str = "unknown"
+    popularity: dict = field(default_factory=lambda: {"fast_hits": 0, "medium_hits": 0, "slow_hits": 0})
     justification: str = ""
 
     def similarity(self, other_dish):

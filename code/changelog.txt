@@ -12,3 +12,5 @@
 24/12/2025
     - Añadido un sistema de forgetting: si hay dos casos con queries idénticos 
     (ignorando la descripción) el sistema olvida el caso antiguo
+    - Añadido 4 estilos culinarios (nordic, noma, arzak, ferran) y platos y también
+    casos
