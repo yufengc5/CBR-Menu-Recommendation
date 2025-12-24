@@ -76,6 +76,91 @@ def load_ingredient_info(json_ingredient_category: str, json_ingredient_replacem
     
     return ingredient_category, ingredient_replacement
 
+def _normalize_value(v):
+    if isinstance(v, str):
+        return v.strip()
+    if isinstance(v, list):
+        # normalize lists: strip strings + sort for stable equality
+        nv = [_normalize_value(x) for x in v]
+        try:
+            return sorted(nv)
+        except TypeError:
+            return nv
+    if isinstance(v, dict):
+        return {k: _normalize_value(val) for k, val in v.items()}
+    return v
+
+def query_key(query) -> dict:
+    """
+    Returns a normalized dict used to detect identical queries.
+    """
+    q = to_dict(query)
+    if not isinstance(q, dict):
+        return {"_raw": str(q)}
+    return _normalize_value(q)
+
+def forget_identical_query(cases: list, query) -> list:
+    """
+    Remove cases whose 'problem' matches query exactly (after normalization).
+    Returns the filtered list.
+    """
+    target = query_key(query)
+    new_cases = []
+    removed = 0
+
+    for c in cases:
+        if not isinstance(c, dict):
+            continue
+        if query_key(c.get("problem", {})) == target:
+            removed += 1
+            continue
+        new_cases.append(c)
+
+    return new_cases, removed
+
+
+
+def query_key(query) -> dict:
+    """
+    Returns a normalized dict used to detect identical queries,
+    ignoring free-text fields like 'description'.
+    """
+    q = to_dict(query)
+    if not isinstance(q, dict):
+        return {"_raw": str(q)}
+
+    # Fields to ignore for equality
+    IGNORED_FIELDS = {"description"}
+
+    filtered = {
+        k: v
+        for k, v in q.items()
+        if k not in IGNORED_FIELDS
+    }
+
+    return _normalize_value(filtered)
+
+def forget_identical_query(cases: list, query) -> list:
+    """
+    Remove cases whose 'problem' matches query exactly (after normalization).
+    Returns the filtered list.
+    """
+    target = query_key(query)
+    new_cases = []
+    removed = 0
+
+    for c in cases:
+        if not isinstance(c, dict):
+            continue
+        if query_key(c.get("problem", {})) == target:
+            removed += 1
+            continue
+        new_cases.append(c)
+
+    return new_cases, removed
+
+
+
 def to_dict(obj):
     """
     Converts objects (dataclass or normal objects) to dict safely.
@@ -91,8 +176,10 @@ def to_dict(obj):
 def save_cases_to_json(query, proposal, response, json_file_path: str, verbose: bool = False):
     """
     Append ONE new case to the JSON case base.
+    If an identical query already exists, delete the old case(s) first.
     """
-    
+
+    # ---- load existing
     if os.path.exists(json_file_path):
         try:
             with open(json_file_path, "r", encoding="utf-8") as f:
@@ -104,11 +191,12 @@ def save_cases_to_json(query, proposal, response, json_file_path: str, verbose: 
     else:
         cases = []
 
-    if cases:
-        max_id = max(c.get("id", 0) for c in cases if isinstance(c, dict))
-        new_id = max_id + 1
-    else:
-        new_id = 1
+    # ---- FORGET duplicates by identical query
+    cases, removed = forget_identical_query(cases, query)
+
+    # ---- new id
+    max_id = max((c.get("id", 0) for c in cases if isinstance(c, dict)), default=0)
+    new_id = max_id + 1
 
     sol = {
         "first_course": proposal.first_course.name,
@@ -124,8 +212,11 @@ def save_cases_to_json(query, proposal, response, json_file_path: str, verbose: 
     }
 
     cases.append(case_dict)
+
     with open(json_file_path, "w", encoding="utf-8") as f:
         json.dump(cases, f, indent=4, ensure_ascii=False)
 
     if verbose:
+        if removed > 0:
+            print(f"Forgot {removed} old case(s) with identical query.")
         print(f"Saved new case (id={new_id}) to {json_file_path}")

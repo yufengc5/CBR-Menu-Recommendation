@@ -1478,5 +1478,37 @@
             "rating": 3,
             "feedback": "Good menu, we like the tiramisu"
         }
+    },
+    {
+        "id": 43,
+        "problem": {
+            "event_type": "casual_dinner",
+            "season": "spring",
+            "number_of_guests": 10,
+            "techniques": [
+                "air_fry"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "sweet"
+            ],
+            "description": "another dinner with my family",
+            "culinary_tradition": [
+                "asian"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 50,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Carrot Gelatin Salad",
+            "main_course": "Sweet Chili Popcorn Chicken",
+            "dessert": "Pound Cake with Lemon Coconut Glaze"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "nothing special"
+        }
     }
 ]

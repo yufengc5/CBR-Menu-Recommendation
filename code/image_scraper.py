@@ -38,7 +38,7 @@ def slugify(s: str) -> str:
 def handle_consent_form(wd):
     """Try to click the Google consent button."""
     try:
-        time.sleep(1)
+        #time.sleep(1)
 
         # Exact element: <div class="QS5gu sy4vM">全部接受</div>
         try:
@@ -47,7 +47,7 @@ def handle_consent_form(wd):
                 "//div[contains(@class,'QS5gu') and contains(@class,'sy4vM') and contains(., '全部接受')]"
             )
             wd.execute_script("arguments[0].click();", btn)
-            time.sleep(1)
+            #time.sleep(1)
             return
         except Exception:
             pass
@@ -110,7 +110,7 @@ def fetch_one_image_src(query: str, wd) -> Optional[str]:
     wd.get(search_url)
 
     handle_consent_form(wd)
-    time.sleep(2)
+    #time.sleep(2)
 
     return get_first_non_google_img_src(wd)
 

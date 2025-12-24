@@ -8,3 +8,7 @@
     - Ampliado el base de casos inicial a 41 casos con el uso de LLMs.
     - Adaptado la aplicación web para que funcione igual que la app terminal
     los dos aceptan feedback y guardan nuevo caso
+
+24/12/2025
+    - Añadido un sistema de forgetting: si hay dos casos con queries idénticos 
+    (ignorando la descripción) el sistema olvida el caso antiguo
