@@ -14,3 +14,10 @@
     (ignorando la descripción) el sistema olvida el caso antiguo
     - Añadido 4 estilos culinarios (nordic, noma, arzak, ferran) y platos y también
     casos
+
+
+TODO
+    - implementar la extensión B
+    - implementar collaborative filtering
+    - Ampliar juegos de prubas
+    - Representación visual de la ontologia

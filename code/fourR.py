@@ -175,7 +175,7 @@ class Reuser:
                 dish_name = getattr(case.solution, course).name
                 penalty = 1.0
 
-                penalty *= math.log2(case.rating) / 2.32192809489
+                penalty *= math.log2(case.rating) / 2.32192809489 # normalize by max log2(5)
 
                 if self.query.healthiness_level == "healthy":  # penalize unhealthy dishes
                     penalty *= (self.dishlist[dish_name].healthiness_score / 100)

@@ -1511,524 +1511,783 @@
             "feedback": "nothing special"
         }
     },
-  {
-    "id": 44,
-    "problem": {
-      "event_type": "formal_gala",
-      "season": "winter",
-      "number_of_guests": 70,
-      "techniques": ["blend", "coat", "mix"],
-      "presentation_style": "plated",
-      "sensory_goals": ["exotic", "umami"],
-      "description": "formal gala with a modern, showy menu",
-      "culinary_tradition": ["european", "molecular_gastronomy"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 150,
-      "healthiness_level": "moderate"
+    {
+        "id": 44,
+        "problem": {
+            "event_type": "formal_gala",
+            "season": "winter",
+            "number_of_guests": 70,
+            "techniques": [
+                "blend",
+                "coat",
+                "mix"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "exotic",
+                "umami"
+            ],
+            "description": "formal gala with a modern, showy menu",
+            "culinary_tradition": [
+                "european",
+                "molecular_gastronomy"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 150,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Melon Spherical Caviar",
+            "main_course": "White Bean Foam with Sea Urchin",
+            "dessert": "Chocolate Air with Fruit Dust"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Looked impressive, some people loved it, a few thought it was too weird."
+        }
     },
-    "solution": {
-      "first_course": "Melon Spherical Caviar",
-      "main_course": "White Bean Foam with Sea Urchin",
-      "dessert": "Chocolate Air with Fruit Dust"
+    {
+        "id": 45,
+        "problem": {
+            "event_type": "business_lunch",
+            "season": "summer",
+            "number_of_guests": 14,
+            "techniques": [
+                "blend",
+                "strain",
+                "freeze"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "refreshing",
+                "sour"
+            ],
+            "description": "light lunch meeting, something fresh and not heavy",
+            "culinary_tradition": [
+                "mediterranean",
+                "molecular_gastronomy"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 45,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Tomato Water Ice with Oregano",
+            "main_course": "Gazpacho with Compressed Melon",
+            "dessert": "Citrus Foam with Basil"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Nice and fresh, but not everyone liked the foam thing."
+        }
     },
-    "response": {
-      "rating": 4,
-      "feedback": "Looked impressive, some people loved it, a few thought it was too weird."
+    {
+        "id": 46,
+        "problem": {
+            "event_type": "party",
+            "season": "spring",
+            "number_of_guests": 22,
+            "techniques": [
+                "grill",
+                "saute",
+                "bake"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "smoky",
+                "savory"
+            ],
+            "description": "party with friends, Spanish-style food",
+            "culinary_tradition": [
+                "spanish",
+                "author_cuisine_arzak"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 95,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Grilled Piquillo Peppers with Aioli",
+            "main_course": "Basque Cod with Piperade",
+            "dessert": "Basque Almond Tart"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Good flavors, felt a bit more special than normal party food."
+        }
+    },
+    {
+        "id": 47,
+        "problem": {
+            "event_type": "casual_dinner",
+            "season": "autumm",
+            "number_of_guests": 5,
+            "techniques": [
+                "toast",
+                "simmer"
+            ],
+            "presentation_style": "casual",
+            "sensory_goals": [
+                "comforting",
+                "earthy"
+            ],
+            "description": "cozy dinner at home, want something hearty",
+            "culinary_tradition": [
+                "spanish",
+                "author_cuisine_arzak"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 110,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Basque Tomato Bread",
+            "main_course": "Basque Lamb Stew",
+            "dessert": "Nordic Forest Berry Compote"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Main dish was good, but the menu didn’t feel very coherent."
+        }
+    },
+    {
+        "id": 48,
+        "problem": {
+            "event_type": "wedding",
+            "season": "summer",
+            "number_of_guests": 90,
+            "techniques": [
+                "caramelize",
+                "braise",
+                "pan_fry"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "savory",
+                "umami"
+            ],
+            "description": "wedding dinner, classic elegant vibe",
+            "culinary_tradition": [
+                "french",
+                "classic_french"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 180,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "French Onion Soup",
+            "main_course": "Boeuf Bourguignon",
+            "dessert": "Crêpes Suzette"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Classic and safe choice, worked really well for a big event."
+        }
+    },
+    {
+        "id": 49,
+        "problem": {
+            "event_type": "business_lunch",
+            "season": "spring",
+            "number_of_guests": 18,
+            "techniques": [
+                "assemble",
+                "saute",
+                "simmer"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "fresh",
+                "savory"
+            ],
+            "description": "self-serve lunch, mostly healthy options",
+            "culinary_tradition": [
+                "french",
+                "classic_french",
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten"
+            ],
+            "prep_time": 55,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Salade Niçoise",
+            "main_course": "Ratatouille",
+            "dessert": "Skyr with Berries"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Healthy and nice, but some people wanted a more filling main."
+        }
+    },
+    {
+        "id": 50,
+        "problem": {
+            "event_type": "birthday",
+            "season": "winter",
+            "number_of_guests": 10,
+            "techniques": [
+                "cure",
+                "slice",
+                "simmer"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "savory",
+                "refreshing"
+            ],
+            "description": "birthday dinner, trying something Nordic",
+            "culinary_tradition": [
+                "nordic_cuisine",
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 75,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Gravlax with Dill Mustard Sauce",
+            "main_course": "Finnish Salmon Soup (Lohikeitto)",
+            "dessert": "Nordic Forest Berry Compote"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Different and nice, soup was the favorite."
+        }
+    },
+    {
+        "id": 51,
+        "problem": {
+            "event_type": "casual_dinner",
+            "season": "spring",
+            "number_of_guests": 4,
+            "techniques": [
+                "pickle",
+                "mix",
+                "bake"
+            ],
+            "presentation_style": "casual",
+            "sensory_goals": [
+                "sour",
+                "savory"
+            ],
+            "description": "simple dinner, but we want tangy flavors",
+            "culinary_tradition": [
+                "nordic_cuisine"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten"
+            ],
+            "prep_time": 40,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Nordic Pickled Herring",
+            "main_course": "Herring and Beetroot Salad",
+            "dessert": "Lingonberry Jam Tart"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Too sour for us, and not everyone likes herring."
+        }
+    },
+    {
+        "id": 52,
+        "problem": {
+            "event_type": "party",
+            "season": "summer",
+            "number_of_guests": 30,
+            "techniques": [
+                "mix",
+                "bake",
+                "whip"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "sweet",
+                "exotic"
+            ],
+            "description": "summer party, want playful desserts and snacks",
+            "culinary_tradition": [
+                "european",
+                "molecular_gastronomy"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 65,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Liquid Olive Oil Pearls",
+            "main_course": "Deconstructed Potato Omelette",
+            "dessert": "Apple Foam with Cardamom"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Fun idea, but some guests didn’t get the deconstructed main."
+        }
+    },
+    {
+        "id": 53,
+        "problem": {
+            "event_type": "formal_gala",
+            "season": "autumm",
+            "number_of_guests": 55,
+            "techniques": [
+                "bake",
+                "simmer",
+                "sear"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "savory",
+                "comforting"
+            ],
+            "description": "formal dinner, classic European style",
+            "culinary_tradition": [
+                "classic_french",
+                "european"
+            ],
+            "dietary_group": [
+                "kosher"
+            ],
+            "forbidden_ingredients": [
+                "pork",
+                "shellfish"
+            ],
+            "prep_time": 140,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "French Baguette",
+            "main_course": "Blanquette de Veau",
+            "dessert": "Crêpes Suzette"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Tasted fine, but it felt a bit plain for a gala."
+        }
+    },
+    {
+        "id": 54,
+        "problem": {
+            "event_type": "casual_dinner",
+            "season": "summer",
+            "number_of_guests": 6,
+            "techniques": [
+                "assemble",
+                "slice"
+            ],
+            "presentation_style": "casual",
+            "sensory_goals": [
+                "fresh",
+                "savory"
+            ],
+            "description": "light dinner at home, not too heavy",
+            "culinary_tradition": [
+                "nordic_cuisine"
+            ],
+            "dietary_group": [
+                "gluten_free"
+            ],
+            "forbidden_ingredients": [
+                "gluten"
+            ],
+            "prep_time": 35,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Rye Bread with Smoked Salmon",
+            "main_course": "Gravlax Potato Salad",
+            "dessert": "Skyr with Berries"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Simple and fresh, worked well for a summer dinner."
+        }
+    },
+    {
+        "id": 55,
+        "problem": {
+            "event_type": "business_lunch",
+            "season": "winter",
+            "number_of_guests": 16,
+            "techniques": [
+                "simmer",
+                "boil"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "comforting",
+                "savory"
+            ],
+            "description": "warm lunch for coworkers",
+            "culinary_tradition": [
+                "nordic_cuisine",
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 60,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Hasselback Potatoes",
+            "main_course": "Finnish Salmon Soup (Lohikeitto)",
+            "dessert": "Nordic Forest Berry Compote"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Soup was good, but some people expected more variety."
+        }
+    },
+    {
+        "id": 56,
+        "problem": {
+            "event_type": "formal_gala",
+            "season": "spring",
+            "number_of_guests": 50,
+            "techniques": [
+                "blend",
+                "chill",
+                "strain"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "exotic",
+                "refreshing"
+            ],
+            "description": "formal event with a modern touch",
+            "culinary_tradition": [
+                "molecular_gastronomy",
+                "european"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 130,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Tomato Consommé Gelée",
+            "main_course": "Gazpacho with Compressed Melon",
+            "dessert": "Citrus Foam with Basil"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Very elegant, people were curious about the textures."
+        }
+    },
+    {
+        "id": 57,
+        "problem": {
+            "event_type": "party",
+            "season": "autumm",
+            "number_of_guests": 28,
+            "techniques": [
+                "sauté",
+                "stir"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "savory",
+                "smoky"
+            ],
+            "description": "casual party with Spanish-inspired food",
+            "culinary_tradition": [
+                "author_cuisine_arzak",
+                "spanish"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 85,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Confit of Potatoes with Herbs",
+            "main_course": "Chicken with Green Pepper Sauce",
+            "dessert": "Basque Almond Tart"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Good flavors, felt familiar but a bit more refined."
+        }
+    },
+    {
+        "id": 58,
+        "problem": {
+            "event_type": "casual_dinner",
+            "season": "winter",
+            "number_of_guests": 4,
+            "techniques": [
+                "simmer",
+                "brown"
+            ],
+            "presentation_style": "casual",
+            "sensory_goals": [
+                "comforting",
+                "earthy"
+            ],
+            "description": "cold evening, want something filling",
+            "culinary_tradition": [
+                "author_cuisine_arzak"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 100,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Basque Tomato Bread",
+            "main_course": "Basque Lamb Stew",
+            "dessert": "Basque Almond Tart"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Tasty, but a bit heavy for us."
+        }
+    },
+    {
+        "id": 59,
+        "problem": {
+            "event_type": "wedding",
+            "season": "spring",
+            "number_of_guests": 85,
+            "techniques": [
+                "braise",
+                "sear"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "savory",
+                "rich"
+            ],
+            "description": "classic wedding menu",
+            "culinary_tradition": [
+                "classic_french",
+                "french"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 190,
+            "healthiness_level": "unhealthy"
+        },
+        "solution": {
+            "first_course": "Salade Niçoise",
+            "main_course": "Coq au Vin",
+            "dessert": "Crêpes Suzette"
+        },
+        "response": {
+            "rating": 5,
+            "feedback": "Safe and classic, guests were very happy."
+        }
+    },
+    {
+        "id": 60,
+        "problem": {
+            "event_type": "business_lunch",
+            "season": "summer",
+            "number_of_guests": 20,
+            "techniques": [
+                "assemble",
+                "sauté"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "fresh",
+                "herbal"
+            ],
+            "description": "standing lunch, mostly healthy",
+            "culinary_tradition": [
+                "classic_french",
+                "mediterranean"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 45,
+            "healthiness_level": "healthy"
+        },
+        "solution": {
+            "first_course": "Ratatouille",
+            "main_course": "Pommes Anna",
+            "dessert": "Skyr with Berries"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Healthy and nice, but some wanted protein."
+        }
+    },
+    {
+        "id": 61,
+        "problem": {
+            "event_type": "formal_gala",
+            "season": "winter",
+            "number_of_guests": 65,
+            "techniques": [
+                "foam",
+                "blend"
+            ],
+            "presentation_style": "plated",
+            "sensory_goals": [
+                "surprising",
+                "sweet"
+            ],
+            "description": "gala with experimental desserts",
+            "culinary_tradition": [
+                "molecular_gastronomy",
+                "european"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 140,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Tomato Water Ice with Oregano",
+            "main_course": "Deconstructed Potato Omelette",
+            "dessert": "Chocolate Air with Fruit Dust"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "Dessert impressed people, main was confusing."
+        }
+    },
+    {
+        "id": 62,
+        "problem": {
+            "event_type": "party",
+            "season": "summer",
+            "number_of_guests": 35,
+            "techniques": [
+                "mix",
+                "chill"
+            ],
+            "presentation_style": "buffet",
+            "sensory_goals": [
+                "sweet",
+                "fresh"
+            ],
+            "description": "summer party with lots of desserts",
+            "culinary_tradition": [
+                "molecular_gastronomy"
+            ],
+            "dietary_group": [
+                "vegetarian"
+            ],
+            "forbidden_ingredients": [
+                "meat"
+            ],
+            "prep_time": 55,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "Liquid Olive Oil Pearls",
+            "main_course": "Apple Foam with Cardamom",
+            "dessert": "Chocolate Air with Fruit Dust"
+        },
+        "response": {
+            "rating": 2,
+            "feedback": "Too experimental, not everyone enjoyed it."
+        }
+    },
+    {
+        "id": 63,
+        "problem": {
+            "event_type": "casual_dinner",
+            "season": "spring",
+            "number_of_guests": 5,
+            "techniques": [
+                "bake",
+                "slice"
+            ],
+            "presentation_style": "casual",
+            "sensory_goals": [
+                "savory",
+                "buttery"
+            ],
+            "description": "simple dinner with French inspiration",
+            "culinary_tradition": [
+                "classic_french"
+            ],
+            "dietary_group": [],
+            "forbidden_ingredients": [],
+            "prep_time": 70,
+            "healthiness_level": "moderate"
+        },
+        "solution": {
+            "first_course": "French Baguette",
+            "main_course": "Sole Meunière",
+            "dessert": "Lingonberry Jam Tart"
+        },
+        "response": {
+            "rating": 4,
+            "feedback": "Simple and tasty, nothing fancy but enjoyable."
+        }
+    },
+    {
+        "id": 64,
+        "problem": {
+            "culinary_traditions": [
+                "classic_french"
+            ],
+            "description": "it's my sister's birthday, a lot of friends will come",
+            "dietary_groups": "gluten_free",
+            "event_type": "birthday",
+            "forbidden_ingredients": [
+                ""
+            ],
+            "healthiness_level": "healthy",
+            "number_of_guests": "30",
+            "preferred_techniques": [
+                "coat",
+                "grill"
+            ],
+            "prep_time": "80",
+            "presentation_style": "plated",
+            "season": "summer",
+            "sensory_goals": [
+                "savory",
+                "salty"
+            ]
+        },
+        "solution": {
+            "first_course": "Panzanella Panini",
+            "main_course": "Grilled Marinated Shrimp",
+            "dessert": "Blueberry Crumble"
+        },
+        "response": {
+            "rating": 3,
+            "feedback": "everything good, nothing special"
+        }
     }
-  },
-  {
-    "id": 45,
-    "problem": {
-      "event_type": "business_lunch",
-      "season": "summer",
-      "number_of_guests": 14,
-      "techniques": ["blend", "strain", "freeze"],
-      "presentation_style": "plated",
-      "sensory_goals": ["refreshing", "sour"],
-      "description": "light lunch meeting, something fresh and not heavy",
-      "culinary_tradition": ["mediterranean", "molecular_gastronomy"],
-      "dietary_group": ["vegetarian"],
-      "forbidden_ingredients": ["meat"],
-      "prep_time": 45,
-      "healthiness_level": "healthy"
-    },
-    "solution": {
-      "first_course": "Tomato Water Ice with Oregano",
-      "main_course": "Gazpacho with Compressed Melon",
-      "dessert": "Citrus Foam with Basil"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Nice and fresh, but not everyone liked the foam thing."
-    }
-  },
-  {
-    "id": 46,
-    "problem": {
-      "event_type": "party",
-      "season": "spring",
-      "number_of_guests": 22,
-      "techniques": ["grill", "saute", "bake"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["smoky", "savory"],
-      "description": "party with friends, Spanish-style food",
-      "culinary_tradition": ["spanish", "author_cuisine_arzak"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 95,
-      "healthiness_level": "unhealthy"
-    },
-    "solution": {
-      "first_course": "Grilled Piquillo Peppers with Aioli",
-      "main_course": "Basque Cod with Piperade",
-      "dessert": "Basque Almond Tart"
-    },
-    "response": {
-      "rating": 4,
-      "feedback": "Good flavors, felt a bit more special than normal party food."
-    }
-  },
-  {
-    "id": 47,
-    "problem": {
-      "event_type": "casual_dinner",
-      "season": "autumm",
-      "number_of_guests": 5,
-      "techniques": ["toast", "simmer"],
-      "presentation_style": "casual",
-      "sensory_goals": ["comforting", "earthy"],
-      "description": "cozy dinner at home, want something hearty",
-      "culinary_tradition": ["spanish", "author_cuisine_arzak"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 110,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Basque Tomato Bread",
-      "main_course": "Basque Lamb Stew",
-      "dessert": "Nordic Forest Berry Compote"
-    },
-    "response": {
-      "rating": 2,
-      "feedback": "Main dish was good, but the menu didn’t feel very coherent."
-    }
-  },
-  {
-    "id": 48,
-    "problem": {
-      "event_type": "wedding",
-      "season": "summer",
-      "number_of_guests": 90,
-      "techniques": ["caramelize", "braise", "pan_fry"],
-      "presentation_style": "plated",
-      "sensory_goals": ["savory", "umami"],
-      "description": "wedding dinner, classic elegant vibe",
-      "culinary_tradition": ["french", "classic_french"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 180,
-      "healthiness_level": "unhealthy"
-    },
-    "solution": {
-      "first_course": "French Onion Soup",
-      "main_course": "Boeuf Bourguignon",
-      "dessert": "Crêpes Suzette"
-    },
-    "response": {
-      "rating": 5,
-      "feedback": "Classic and safe choice, worked really well for a big event."
-    }
-  },
-  {
-    "id": 49,
-    "problem": {
-      "event_type": "business_lunch",
-      "season": "spring",
-      "number_of_guests": 18,
-      "techniques": ["assemble", "saute", "simmer"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["fresh", "savory"],
-      "description": "self-serve lunch, mostly healthy options",
-      "culinary_tradition": ["french", "classic_french", "mediterranean"],
-      "dietary_group": ["gluten_free"],
-      "forbidden_ingredients": ["gluten"],
-      "prep_time": 55,
-      "healthiness_level": "healthy"
-    },
-    "solution": {
-      "first_course": "Salade Niçoise",
-      "main_course": "Ratatouille",
-      "dessert": "Skyr with Berries"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Healthy and nice, but some people wanted a more filling main."
-    }
-  },
-  {
-    "id": 50,
-    "problem": {
-      "event_type": "birthday",
-      "season": "winter",
-      "number_of_guests": 10,
-      "techniques": ["cure", "slice", "simmer"],
-      "presentation_style": "plated",
-      "sensory_goals": ["savory", "refreshing"],
-      "description": "birthday dinner, trying something Nordic",
-      "culinary_tradition": ["nordic_cuisine", "european"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 75,
-      "healthiness_level": "healthy"
-    },
-    "solution": {
-      "first_course": "Gravlax with Dill Mustard Sauce",
-      "main_course": "Finnish Salmon Soup (Lohikeitto)",
-      "dessert": "Nordic Forest Berry Compote"
-    },
-    "response": {
-      "rating": 4,
-      "feedback": "Different and nice, soup was the favorite."
-    }
-  },
-  {
-    "id": 51,
-    "problem": {
-      "event_type": "casual_dinner",
-      "season": "spring",
-      "number_of_guests": 4,
-      "techniques": ["pickle", "mix", "bake"],
-      "presentation_style": "casual",
-      "sensory_goals": ["sour", "savory"],
-      "description": "simple dinner, but we want tangy flavors",
-      "culinary_tradition": ["nordic_cuisine"],
-      "dietary_group": ["gluten_free"],
-      "forbidden_ingredients": ["gluten"],
-      "prep_time": 40,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Nordic Pickled Herring",
-      "main_course": "Herring and Beetroot Salad",
-      "dessert": "Lingonberry Jam Tart"
-    },
-    "response": {
-      "rating": 2,
-      "feedback": "Too sour for us, and not everyone likes herring."
-    }
-  },
-  {
-    "id": 52,
-    "problem": {
-      "event_type": "party",
-      "season": "summer",
-      "number_of_guests": 30,
-      "techniques": ["mix", "bake", "whip"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["sweet", "exotic"],
-      "description": "summer party, want playful desserts and snacks",
-      "culinary_tradition": ["european", "molecular_gastronomy"],
-      "dietary_group": ["vegetarian"],
-      "forbidden_ingredients": ["meat"],
-      "prep_time": 65,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Liquid Olive Oil Pearls",
-      "main_course": "Deconstructed Potato Omelette",
-      "dessert": "Apple Foam with Cardamom"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Fun idea, but some guests didn’t get the deconstructed main."
-    }
-  },
-  {
-    "id": 53,
-    "problem": {
-      "event_type": "formal_gala",
-      "season": "autumm",
-      "number_of_guests": 55,
-      "techniques": ["bake", "simmer", "sear"],
-      "presentation_style": "plated",
-      "sensory_goals": ["savory", "comforting"],
-      "description": "formal dinner, classic European style",
-      "culinary_tradition": ["classic_french", "european"],
-      "dietary_group": ["kosher"],
-      "forbidden_ingredients": ["pork", "shellfish"],
-      "prep_time": 140,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "French Baguette",
-      "main_course": "Blanquette de Veau",
-      "dessert": "Crêpes Suzette"
-    },
-    "response": {
-      "rating": 2,
-      "feedback": "Tasted fine, but it felt a bit plain for a gala."
-    }
-  },
-  {
-    "id": 54,
-    "problem": {
-      "event_type": "casual_dinner",
-      "season": "summer",
-      "number_of_guests": 6,
-      "techniques": ["assemble", "slice"],
-      "presentation_style": "casual",
-      "sensory_goals": ["fresh", "savory"],
-      "description": "light dinner at home, not too heavy",
-      "culinary_tradition": ["nordic_cuisine"],
-      "dietary_group": ["gluten_free"],
-      "forbidden_ingredients": ["gluten"],
-      "prep_time": 35,
-      "healthiness_level": "healthy"
-    },
-    "solution": {
-      "first_course": "Rye Bread with Smoked Salmon",
-      "main_course": "Gravlax Potato Salad",
-      "dessert": "Skyr with Berries"
-    },
-    "response": {
-      "rating": 4,
-      "feedback": "Simple and fresh, worked well for a summer dinner."
-    }
-  },
-  {
-    "id": 55,
-    "problem": {
-      "event_type": "business_lunch",
-      "season": "winter",
-      "number_of_guests": 16,
-      "techniques": ["simmer", "boil"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["comforting", "savory"],
-      "description": "warm lunch for coworkers",
-      "culinary_tradition": ["nordic_cuisine", "european"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 60,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Hasselback Potatoes",
-      "main_course": "Finnish Salmon Soup (Lohikeitto)",
-      "dessert": "Nordic Forest Berry Compote"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Soup was good, but some people expected more variety."
-    }
-  },
-  {
-    "id": 56,
-    "problem": {
-      "event_type": "formal_gala",
-      "season": "spring",
-      "number_of_guests": 50,
-      "techniques": ["blend", "chill", "strain"],
-      "presentation_style": "plated",
-      "sensory_goals": ["exotic", "refreshing"],
-      "description": "formal event with a modern touch",
-      "culinary_tradition": ["molecular_gastronomy", "european"],
-      "dietary_group": ["vegetarian"],
-      "forbidden_ingredients": ["meat"],
-      "prep_time": 130,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Tomato Consommé Gelée",
-      "main_course": "Gazpacho with Compressed Melon",
-      "dessert": "Citrus Foam with Basil"
-    },
-    "response": {
-      "rating": 4,
-      "feedback": "Very elegant, people were curious about the textures."
-    }
-  },
-  {
-    "id": 57,
-    "problem": {
-      "event_type": "party",
-      "season": "autumm",
-      "number_of_guests": 28,
-      "techniques": ["sauté", "stir"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["savory", "smoky"],
-      "description": "casual party with Spanish-inspired food",
-      "culinary_tradition": ["author_cuisine_arzak", "spanish"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 85,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Confit of Potatoes with Herbs",
-      "main_course": "Chicken with Green Pepper Sauce",
-      "dessert": "Basque Almond Tart"
-    },
-    "response": {
-      "rating": 4,
-      "feedback": "Good flavors, felt familiar but a bit more refined."
-    }
-  },
-  {
-    "id": 58,
-    "problem": {
-      "event_type": "casual_dinner",
-      "season": "winter",
-      "number_of_guests": 4,
-      "techniques": ["simmer", "brown"],
-      "presentation_style": "casual",
-      "sensory_goals": ["comforting", "earthy"],
-      "description": "cold evening, want something filling",
-      "culinary_tradition": ["author_cuisine_arzak"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 100,
-      "healthiness_level": "unhealthy"
-    },
-    "solution": {
-      "first_course": "Basque Tomato Bread",
-      "main_course": "Basque Lamb Stew",
-      "dessert": "Basque Almond Tart"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Tasty, but a bit heavy for us."
-    }
-  },
-  {
-    "id": 59,
-    "problem": {
-      "event_type": "wedding",
-      "season": "spring",
-      "number_of_guests": 85,
-      "techniques": ["braise", "sear"],
-      "presentation_style": "plated",
-      "sensory_goals": ["savory", "rich"],
-      "description": "classic wedding menu",
-      "culinary_tradition": ["classic_french", "french"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 190,
-      "healthiness_level": "unhealthy"
-    },
-    "solution": {
-      "first_course": "Salade Niçoise",
-      "main_course": "Coq au Vin",
-      "dessert": "Crêpes Suzette"
-    },
-    "response": {
-      "rating": 5,
-      "feedback": "Safe and classic, guests were very happy."
-    }
-  },
-  {
-    "id": 60,
-    "problem": {
-      "event_type": "business_lunch",
-      "season": "summer",
-      "number_of_guests": 20,
-      "techniques": ["assemble", "sauté"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["fresh", "herbal"],
-      "description": "standing lunch, mostly healthy",
-      "culinary_tradition": ["classic_french", "mediterranean"],
-      "dietary_group": ["vegetarian"],
-      "forbidden_ingredients": ["meat"],
-      "prep_time": 45,
-      "healthiness_level": "healthy"
-    },
-    "solution": {
-      "first_course": "Ratatouille",
-      "main_course": "Pommes Anna",
-      "dessert": "Skyr with Berries"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Healthy and nice, but some wanted protein."
-    }
-  },
-  {
-    "id": 61,
-    "problem": {
-      "event_type": "formal_gala",
-      "season": "winter",
-      "number_of_guests": 65,
-      "techniques": ["foam", "blend"],
-      "presentation_style": "plated",
-      "sensory_goals": ["surprising", "sweet"],
-      "description": "gala with experimental desserts",
-      "culinary_tradition": ["molecular_gastronomy", "european"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 140,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Tomato Water Ice with Oregano",
-      "main_course": "Deconstructed Potato Omelette",
-      "dessert": "Chocolate Air with Fruit Dust"
-    },
-    "response": {
-      "rating": 3,
-      "feedback": "Dessert impressed people, main was confusing."
-    }
-  },
-  {
-    "id": 62,
-    "problem": {
-      "event_type": "party",
-      "season": "summer",
-      "number_of_guests": 35,
-      "techniques": ["mix", "chill"],
-      "presentation_style": "buffet",
-      "sensory_goals": ["sweet", "fresh"],
-      "description": "summer party with lots of desserts",
-      "culinary_tradition": ["molecular_gastronomy"],
-      "dietary_group": ["vegetarian"],
-      "forbidden_ingredients": ["meat"],
-      "prep_time": 55,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "Liquid Olive Oil Pearls",
-      "main_course": "Apple Foam with Cardamom",
-      "dessert": "Chocolate Air with Fruit Dust"
-    },
-    "response": {
-      "rating": 2,
-      "feedback": "Too experimental, not everyone enjoyed it."
-    }
-  },
-  {
-    "id": 63,
-    "problem": {
-      "event_type": "casual_dinner",
-      "season": "spring",
-      "number_of_guests": 5,
-      "techniques": ["bake", "slice"],
-      "presentation_style": "casual",
-      "sensory_goals": ["savory", "buttery"],
-      "description": "simple dinner with French inspiration",
-      "culinary_tradition": ["classic_french"],
-      "dietary_group": [],
-      "forbidden_ingredients": [],
-      "prep_time": 70,
-      "healthiness_level": "moderate"
-    },
-    "solution": {
-      "first_course": "French Baguette",
-      "main_course": "Sole Meunière",
-      "dessert": "Lingonberry Jam Tart"
-    },
-    "response": {
-      "rating": 4,
-      "feedback": "Simple and tasty, nothing fancy but enjoyable."
-    }
-  }
 ]
