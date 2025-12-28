@@ -114,6 +114,14 @@ if __name__ == "__main__":
 
     proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
 
+    all_justifications = [
+        [
+            getattr(p.first_course, "justification", "") or "",
+            getattr(p.main_course, "justification", "") or "",
+            getattr(p.dessert, "justification", "") or "",
+        ]
+        for p in proposals
+    ]
     print("\n Feedback Revised Menu: tell us what you think about this menu!")
     response = ask_response()
 
