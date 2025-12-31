@@ -148,7 +148,7 @@ class Query:
     description: str  # Once we retrieve some cases, LLM similarity on description
 
     # Restrictions (constraints to adapt retrievals)
-    culinary_tradition: List[str]
+    culinary_traditions: List[str]
     dietary_group: List[str]
     forbidden_ingredients: List[str]
     prep_time: str

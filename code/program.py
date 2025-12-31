@@ -20,8 +20,8 @@ def dict_to_query(data: dict) -> Query:
         presentation_style=data.get("presentation_style"),
         sensory_goals=data.get("sensory_goals", []),
         description=data.get("description"),
-        culinary_tradition=data.get("culinary_traditions", []),
-        dietary_group=data.get("dietary_groups", []),
+        culinary_traditions=data.get("culinary_traditions", []),
+        dietary_group=data.get("dietary_group", []),
         forbidden_ingredients=data.get("forbidden_ingredients", []),
         prep_time=int(data.get("prep_time", 0)) if data.get("prep_time") else None,
         healthiness_level=data.get("healthiness_level"),
@@ -30,7 +30,7 @@ def dict_to_query(data: dict) -> Query:
 # USAR COMO UNA API
 def run_recommender(user_data: dict):
     dishes, cuisines = dataloader.load_dishes_from_json('data/dish_database_5k.json')
-    cases = dataloader.load_cases_from_json('data/original_case_database.json', dishes)
+    cases = dataloader.load_cases_from_json('data/dynamic_case_database.json', dishes)
     ingredient_category, ingredient_replacement = dataloader.load_ingredient_info(
         'data/ingredient_category.json',
         'data/ingredient_replacement.json'
@@ -87,13 +87,11 @@ def run_recommender(user_data: dict):
 if __name__ == "__main__":
 
     dishes, cuisines = dataloader.load_dishes_from_json('data/dish_database_5k.json')
-    cases = dataloader.load_cases_from_json('data/original_case_database.json', dishes)
+    cases = dataloader.load_cases_from_json('data/dynamic_case_database.json', dishes)
     ingredient_category, ingredient_replacement = dataloader.load_ingredient_info('data/ingredient_category.json', 'data/ingredient_replacement.json')
 
     #query = cases[2].problem  
     query = dict_to_query(ask_query(saved=False))
-    #print("Query:")
-    #print(query)
     retriever = Retriever(cases)
     reuser = Reuser(query, dishes, ingredient_category, ingredient_replacement)
     reviser = Reviser(reuser)
@@ -105,23 +103,34 @@ if __name__ == "__main__":
     proposal3 = reuser.reuse([(cases[x], y) for x, y in topn], rejects=[[proposal1, "avoid"],
                                                                         [proposal2, "avoid"]])
 
-    print("\nProposed Menu 1:")
-    print(proposal1.first_course.name + ", " + proposal1.main_course.name + ", " + proposal1.dessert.name)
-    print("\nProposed Menu 2:")
-    print(proposal2.first_course.name + ", " + proposal2.main_course.name + ", " + proposal2.dessert.name)
-    print("\nProposed Menu 3:")
-    print(proposal3.first_course.name + ", " + proposal3.main_course.name + ", " + proposal3.dessert.name)
+    print("\n=== Proposed Menus ===")
 
-    proposal = reviser.revise(proposal1, query, [(cases[x], y) for x, y in topn], rejects=None)
-
-    all_justifications = [
-        [
-            getattr(p.first_course, "justification", "") or "",
-            getattr(p.main_course, "justification", "") or "",
-            getattr(p.dessert, "justification", "") or "",
-        ]
-        for p in proposals
+    menus = [
+        ("Menu 1", proposal1),
+        ("Menu 2", proposal2),
+        ("Menu 3", proposal3),
     ]
+
+    for title, proposal in menus:
+        print(f"\n{title}:")
+        print(f"  • Starter : {proposal.first_course.name}")
+        print(f"  • Main    : {proposal.main_course.name}")
+        print(f"  • Dessert : {proposal.dessert.name}")
+
+    chosen_menu = int(input("\nSelect the menu you like the most (1-3): "))
+    while chosen_menu not in [1, 2, 3]:
+        chosen_menu = int(input("Please select a valid menu (1-3): "))
+    final_proposal = menus[chosen_menu - 1][1]
+
+    proposal = reviser.revise(final_proposal, query, [(cases[x], y) for x, y in topn], rejects=None)
+
+    proposals = [proposal1, proposal2, proposal3]
+
+    print("\n=== Justifications ===")
+    print("First Course: ", getattr(proposal.first_course, "justification", "") or "No justification provided.")
+    print("Main Course: ", getattr(proposal.main_course, "justification", "") or "No justification provided.")
+    print("Dessert: ", getattr(proposal.dessert, "justification", "") or "No justification provided.")
+
     print("\n Feedback Revised Menu: tell us what you think about this menu!")
     response = ask_response()
 

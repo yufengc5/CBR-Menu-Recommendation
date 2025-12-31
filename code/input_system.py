@@ -240,7 +240,7 @@ def ask_query(saved=False):
         "season": season,
         "number_of_guests": number_of_guests,
         "description": description,
-        "dietary": dietary,
+        "dietary_group": dietary,
         "preferred_techniques": preferred_techniques,
         "presentation_style": presentation_style,
         "sensory_goals": sensory_goals,
@@ -249,12 +249,12 @@ def ask_query(saved=False):
         "prep_time": prep_time,
         "healthiness_level": healthiness_level,
     }
-
+    """
     print(GREEN + BOLD + "\nSUBMITTED DATA:" + RESET)
     print(YELLOW + "--------------------------------------" + RESET)
     for k, v in result.items():
         print(f"{k}: {v}")
-
+    """
     return result
 
 def ask_response():
@@ -281,5 +281,5 @@ def ask_response():
 # ============================================================
 
 if __name__ == "__main__":
-    #data = ask_query(saved=False)
+    data = ask_query(saved=False)
     response = ask_response()

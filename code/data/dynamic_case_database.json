@@ -15,7 +15,7 @@
                 "comforting"
             ],
             "description": "Guests want a warm and hearty meal with simple ingredients that are easily accessible.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american",
                 "mediterranean"
             ],
@@ -55,7 +55,7 @@
                 "spicy"
             ],
             "description": "The family prefers a relaxed, outdoor event with bold flavors and grilling.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american",
                 "korean"
             ],
@@ -95,7 +95,7 @@
                 "sour"
             ],
             "description": "Guests are looking for indulgent desserts with a festive flair and savory appetizers.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american",
                 "european"
             ],
@@ -135,7 +135,7 @@
                 "savory"
             ],
             "description": "The guests are looking for a flavorful, filling meal that doesn't require a lot of effort.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american",
                 "mediterranean"
             ],
@@ -175,7 +175,7 @@
                 "spicy"
             ],
             "description": "Guests want bold flavors with grilled meats, with a variety of side dishes and a refreshing dessert.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american",
                 "mexican"
             ],
@@ -217,7 +217,7 @@
                 "spicy"
             ],
             "description": "A dinner celebrating my mother's 50th birthday",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "chinese",
                 "japanese",
                 "mediterranean"
@@ -251,7 +251,7 @@
                 "savory"
             ],
             "description": "Simple dinner with friends at home.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -289,7 +289,7 @@
                 "savory"
             ],
             "description": "Outdoor BBQ with friends.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -321,7 +321,7 @@
                 "comforting"
             ],
             "description": "Family meal during cold weather.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european"
             ],
             "dietary_group": [],
@@ -354,7 +354,7 @@
                 "savory"
             ],
             "description": "Relaxed dinner with friends.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean"
             ],
             "dietary_group": [
@@ -390,7 +390,7 @@
                 "sweet"
             ],
             "description": "Big family holiday gathering.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -422,7 +422,7 @@
                 "savory"
             ],
             "description": "Quick dinner on a hot day.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean"
             ],
             "dietary_group": [
@@ -459,7 +459,7 @@
                 "sweet"
             ],
             "description": "Small birthday celebration.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -491,7 +491,7 @@
                 "savory"
             ],
             "description": "Dinner with coworkers.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european"
             ],
             "dietary_group": [],
@@ -523,7 +523,7 @@
                 "savory"
             ],
             "description": "Weekend family lunch.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -559,7 +559,7 @@
                 "smoky"
             ],
             "description": "Large BBQ with friends.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -592,7 +592,7 @@
                 "fresh"
             ],
             "description": "Dinner with friends, nothing too fancy.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean"
             ],
             "dietary_group": [],
@@ -624,7 +624,7 @@
                 "comforting"
             ],
             "description": "Big family lunch on the weekend.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -660,7 +660,7 @@
                 "comforting"
             ],
             "description": "Quiet dinner for two at home.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european"
             ],
             "dietary_group": [],
@@ -694,7 +694,7 @@
                 "savory"
             ],
             "description": "Large summer BBQ.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -730,7 +730,7 @@
                 "fresh"
             ],
             "description": "Light summer dinner indoors.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean"
             ],
             "dietary_group": [
@@ -767,7 +767,7 @@
                 "sweet"
             ],
             "description": "Birthday celebration at home.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -800,7 +800,7 @@
                 "savory"
             ],
             "description": "Lunch with relatives.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -836,7 +836,7 @@
                 "savory"
             ],
             "description": "Quick dinner during the week.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -868,7 +868,7 @@
                 "comforting"
             ],
             "description": "Dinner with friends on a cold night.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -900,7 +900,7 @@
                 "sweet"
             ],
             "description": "End-of-year celebration.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european"
             ],
             "dietary_group": [],
@@ -932,7 +932,7 @@
                 "fresh"
             ],
             "description": "Light dinner during the week.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean"
             ],
             "dietary_group": [
@@ -968,7 +968,7 @@
                 "savory"
             ],
             "description": "Summer family dinner outside.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -1000,7 +1000,7 @@
                 "savory"
             ],
             "description": "Dinner with friends at home.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -1036,7 +1036,7 @@
                 "comforting"
             ],
             "description": "Quick dinner after work.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -1068,7 +1068,7 @@
                 "sweet"
             ],
             "description": "Small birthday celebration.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -1101,7 +1101,7 @@
                 "spicy"
             ],
             "description": "Dinner with friends who like bold flavors.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "asian"
             ],
             "dietary_group": [
@@ -1137,7 +1137,7 @@
                 "smoky"
             ],
             "description": "Outdoor family meal with mixed tastes.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "middle_eastern"
             ],
             "dietary_group": [
@@ -1173,7 +1173,7 @@
                 "comforting"
             ],
             "description": "Simple dinner after a long day.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "latin_american"
             ],
             "dietary_group": [],
@@ -1205,7 +1205,7 @@
                 "fresh"
             ],
             "description": "Birthday meal during a heat wave.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean"
             ],
             "dietary_group": [
@@ -1242,7 +1242,7 @@
                 "savory"
             ],
             "description": "Large group holiday dinner.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european"
             ],
             "dietary_group": [],
@@ -1275,7 +1275,7 @@
                 "savory"
             ],
             "description": "Dinner with colleagues.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "asian"
             ],
             "dietary_group": [
@@ -1312,7 +1312,7 @@
                 "savory"
             ],
             "description": "Casual BBQ with coworkers.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -1348,7 +1348,7 @@
                 "savory"
             ],
             "description": "Quick dinner at home.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [
@@ -1385,7 +1385,7 @@
                 "comforting"
             ],
             "description": "Relaxed Sunday family lunch.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "american"
             ],
             "dietary_group": [],
@@ -1417,7 +1417,7 @@
                 "savory"
             ],
             "description": "Small winter dinner with friends.",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european"
             ],
             "dietary_group": [
@@ -1449,18 +1449,18 @@
                 "mediterranean"
             ],
             "description": "it's my sister's birthday, a lot of friends will come",
-            "dietary_groups": "gluten_free",
+            "dietary_group": "gluten_free",
             "event_type": "birthday",
             "forbidden_ingredients": [
                 ""
             ],
             "healthiness_level": "moderate",
-            "number_of_guests": "20",
-            "preferred_techniques": [
+            "number_of_guests": 20,
+            "techniques": [
                 "bake",
                 "blend"
             ],
-            "prep_time": "70",
+            "prep_time": 70,
             "presentation_style": "plated",
             "season": "spring",
             "sensory_goals": [
@@ -1493,7 +1493,7 @@
                 "sweet"
             ],
             "description": "another dinner with my family",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "asian"
             ],
             "dietary_group": [],
@@ -1528,7 +1528,7 @@
                 "umami"
             ],
             "description": "formal gala with a modern, showy menu",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european",
                 "molecular_gastronomy"
             ],
@@ -1564,7 +1564,7 @@
                 "sour"
             ],
             "description": "light lunch meeting, something fresh and not heavy",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "mediterranean",
                 "molecular_gastronomy"
             ],
@@ -1604,7 +1604,7 @@
                 "savory"
             ],
             "description": "party with friends, Spanish-style food",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "spanish",
                 "author_cuisine_arzak"
             ],
@@ -1639,7 +1639,7 @@
                 "earthy"
             ],
             "description": "cozy dinner at home, want something hearty",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "spanish",
                 "author_cuisine_arzak"
             ],
@@ -1675,7 +1675,7 @@
                 "umami"
             ],
             "description": "wedding dinner, classic elegant vibe",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "french",
                 "classic_french"
             ],
@@ -1711,7 +1711,7 @@
                 "savory"
             ],
             "description": "self-serve lunch, mostly healthy options",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "french",
                 "classic_french",
                 "mediterranean"
@@ -1752,7 +1752,7 @@
                 "refreshing"
             ],
             "description": "birthday dinner, trying something Nordic",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "nordic_cuisine",
                 "european"
             ],
@@ -1788,7 +1788,7 @@
                 "savory"
             ],
             "description": "simple dinner, but we want tangy flavors",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "nordic_cuisine"
             ],
             "dietary_group": [
@@ -1827,7 +1827,7 @@
                 "exotic"
             ],
             "description": "summer party, want playful desserts and snacks",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "european",
                 "molecular_gastronomy"
             ],
@@ -1867,7 +1867,7 @@
                 "comforting"
             ],
             "description": "formal dinner, classic European style",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "classic_french",
                 "european"
             ],
@@ -1907,7 +1907,7 @@
                 "savory"
             ],
             "description": "light dinner at home, not too heavy",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "nordic_cuisine"
             ],
             "dietary_group": [
@@ -1945,7 +1945,7 @@
                 "savory"
             ],
             "description": "warm lunch for coworkers",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "nordic_cuisine",
                 "european"
             ],
@@ -1981,7 +1981,7 @@
                 "refreshing"
             ],
             "description": "formal event with a modern touch",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "molecular_gastronomy",
                 "european"
             ],
@@ -2020,7 +2020,7 @@
                 "smoky"
             ],
             "description": "casual party with Spanish-inspired food",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "author_cuisine_arzak",
                 "spanish"
             ],
@@ -2055,7 +2055,7 @@
                 "earthy"
             ],
             "description": "cold evening, want something filling",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "author_cuisine_arzak"
             ],
             "dietary_group": [],
@@ -2089,7 +2089,7 @@
                 "rich"
             ],
             "description": "classic wedding menu",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "classic_french",
                 "french"
             ],
@@ -2124,7 +2124,7 @@
                 "herbal"
             ],
             "description": "standing lunch, mostly healthy",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "classic_french",
                 "mediterranean"
             ],
@@ -2163,7 +2163,7 @@
                 "sweet"
             ],
             "description": "gala with experimental desserts",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "molecular_gastronomy",
                 "european"
             ],
@@ -2198,7 +2198,7 @@
                 "fresh"
             ],
             "description": "summer party with lots of desserts",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "molecular_gastronomy"
             ],
             "dietary_group": [
@@ -2236,7 +2236,7 @@
                 "buttery"
             ],
             "description": "simple dinner with French inspiration",
-            "culinary_tradition": [
+            "culinary_traditions": [
                 "classic_french"
             ],
             "dietary_group": [],
@@ -2261,18 +2261,18 @@
                 "classic_french"
             ],
             "description": "it's my sister's birthday, a lot of friends will come",
-            "dietary_groups": "gluten_free",
+            "dietary_group": "gluten_free",
             "event_type": "birthday",
             "forbidden_ingredients": [
                 ""
             ],
             "healthiness_level": "healthy",
-            "number_of_guests": "30",
-            "preferred_techniques": [
+            "number_of_guests": 30,
+            "techniques": [
                 "coat",
                 "grill"
             ],
-            "prep_time": "80",
+            "prep_time": 80,
             "presentation_style": "plated",
             "season": "summer",
             "sensory_goals": [
