@@ -38,7 +38,7 @@ def run_recommender(user_data: dict):
 
     query = dict_to_query(user_data)
 
-    retriever = Retriever(cases)
+    retriever = Retriever(cases, use_llm=True)
     reuser = Reuser(query, dishes, ingredient_category, ingredient_replacement)
     reviser = Reviser(reuser)
 

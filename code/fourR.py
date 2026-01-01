@@ -1,12 +1,8 @@
 import math
-from objectclasses import Case, Query, Dish, Menu, jaccard
+from objectclasses import Case, Query, Dish, Menu, QueryComparatorLLM, jaccard
 import heapq
 import random
 import re
-#from transformers import DistilBertTokenizer, DistilBertModel
-#import torch
-#import torch.nn.functional as F
-from sklearn.metrics.pairwise import cosine_similarity
 
 def normalize(text: str) -> str:
     return text.lower()
@@ -15,8 +11,9 @@ def tokens(text: str) -> set[str]:
     return set(re.findall(r"[a-z]+", text.lower()))
 
 class Retriever:
-    def __init__(self, case_base):
+    def __init__(self, case_base, use_llm=False):
         self.case_base = case_base
+        self.use_llm = use_llm
 
     def retrieve_top(self, new_case: Query, top_n=4):
         """Retrieve the top-N most similar cases"""
@@ -35,6 +32,16 @@ class Retriever:
                 if score > heap[0][0]:
                     heapq.heapreplace(heap, (score, i))
         print(f"[RETRIEVE] Retrieved top {top_n} cases.")
+
+        # Apply LLM similarity with base_case
+        if self.use_llm:
+            QueryComparator = QueryComparatorLLM()
+
+            for index in range(len(heap)):
+                base_case = self.case_base[heap[index][1]]
+                llm_similarity = QueryComparator.similarity(new_case, base_case.problem)
+                combined_score = heap[index][0] + llm_similarity
+                heap[index] = (combined_score, base_case)
 
         offset = offset = -heap[0][0] if heap else 0
         # Normalize in one pass

@@ -10,6 +10,11 @@ from dataclasses import dataclass, replace, field
 import math
 from typing import List, Dict, Optional
 
+# Transformer imports for LLM-based similarity
+from sentence_transformers import SentenceTransformer
+import torch
+import torch.nn.functional as F
+
 def jaccard(a, b):
         if not a and not b:
             return 1.0
@@ -134,6 +139,25 @@ class Menu:
         return score
     def __str__(self):
         return str([self.first_course.name, self.main_course.name, self.dessert.name])
+
+class QueryComparatorLLM:
+    '''
+    LLM-based query comparison.
+    By default uses sentence-transformers/all-MiniLM-L6-v2.
+    '''
+    def __init__(self, model_name: str = 'sentence-transformers/all-MiniLM-L6-v2'):
+        self.model = SentenceTransformer(model_name)
+
+    def similarity(self, query1: "Query", query2: "Query") -> float:
+        embeddings = self.model.encode([query1.description, query2.description], convert_to_tensor=True)
+    
+        similarity = F.cosine_similarity(
+            embeddings[0].unsqueeze(0),
+            embeddings[1].unsqueeze(0)
+        )
+    
+        return similarity.item()
+
 @dataclass
 class Query:
     # Queries (what we will use to mass retrieve cases)
