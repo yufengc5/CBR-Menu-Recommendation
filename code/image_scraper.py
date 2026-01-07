@@ -21,26 +21,25 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.common.exceptions import StaleElementReferenceException
 
+# there are logos
 BLOCKED_HOST_FRAGMENTS = [
     "google.com",
     "gstatic.com",
     "fonts.gstatic.com",
 ]
 
-# Where Flask can serve files from:
+# Directory where images are stored
 STATIC_IMG_DIR = os.path.join("static", "dish_images")
 
-
+# Utility to create safe filenames
 def slugify(s: str) -> str:
     return re.sub(r"[^a-zA-Z0-9_-]+", "_", s).strip("_").lower()
 
-
+# Handle Google consent form
 def handle_consent_form(wd):
     """Try to click the Google consent button."""
     try:
         #time.sleep(1)
-
-        # Exact element: <div class="QS5gu sy4vM">全部接受</div>
         try:
             btn = wd.find_element(
                 By.XPATH,
@@ -77,7 +76,7 @@ def handle_consent_form(wd):
     except Exception:
         pass
 
-
+# Initialize and return a headless Chrome WebDriver
 def get_webdriver():
     chrome_options = Options()
     chrome_options.add_argument("--headless=new")
@@ -89,7 +88,7 @@ def get_webdriver():
     )
     return webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-
+# Get the first image that is not the Google logo
 def get_first_non_google_img_src(wd) -> Optional[str]:
     imgs = wd.find_elements(By.TAG_NAME, "img")
 
@@ -104,17 +103,16 @@ def get_first_non_google_img_src(wd) -> Optional[str]:
 
     return None
 
-
+# Fetch one image source URL from Google Images for the given query
 def fetch_one_image_src(query: str, wd) -> Optional[str]:
     search_url = f"https://www.google.com/search?tbm=isch&q={query}"
     wd.get(search_url)
 
     handle_consent_form(wd)
     #time.sleep(2)
-
     return get_first_non_google_img_src(wd)
 
-
+# Save image to folder_path and return filename.
 def persist_image(folder_path: str, dish_name: str, src: str) -> Optional[str]:
     """
     Save image to folder_path and return filename.
@@ -144,14 +142,13 @@ def persist_image(folder_path: str, dish_name: str, src: str) -> Optional[str]:
 
 
 def get_cached_image_filename(dish_name: str, folder_path: str = STATIC_IMG_DIR) -> Optional[str]:
-    """If already saved, return cached filename."""
+    """If an image is already saved, return cached filename."""
     os.makedirs(folder_path, exist_ok=True)
     prefix = slugify(dish_name) + "_"
     for fn in os.listdir(folder_path):
         if fn.startswith(prefix) and fn.endswith(".jpg"):
             return fn
     return None
-
 
 def get_or_fetch_dish_image(dish_name: str) -> Optional[str]:
     """
@@ -171,7 +168,7 @@ def get_or_fetch_dish_image(dish_name: str) -> Optional[str]:
     finally:
         wd.quit()
 
-
+# Test function
 if __name__ == "__main__":
     test = "White Chocolate Thumbprint Cookies"
     fn = get_or_fetch_dish_image(test)

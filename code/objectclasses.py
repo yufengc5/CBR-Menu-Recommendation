@@ -3,7 +3,7 @@ Script containing all main object classes
 
 It contains INGREDIENT, DISH, MENU, QUERY, CASE and a TRIE implementation.
 The TRIE implementation was meant for the frontend's word suggestion, but we
-discarded it due to time constraints.
+discarded it due to time and technical constraints.
 '''
 
 from dataclasses import dataclass, replace, field
@@ -15,6 +15,7 @@ from sentence_transformers import SentenceTransformer
 import torch
 import torch.nn.functional as F
 
+# Utility function for Jaccard similarity
 def jaccard(a, b):
         if not a and not b:
             return 1.0
@@ -24,6 +25,7 @@ def jaccard(a, b):
         union = len(s1 | s2)
         return inter / union if union > 0 else 0.0
 
+# Ingredient class
 @dataclass
 class Ingredient:
     name: str
@@ -36,6 +38,7 @@ class Ingredient:
         else:
             return 0.0
 
+# Dish class
 @dataclass
 class Dish:
     name: str
@@ -124,6 +127,7 @@ class Dish:
     def get_description(self) -> str:
         return str(self.description)
 
+# Menu class
 @dataclass
 class Menu:
     first_course: Dish
@@ -158,6 +162,7 @@ class QueryComparatorLLM:
     
         return similarity.item()
 
+# Query class
 @dataclass
 class Query:
     # Queries (what we will use to mass retrieve cases)
@@ -200,6 +205,7 @@ class Query:
 
         return score
 
+# Case class
 @dataclass
 class Case:
     id: int
@@ -207,6 +213,7 @@ class Case:
     solution: Menu
     rating: int = 5  # rating defaults to 5 for ground truth cases.
 
+# Discarded TRIE implementation due to time and technical constraints
 class CompressedTrieNode:
     def __init__(self):
         self.children = {}

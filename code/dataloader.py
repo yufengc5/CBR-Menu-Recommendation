@@ -12,12 +12,13 @@ def load_dishes_from_json(json_file_path: str) -> tuple[dict[int, Case], dict[st
     """
     Load dishes from a JSON file and return a dictionary with dish names as keys.
     """
+    # Load JSON data
     with open(json_file_path, 'r', encoding='utf-8', errors='ignore') as file:
         dishes_data = json.load(file)
     
     dishes_dict = {}
     cuisines_dict = {}
-    
+    # filling dishes_dict and cuisines_dict
     for dish_data in dishes_data:
         dish = Dish(**dish_data)
         dishes_dict[dish.name] = dish
@@ -43,7 +44,7 @@ def load_cases_from_json(json_file_path: str, dishes: Dict[str, Dish]) -> Dict[i
         cases_data = json.load(file)
     
     cases_dict = {}
-    
+    # filling cases_dict
     for case_data in cases_data:
         # Extract 'problem' and 'solution' to create the respective objects
         problem_data = case_data.get("problem")
@@ -76,6 +77,7 @@ def load_ingredient_info(json_ingredient_category: str, json_ingredient_replacem
     
     return ingredient_category, ingredient_replacement
 
+# Utility functions for case management
 def _normalize_value(v):
     if isinstance(v, str):
         return v.strip()
@@ -118,8 +120,6 @@ def forget_identical_query(cases: list, query) -> list:
 
     return new_cases, removed
 
-
-
 def query_key(query) -> dict:
     """
     Returns a normalized dict used to detect identical queries,
@@ -137,7 +137,6 @@ def query_key(query) -> dict:
         for k, v in q.items()
         if k not in IGNORED_FIELDS
     }
-
     return _normalize_value(filtered)
 
 def forget_identical_query(cases: list, query) -> list:
@@ -159,8 +158,6 @@ def forget_identical_query(cases: list, query) -> list:
 
     return new_cases, removed
 
-
-
 def to_dict(obj):
     """
     Converts objects (dataclass or normal objects) to dict safely.
@@ -178,7 +175,6 @@ def save_cases_to_json(query, proposal, response, json_file_path: str, verbose: 
     Append ONE new case to the JSON case base.
     If an identical query already exists, delete the old case(s) first.
     """
-
     # ---- load existing
     if os.path.exists(json_file_path):
         try:
@@ -197,13 +193,13 @@ def save_cases_to_json(query, proposal, response, json_file_path: str, verbose: 
     # ---- new id
     max_id = max((c.get("id", 0) for c in cases if isinstance(c, dict)), default=0)
     new_id = max_id + 1
-
+    # proposal
     sol = {
         "first_course": proposal.first_course.name,
         "main_course": proposal.main_course.name,
         "dessert": proposal.dessert.name,
     }
-
+    # case
     case_dict = {
         "id": new_id,
         "problem": to_dict(query),

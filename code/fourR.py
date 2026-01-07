@@ -1,16 +1,25 @@
+'''
+Implementation of the four R's in CBR: Retrieval, Reuse, Revision, Retention.
+'''
+
 import math
 from objectclasses import Case, Query, Dish, Menu, QueryComparatorLLM, jaccard
 import heapq
 import random
 import re
 
+# Utility functions for text preprocessing
 def normalize(text: str) -> str:
     return text.lower()
 
+# Extract tokens from text
 def tokens(text: str) -> set[str]:
     return set(re.findall(r"[a-z]+", text.lower()))
 
 class Retriever:
+    """
+    Retrieves the most similar cases from the case base based on similarity.
+    """
     def __init__(self, case_base, use_llm=False):
         self.case_base = case_base
         self.use_llm = use_llm
@@ -55,6 +64,10 @@ class Retriever:
 
 
 class Reuser:
+    """
+    Reuses retrieved cases to propose a new solution for the new query, 
+    making changes if needed.
+    """
     def __init__(self, query, dishlist, ingredient_category, ingredient_replacement):
         self.query = query
         self.dishlist = dishlist
@@ -62,6 +75,9 @@ class Reuser:
         self.ingredient_replacement = ingredient_replacement
 
     def _find_replacement(self, ingredient: str, replacements: dict[str, str]) -> str | None:
+        """
+        Finds a suitable replacement for an ingredient based on dietary restrictions.
+        """
         ing_tokens = tokens(ingredient)
 
         # Sort keys by number of words (most specific first)
@@ -70,9 +86,7 @@ class Reuser:
 
             if key_tokens.issubset(ing_tokens):
                 return replacements[key]
-
         return None
-
 
     def _replace_ingredients(self, dish: Dish) -> Dish: # also outputs justification
         """
@@ -92,6 +106,7 @@ class Reuser:
         new_ingredients = []
         replaced_str = ""
 
+        # try replacing ingredients
         for ing in dish.ingredients:
             replacement = self._find_replacement(ing, replacements)
 
@@ -109,11 +124,11 @@ class Reuser:
             else:
                 new_ingredients.append(ing)
 
+        # generate justification
         justification = (
                         f"Replaced {replaced_str} to make the dish {restriction}" if len(replaced_str) > 0
                         else f"Dish chosen to adapt to {restriction} dietary group."
                          )
-
         return dish.copy_with(ingredients=new_ingredients, name=newname, justification=justification)
     
     def _replace_dish(self, dish: Dish) -> Dish:
@@ -132,6 +147,9 @@ class Reuser:
         return self.dishlist[elected]
 
     def _mutate(self, dish : Dish):
+        """
+        Mutates a dish by replacing it with a similar one.
+        """
         dishes, weights = self._get_weighted_knn(dish, 4)
         elected = random.choices(dishes, weights=weights)[0]
         return self.dishlist[elected]
@@ -189,6 +207,7 @@ class Reuser:
                 elif self.query.healthiness_level == "moderate":  # penalize sqrt of unhealthy dishes
                     penalty *= math.sqrt(self.dishlist[dish_name].healthiness_score / 100)
 
+                # handle user rejections
                 if rejects:
                     for rejected_solution, reason in rejects:
                         reason = reason.lower()
@@ -243,11 +262,16 @@ class Reuser:
 
 
 class Reviser:
+    """
+    Revises the proposed solution based on user feedback.
+    """
     def __init__(self, reuser):
         self.reuser = reuser
 
     def revise(self, proposed_solution : Menu, query : Query, alternatives : tuple[Menu, float], rejects=None) -> Menu:
-
+        """
+        Revises the proposed solution allowing user to change dishes.
+        """
         if proposed_solution is None:
             print("[REVISE] No further solutions possible.")
             return None
@@ -275,6 +299,9 @@ class Reviser:
 
 
 class Retainer:
+    """
+    Retains the new case into the case base.
+    """
     def __init__(self, case_base):
         self.case_base = case_base
 

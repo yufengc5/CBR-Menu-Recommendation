@@ -9,10 +9,7 @@ RESET  = "\033[0m"
 BOLD   = "\033[1m"
 
 
-# -----------------------------------------------------------
-#                 Visual Helpers
-# -----------------------------------------------------------
-
+# prints the name of the program
 def banner():
     print(BLUE + BOLD)
     print("===============================================================")
@@ -20,9 +17,11 @@ def banner():
     print("===============================================================")
     print(" Get menu recommendation for all types of events and clients.\n" + RESET)
 
+# prints section title
 def section(title):
     print("\n" + YELLOW + BOLD + f"─── {title} ───" + RESET)
 
+# Asks a single-choice text question
 def ask_text_choice(prompt, options, required=True):
     """Single choice (like <select required>)."""
     print(GREEN + prompt + RESET)
@@ -33,6 +32,7 @@ def ask_text_choice(prompt, options, required=True):
     if not required:
         print(YELLOW + "(Press Enter to skip)" + RESET)
 
+    # Must match exactly one option
     while True:
         choice = input(GREEN + "Your choice: " + RESET).strip()
         if choice == "" and not required:
@@ -43,6 +43,7 @@ def ask_text_choice(prompt, options, required=True):
                 return opt
         print(RED + "Invalid. Type exactly one option." + RESET)
 
+# Asks a multi-choice text question
 def ask_text_list(prompt, options, required=False):
     """Multi-select (like <select multiple>). Empty allowed unless required=True."""
     print(GREEN + prompt + RESET)
@@ -60,7 +61,7 @@ def ask_text_list(prompt, options, required=False):
                 print(RED + "At least one selection required." + RESET)
                 continue
             return []
-
+        
         parts = [p.strip().lower() for p in raw.split(",") if p.strip() != ""]
         valid = []
         for p in parts:
@@ -74,8 +75,8 @@ def ask_text_list(prompt, options, required=False):
                 valid = None
                 break
 
+        # Ensure all valid selections
         if valid is not None and len(valid) == len(parts):
-            # keep user order, allow duplicates? (HTML would allow duplicates only via UI, so we dedupe)
             dedup = []
             seen = set()
             for v in valid:
@@ -86,8 +87,8 @@ def ask_text_list(prompt, options, required=False):
 
         print(RED + "Some entries invalid. Try again." + RESET)
 
+# Asks a numeric input
 def ask_number(prompt, minv=None, maxv=None, required=True):
-    """Numeric input (like <input type='number'>)."""
     while True:
         raw = input(GREEN + prompt + RESET).strip()
         if raw == "" and not required:
@@ -101,7 +102,7 @@ def ask_number(prompt, minv=None, maxv=None, required=True):
         print(RED + "Invalid number." + RESET)
 
 def ask_text(prompt, required=True, placeholder=None):
-    """Text input (like <input type='text'>)."""
+    """Plain Text input"""
     if placeholder:
         print(YELLOW + f"Example: {placeholder}" + RESET)
     while True:
@@ -114,7 +115,7 @@ def ask_text(prompt, required=True, placeholder=None):
         return val
 
 def ask_comma_separated_text(prompt, required=False, placeholder=None):
-    """Free text list from an <input type='text'> that expects comma-separated."""
+    """Multi-value text input from comma-separated."""
     if placeholder:
         print(YELLOW + f"Example: {placeholder}" + RESET)
     while True:
@@ -127,83 +128,65 @@ def ask_comma_separated_text(prompt, required=False, placeholder=None):
         return [x.strip() for x in raw.split(",") if x.strip()]
 
 
-# ===========================================================
-#                   ASK QUERY (HTML -> CLI)
-# ===========================================================
-
+# Main function to ask for query input
 def ask_query(saved=False):
     banner()
 
     if saved:
         print(GREEN + BOLD + "You have successfully saved your information!" + RESET)
 
-    # -------------------------------------------------------
-    # Event Information
-    # -------------------------------------------------------
+    # Event info
     section("Event Information")
 
     event_type = ask_text_choice(
         "Event type",
         ["casual_dinner", "wedding", "business_lunch", "birthday", "formal_gala", "party"],
-        required=True
-    )
+        required=True)
 
     season = ask_text_choice(
         "Season",
         ["spring", "summer", "autumm", "winter"],
-        required=True
-    )
+        required=True)
 
     number_of_guests = ask_number(
         "Number of guests: ",
         minv=1,
-        required=True
-    )
+        required=True)
 
     description = ask_text(
         "Description of the event: ",
         required=True,
-        placeholder="e.g. A dinner with my coworkers."
-    )
+        placeholder="e.g. A dinner with my coworkers.")
 
-    # -------------------------------------------------------
     # Dietary Restrictions
-    # -------------------------------------------------------
     section("Dietary Restrictions")
 
     dietary = ask_text_choice(
     "Dietary Restriction (choose one):",
     ["none", "vegan", "vegetarian", "halal", "gluten_free", "lactose_free", "kosher"],
-    required=True
-    )
+    required=True)
 
-    # -------------------------------------------------------
     # Preferences
-    # -------------------------------------------------------
     section("Preferences")
 
     print(YELLOW + "Hold Ctrl (Cmd on Mac) to select multiple. (CLI: type comma-separated)\n" + RESET)
-
     preferred_techniques = ask_text_list(
         "Preferred techniques (multiple allowed)",
         ["air_fry", "bake", "blend", "boil", "broil", "coat", "fry", "grill", "knead",
          "marinate", "mix", "poach", "pressure_cook", "roast", "saute", "sear", "simmer",
          "slow_cook", "steam", "toss", "whip"],
-        required=False
-    )
+        required=False)
 
     presentation_style = ask_text_choice(
         "Presentation Style",
         ["buffet", "plated", "casual"],
-        required=True
-    )
+        required=True)
 
     sensory_goals = ask_text_list(
         "Sensory Goals (multiple allowed)",
         ["sweet", "spicy", "sour", "savory", "salty", "comforting", "bitter", "umami",
          "smoky", "earthy", "crispy", "creamy", "exotic", "refreshing"],
-        required=False
-    )
+        required=False)
 
     culinary_traditions = ask_text_list(
         "Culinary Traditions (multiple allowed)",
@@ -211,30 +194,24 @@ def ask_query(saved=False):
          "european", "filipino", "french", "german", "greek", "indian", "italian", "japanese",
          "korean", "latin_american", "mediterranean", "mexican", "middle_eastern",
          "middle_eastern_region", "russian", "spanish", "thai", "turkish", "unknown", "vietnamese"],
-        required=False
-    )
+        required=False)
 
     forbidden_ingredients = ask_comma_separated_text(
         "Forbidden Ingredients: ",
         required=False,
-        placeholder="e.g. potato,tomato (comma-separated)"
-    )
+        placeholder="e.g. potato,tomato (comma-separated)")
 
     prep_time = ask_number(
         "Preparation Time: ",
         minv=1,
-        required=True
-    )
+        required=True)
 
     healthiness_level = ask_text_choice(
         "Healthiness Level",
         ["healthy", "moderate", "unhealthy"],
-        required=True
-    )
+        required=True)
 
-    # -------------------------------------------------------
-    # Result (mirror form fields)
-    # -------------------------------------------------------
+    # final result
     result = {
         "event_type": event_type,
         "season": season,
@@ -249,14 +226,9 @@ def ask_query(saved=False):
         "prep_time": prep_time,
         "healthiness_level": healthiness_level,
     }
-    """
-    print(GREEN + BOLD + "\nSUBMITTED DATA:" + RESET)
-    print(YELLOW + "--------------------------------------" + RESET)
-    for k, v in result.items():
-        print(f"{k}: {v}")
-    """
     return result
 
+# Main function to ask for response input
 def ask_response():
     print(GREEN + BOLD + "\nPlease provide your feedback on the recommended menu." + RESET)
 
@@ -264,22 +236,18 @@ def ask_response():
         "Rating (1-5): ",
         minv=1,
         maxv=5,
-        required=True
-    )
+        required=True)
 
     feedback = ask_text(
         "Additional comments (optional): ",
-        required=False
-    )
+        required=False)
 
     return {
         "rating": rating,
-        "feedback": feedback
-    }
+        "feedback": feedback}
 
 
-# ============================================================
-
+# Test function
 if __name__ == "__main__":
     data = ask_query(saved=False)
     response = ask_response()
