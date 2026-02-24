@@ -1,32 +1,24 @@
-# Sistema de Recomanació de Menús
+# Menu Recommendation System
 
-Aquest projecte implementa un **sistema de recomanació de menús** que genera menús complets a partir de les preferències de l’usuari (tipus d’esdeveniment, estació, restriccions dietètiques, tècniques culinàries, etc.).
+This project implements a **menu recommendation system** that generates complete menus based on user preferences (event type, season, dietary restrictions, culinary techniques, etc.).
 
-El sistema disposa de **dues formes d’execució**:
-- una **versió web** basada en Flask
-- una **versió per terminal (CLI)**
-
----
-
-### Notes importants
-- **Tot el codi final i funcional es troba dins la carpeta `code/`**
-- La carpeta `prototype/` conté **codi antic i experimental**, que ja **no s’utilitza** i pot no funcionar correctament
+The system has **two execution modes**:
+- a **web version** based on Flask
+- a **command-line interface (CLI) version**
 
 ---
 
-##  Com executar el projecte
+### Important Notes
+- **All final and functional code is located in the `code/` folder**
+- The `prototype/` folder contains **old and experimental code**, which is **no longer used** and may not work correctly
 
-### Versió web (Flask)
-Per executar la versió web del programa:
+---
+
+## How to Run the Project
+
+### Web Version (Flask)
+To run the web version of the program:
 
 ```bash
 cd code
 python3 app.py
-```
-
-### Versió per terminal
-Per executar la versió per terminal
-
-```bash
-cd code
-python3 program.py
